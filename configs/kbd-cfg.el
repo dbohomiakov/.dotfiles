@@ -56,9 +56,11 @@
 (evil-define-key 'visual 'global (kbd "/") #'counsel-grep-or-swiper)
 
 (db/leader-keys
-  "pf"  'counsel-projectile-find-file
+  ;; "pf"  'counsel-projectile-find-file
+  "pf"  'consult-find
   "ps"  'projectile-switch-project
-  "pg"  'counsel-projectile-rg
+  ;; "pg"  'counsel-projectile-rg
+  "pg"  'consult-ripgrep
   "pp"  'counsel-projectile
   "pc"  'projectile-compile-project
   "pd"  'projectile-dired
@@ -67,7 +69,7 @@
   "-"   'split-window-vertically
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'ivy-switch-buffer
+  "b"   'consult-buffer
   "ef"  'eval-defun
   "ms"  'magit-status
   "mb"  'magit-blame
