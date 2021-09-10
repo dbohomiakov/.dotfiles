@@ -3,6 +3,9 @@
   :config
   (setq magit-view-git-manual-method 'man))
 
+(use-package forge
+  :after magit)
+
 ;; (use-package magit-todos)
 
 ;; (use-package magit-delta)
