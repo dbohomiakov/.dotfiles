@@ -1,0 +1,14 @@
+((nil . ((db/pname . PROJECT-NAME)
+        (db/plang . "python")
+        (db/lsp-enable? . t)
+        (db/venv-path . "/home/dbohomiakov/.pyenv/versions/PROJECT-NAME")
+        (db/actual-venv-path . "/home/dbohomiakov/.pyenv/versions/PYTHON-VERSION/envs/PROJECT-NAME")
+        ;; isort
+        (db/auto-isort . t)
+        ;; pyflakes
+        (db/remove-unused-imports . t)
+        ;; black formatting
+        (db/auto-blacken . t)
+        (blacken-line-length . 79)
+        (blacken-skip-string-normalization . t)
+        (blacken-fast-unsafe . t))))
