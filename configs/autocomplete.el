@@ -1,11 +1,11 @@
-;; Company autocompletion
-;; (use-package
-;;   company
-;;   :after lsp-mode
-;;   :hook (lsp-mode . company-mode)
-;;   :custom (company-minimum-prefix-length 3)
-;;   (company-idle-delay 0.1))
-;; (add-hook 'after-init-hook 'global-company-mode)
+;;Company autocompletion
+(use-package
+  company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :custom (company-minimum-prefix-length 3)
+  (company-idle-delay 0.1))
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; (use-package
 ;;   company-box
@@ -99,28 +99,81 @@
 
 (use-package
   selectrum
-  :config (selectrum-mode +1))
+  ;; :disabled
+  :bind (
+         ;; ("C-M-r" . selectrum-repeat)
+         :map selectrum-minibuffer-map
+              ;; ("C-r" . selectrum-select-from-history)
+              ("C-j" . selectrum-next-candidate)
+              ("C-k" . selectrum-previous-candidate)
+              ;; :map minibuffer-local-map
+              ;; ("M-h" . backward-kill-word)
+              )
+  :init (selectrum-mode +1)
+  :config
+  ;; Optional performance optimization
+  (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
+
+(defun dw/minibuffer-backward-kill (arg)
+  "When minibuffer is completing a file name delete up to parent
+folder, otherwise delete a word"
+  (interactive "p")
+  (if minibuffer-completing-file-name
+      ;; Borrowed from https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608
+      (if (string-match-p "/." (minibuffer-contents))
+          (zap-up-to-char (- arg) ?/)
+        (delete-minibuffer-contents))
+    (backward-kill-word arg)))
+
+(use-package
+  vertico
+  :disabled
+  :bind (:map vertico-map
+              ("C-j" . vertico-next)
+              ("C-k" . vertico-previous)
+              ("C-f" . vertico-exit)
+              :map minibuffer-local-map
+              ("M-h" . dw/minibuffer-backward-kill))
+  :custom (vertico-cycle t)
+  ;; :custom-face (vertico-current ((t
+  ;;                                 (:background "#3a3f5a"))))
+  :init (vertico-mode))
+
+(use-package
+  orderless
+  :config (setq completion-styles '(orderless))
+  ;; by highlighting only the visible candidates.
+  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
+  )
+
+;; Persist history over Emacs restarts
+(use-package
+  savehist
+  :config (setq history-length 25)
+  (savehist-mode 1))
+
+(use-package
+  prescient
+  :config (setq selectrum-refine-candidates-function #'orderless-filter)
+  (setq selectrum-highlight-candidates-function #'orderless-highlight-matches)
+  ;; to save your command history on disk, so the sorting gets more
+  ;; intelligent over time
+  (prescient-persist-mode +1))
 
 (use-package
   selectrum-prescient
+  ;; :disabled
   :after prescient
   :config
   ;; to make sorting and filtering more intelligent
   (selectrum-prescient-mode +1)
-  ;; to save your command history on disk, so the sorting gets more
-  ;; intelligent over time
-  (setq selectrum-prescient-enable-filtering nil)
-  (prescient-persist-mode +1))
+  (setq selectrum-prescient-enable-filtering nil))
 
 (use-package
   company-prescient
   :after prescient
-  :config
-  ;; to make sorting and filtering more intelligent
-  (company-prescient-mode +1)
-  ;; to save your command history on disk, so the sorting gets more
-  ;; intelligent over time
-  (prescient-persist-mode +1))
+  :init
+  (company-prescient-mode +1))
 
 ;; Example configuration for Consult
 (use-package
@@ -238,20 +291,22 @@
   ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
   )
 
-(use-package
-  corfu
-  :bind (:map corfu-map
-              ("C-j" . corfu-next)
-              ("C-k" . corfu-previous)
-              ("C-f" . corfu-insert))
-  :custom (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-echo-documentation t)
-  ;; (corfu-quit-at-boundary t)
-  :init (corfu-global-mode))
+;; (use-package
+;;   corfu
+;;   :bind (:map corfu-map
+;;               ("C-j" . corfu-next)
+;;               ("C-k" . corfu-previous)
+;;               ("C-f" . corfu-insert)
+;;               )
+;;   :custom (corfu-cycle t)
+;;   (corfu-auto t)
+;;   (corfu-commit-predicate t)
+;;   (corfu-echo-documentation t)
+;;   ;; (corfu-quit-at-boundary t)
+;;   :init (corfu-global-mode))
 
 ;; Dabbrev works with Corfu
-(use-package dabbrev
-  ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand)))
+;; (use-package dabbrev
+;;   ;; Swap M-/ and C-M-/
+;;   :bind (("M-/" . dabbrev-completion)
+;;          ("C-M-/" . dabbrev-expand)))

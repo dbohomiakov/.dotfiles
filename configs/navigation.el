@@ -1,8 +1,10 @@
 (use-package avy)
+
 (use-package ace-window
   :init
   (setq aw-keys '(?h ?j ?k ?l)))
 
+;; Move blocks of code horizontaly
 (use-package drag-stuff
   :init
   (drag-stuff-mode t)
@@ -13,6 +15,10 @@
 (use-package evil-mc
   :init
   (global-evil-mc-mode  1))
+
+;; Multiple cursors
+(use-package
+  multiple-cursors)
 
 (use-package transpose-frame)
 

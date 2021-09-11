@@ -23,4 +23,8 @@
 ;;git gutter
 (use-package git-gutter)
 
+(use-package
+  ibuffer-vc
+  :init (setq ibuffer-vc t))
+
 ;; (add-hook 'dired-mode-hook 'diff-hl-dired-mode)

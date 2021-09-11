@@ -51,19 +51,17 @@
     :prefix "SPC"
     :global-prefix "C-SPC"))
 
-;; Use swiper for incremental search
-(evil-define-key 'normal 'global (kbd "/") #'counsel-grep-or-swiper)
-(evil-define-key 'visual 'global (kbd "/") #'counsel-grep-or-swiper)
+;; Use consult-line for incremental search
+(evil-define-key 'normal 'global (kbd "/") #'consult-line)
+(evil-define-key 'visual 'global (kbd "/") #'consult-line)
 
 (db/leader-keys
-  ;; "pf"  'counsel-projectile-find-file
   "pf"  'consult-find
   "ps"  'projectile-switch-project
-  ;; "pg"  'counsel-projectile-rg
   "pg"  'consult-ripgrep
-  "pp"  'counsel-projectile
   "pc"  'projectile-compile-project
   "pd"  'projectile-dired
+  "pp"  'consult-projectile
   "ff"  'find-file
   "\\"   'split-window-horizontally
   "-"   'split-window-vertically
