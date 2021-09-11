@@ -14,9 +14,6 @@
 ;; Autocompletion
 ;; (use-package
 ;;   counsel
-;;   :bind (("C-c f" . counsel-projectile-find-file)
-;;          ("C-c C-r" . counsel-rg)
-;;          ("C-c r" . counsel-projectile-rg))
 ;;   :init (counsel-mode 1)
 ;;   :custom (counsel-async-command-delay 0.5))
 
@@ -112,6 +109,7 @@
   :init (selectrum-mode +1)
   :config
   ;; Optional performance optimization
+  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
   (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
 
 (defun dw/minibuffer-backward-kill (arg)
@@ -141,10 +139,7 @@ folder, otherwise delete a word"
 
 (use-package
   orderless
-  :config (setq completion-styles '(orderless))
-  ;; by highlighting only the visible candidates.
-  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
-  )
+  :config (setq completion-styles '(orderless)))
 
 ;; Persist history over Emacs restarts
 (use-package
@@ -290,6 +285,14 @@ folder, otherwise delete a word"
 ;;;; 4. locate-dominating-file
   ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
   )
+
+(use-package marginalia
+  ;; :after vertico
+  :after selectrum
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 
 ;; (use-package
 ;;   corfu

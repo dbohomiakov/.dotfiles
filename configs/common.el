@@ -68,7 +68,9 @@
 
 (use-package
   smartparens
-  :config (smartparens-global-mode 1))
+  :config (smartparens-global-mode 1)
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  (sp-local-pair 'clojure-mode "'" nil :actions nil))
 
 (use-package
   yasnippet)
