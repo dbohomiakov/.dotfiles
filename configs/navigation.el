@@ -7,14 +7,14 @@
 ;; Move blocks of code horizontaly
 (use-package drag-stuff
   :init
-  (drag-stuff-mode t)
+  (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
 (use-package aggressive-indent)
 
 (use-package evil-mc
   :init
-  (global-evil-mc-mode  1))
+  (global-evil-mc-mode 1))
 
 ;; Multiple cursors
 (use-package
