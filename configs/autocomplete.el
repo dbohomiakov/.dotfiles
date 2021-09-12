@@ -96,7 +96,7 @@
 
 (use-package
   selectrum
-  ;; :disabled
+  :disabled
   :bind (
          ;; ("C-M-r" . selectrum-repeat)
          :map selectrum-minibuffer-map
@@ -125,7 +125,7 @@ folder, otherwise delete a word"
 
 (use-package
   vertico
-  :disabled
+  ;; :disabled
   :bind (:map vertico-map
               ("C-j" . vertico-next)
               ("C-k" . vertico-previous)
@@ -157,7 +157,7 @@ folder, otherwise delete a word"
 
 (use-package
   selectrum-prescient
-  ;; :disabled
+  :disabled
   :after prescient
   :config
   ;; to make sorting and filtering more intelligent

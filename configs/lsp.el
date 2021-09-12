@@ -34,6 +34,8 @@
   :custom (lsp-pyright-auto-import-completions t)
   (lsp-pyright-venv-path "/home/dbohomiakov/.pyenv/versions"))
 
+(mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
+
 (use-package
   yasnippet
   :commands yas-minor-mode

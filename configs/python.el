@@ -59,8 +59,6 @@
 (setq db/auto-blacken nil)
 (setq db/lsp-enable? nil)
 
-
-
 (defun db/add-lsp-workspaces ()
   (let* ((project-path (projectile-project-root))
          (workspace-folders-to-remove (lsp-session-folders (lsp-session)))
@@ -114,8 +112,6 @@
 
 (use-package
   pony-mode)
-
-(setq db/test-map '((1 . "1") (2 . "2") (3 . 'db/py-isort-before-save)))
 
 ;; (use-package buftra
 ;;   :straight (:host github :repo "humitos/buftra.el"))
