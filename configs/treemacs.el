@@ -46,11 +46,12 @@
           treemacs-user-mode-line-format         nil
           treemacs-user-header-line-format       nil
           treemacs-width                         35
-          treemacs-workspace-switch-cleanup      nil)
+          treemacs-workspace-switch-cleanup      nil
+          treemacs-display-current-project-exclusively t)
 
     ;; The default width and height of the icons is 22 pixels. If you are
     ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;;(treemacs-resize-icons 44)
+    ;; (treemacs-resize-icons 22)
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)

@@ -20,11 +20,16 @@
 ;; (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 ;; (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
-;;git gutter
-(use-package git-gutter)
+;; Show changed lines in linenum modeline
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode +1))
 
 (use-package
   ibuffer-vc
   :init (setq ibuffer-vc t))
 
 ;; (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+
+(use-package browse-at-remote
+  :straight (:host github :repo "rmuslimov/browse-at-remote"))

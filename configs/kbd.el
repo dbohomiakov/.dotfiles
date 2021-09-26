@@ -37,9 +37,8 @@
 
 (use-package undo-tree
   :init
-  (global-undo-tree-mode))
-
-(evil-set-undo-system 'undo-tree)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree))
 
 (use-package
   general
@@ -51,12 +50,8 @@
     :prefix "SPC"
     :global-prefix "C-SPC"))
 
-;; Use consult-line for incremental search
-(evil-define-key 'normal 'global (kbd "/") #'consult-line)
-(evil-define-key 'visual 'global (kbd "/") #'consult-line)
-
 (db/leader-keys
-  "pf"  'consult-find
+  "pf"  'projectile-find-file
   "ps"  'projectile-switch-project
   "pg"  'consult-ripgrep
   "pc"  'projectile-compile-project
@@ -72,6 +67,8 @@
   "ms"  'magit-status
   "mb"  'magit-blame
   "md"  'magit-diff
+  "mu"  'browse-at-remote
+  "mc"  'magit-branch-checkout
   "er"  'eval-region
   "eb"  'eval-buffer
   "tt"  'treemacs
@@ -79,7 +76,18 @@
   "tl"  'delete-trailing-lines
   "w"  'ace-window
   "d"  'ace-delete-window
-  "rb" 'revert-buffer)
+  "rb" 'revert-buffer
+  "nw" 'db/to-and-from-minibuffer
+  "nj" 'db/down-from-outside
+  "nk" 'db/up-from-outside
+  "ht" 'hs-toggle-hiding
+  "hal" 'hs-hide-all
+  "has" 'hs-show-all
+  "hl" 'hs-hide-level)
+
+;; Use consult-line for incremental search
+(evil-define-key 'normal 'global (kbd "/") #'consult-line)
+(evil-define-key 'visual 'global (kbd "/") #'consult-line)
 
 (use-package evil-exchange)
 
