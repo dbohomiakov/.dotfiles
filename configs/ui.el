@@ -15,6 +15,31 @@
   (setq doom-gruvbox-dark-variant "hard")
   (load-theme 'my-doom-solarized-dark t))
 
+;; Vertical window divider
+(use-package frame
+  :straight (:type built-in)
+  :custom
+  (window-divider-default-right-width 12)
+  (window-divider-default-bottom-width 1)
+  (window-divider-default-places 'right-only)
+  (window-divider-mode t))
+;; Make sure new frames use window-divider
+(add-hook 'before-make-frame-hook 'window-divider-mode)
+
+;; Dim inactive windows
+(use-package dimmer
+  :straight (:host github :repo "gonewest818/dimmer.el")
+  :hook (after-init . dimmer-mode)
+  :config
+  (setq dimmer-fraction 0.5)
+  (setq dimmer-adjustment-mode :foreground)
+  (setq dimmer-use-colorspace :rgb)
+  (setq dimmer-watch-frame-focus-events nil)
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit)
+  (dimmer-configure-posframe))
+
+;; Fancy modeline
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
@@ -23,6 +48,9 @@
 (use-package emojify
   :hook (erc-mode . emojify-mode)
   :commands emojify-mode)
+
+;; Fancy show background
+(use-package snow)
 
 (defun db/set-font-faces ()
   ;; (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)

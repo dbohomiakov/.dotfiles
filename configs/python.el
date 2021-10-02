@@ -2,6 +2,13 @@
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'yas-minor-mode)
 
+;; TODO add function for adding magic headers in files
+;; TODO use flake8 config from project
+;; TODO use checkers variable in dir-locals
+
+;; Setup flake8 as checker
+(setq flycheck-checkers '(python-flake8))
+
 ;; Fix python indent
 (add-hook 'python-mode-hook
   (lambda ()
@@ -57,6 +64,8 @@
 (setq db/remove-unused-imports nil)
 (setq db/auto-blacken nil)
 (setq db/lsp-enable? nil)
+(setq db/test-command nil)
+
 
 (defun db/add-lsp-workspaces ()
   (let*

@@ -22,7 +22,13 @@
   0
   scroll-preserve-screen-position 1)
 
-(global-display-line-numbers-mode) ; enable showing lines numbers
+;; Enable showing lines numbers in relative style
+(setq-default display-line-numbers-type 'visual
+              display-line-numbers-current-absolute t
+              display-line-numbers-width 4
+              display-line-numbers-widen t)
+(global-display-line-numbers-mode)
+
 (setq column-number-mode t) ; enable showing column numbers
 (setq size-indication-mode t)
 (setq require-final-newline t) ; Newline at end of file

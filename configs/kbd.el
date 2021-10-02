@@ -88,6 +88,10 @@
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)
 (evil-define-key 'visual 'global (kbd "/") #'consult-line)
+(evil-define-key 'normal 'global (kbd "ghh") #'hs-toggle-hiding)
+(evil-define-key 'normal 'global (kbd "ghc") #'hs-hide-all)
+(evil-define-key 'normal 'global (kbd "gho") #'hs-show-all)
+(evil-define-key 'normal 'global (kbd "ghl") #'hs-hide-level)
 
 (use-package evil-exchange)
 
