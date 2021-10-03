@@ -16,10 +16,6 @@
   :init
   (global-evil-mc-mode 1))
 
-;; Multiple cursors
-(use-package
-  multiple-cursors)
-
 (use-package transpose-frame)
 
 (use-package expand-region)

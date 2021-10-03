@@ -22,8 +22,9 @@
   :config
   (global-evil-surround-mode 1))
 
-(use-package evil-matchit)
-(global-evil-matchit-mode 1)
+(use-package evil-matchit
+  :init
+  (global-evil-matchit-mode 1))
 
 (use-package evil-smartparens
   :after evil
@@ -31,12 +32,13 @@
   (clojure-mode . evil-smartparens-mode)
   (emacs-lisp-mode . evil-smartparens-mode))
 
-(use-package key-chord)
-(key-chord-mode 1)
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
-(key-chord-define evil-visual-state-map "jk" 'evil-normal-state)
-(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
-(key-chord-define evil-visual-state-map "kj" 'evil-normal-state)
+(use-package key-chord
+  :init
+  (key-chord-mode 1)
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+  (key-chord-define evil-visual-state-map "jk" 'evil-normal-state)
+  (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
+  (key-chord-define evil-visual-state-map "kj" 'evil-normal-state))
 
 (use-package undo-tree
   :init
@@ -91,10 +93,13 @@
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)
 (evil-define-key 'visual 'global (kbd "/") #'consult-line)
+;; Folding keys
 (evil-define-key 'normal 'global (kbd "ghh") #'hs-toggle-hiding)
 (evil-define-key 'normal 'global (kbd "ghc") #'hs-hide-all)
 (evil-define-key 'normal 'global (kbd "gho") #'hs-show-all)
 (evil-define-key 'normal 'global (kbd "ghl") #'hs-hide-level)
+;; Multiple cursor (redefine default key sequences)
+(evil-define-key '(normal visual) 'global (kbd "gm") evil-mc-cursors-map)
 
 (use-package evil-exchange)
 
