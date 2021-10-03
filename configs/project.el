@@ -1,4 +1,3 @@
-;; Projectile
 (use-package
   projectile
   :diminish projectile-mode
@@ -10,8 +9,7 @@
     (setq projectile-project-search-path '("~/work/" "~/work/bcd/" "~/work/clojure")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-(use-package
-  treemacs)
+(use-package treemacs)
 
 (use-package consult-projectile
   :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
@@ -25,12 +23,6 @@
 (defun compose-django-test-name ()
   (interactive)
   (kill-new (concat (compose-django-file-test-path) "." (which-function))))
-
-(defun print-django-file-path ()
-  (interactive)
-  (print (compose-django-file-test-path)))
-
-(which-function)
 
 (defun run-django-test-at-point ()
   (let ((buf-path ))))
