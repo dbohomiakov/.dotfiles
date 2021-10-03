@@ -6,6 +6,9 @@
   :init
   (setq evil-want-keybinding nil)
   :config
+  ;; remove evil-digraph binding to use "C-k" for
+  ;; vertical movement in insert mode in popups
+  (evil-update-insert-state-bindings "C-k" t t)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -37,9 +40,8 @@
 
 (use-package undo-tree
   :init
-  (global-undo-tree-mode))
-
-(evil-set-undo-system 'undo-tree)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree))
 
 (use-package
   general
@@ -51,27 +53,25 @@
     :prefix "SPC"
     :global-prefix "C-SPC"))
 
-;; Use swiper for incremental search
-(evil-define-key 'normal 'global (kbd "/") #'counsel-grep-or-swiper)
-(evil-define-key 'visual 'global (kbd "/") #'counsel-grep-or-swiper)
-
 (db/leader-keys
-  "pf"  'counsel-projectile-find-file
+  "pf"  'projectile-find-file
   "ps"  'projectile-switch-project
-  "pg"  'counsel-projectile-rg
-  "pp"  'counsel-projectile
+  "pg"  'consult-ripgrep
   "pc"  'projectile-compile-project
   "pd"  'projectile-dired
+  "pp"  'consult-projectile
   "ff"  'find-file
   "\\"   'split-window-horizontally
   "-"   'split-window-vertically
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'ivy-switch-buffer
+  "b"   'consult-buffer
   "ef"  'eval-defun
   "ms"  'magit-status
   "mb"  'magit-blame
   "md"  'magit-diff
+  "mu"  'browse-at-remote
+  "mc"  'magit-branch-checkout
   "er"  'eval-region
   "eb"  'eval-buffer
   "tt"  'treemacs
@@ -79,7 +79,22 @@
   "tl"  'delete-trailing-lines
   "w"  'ace-window
   "d"  'ace-delete-window
-  "rb" 'revert-buffer)
+  "rb" 'revert-buffer
+  "nw" 'db/to-and-from-minibuffer
+  "nj" 'db/down-from-outside
+  "nk" 'db/up-from-outside
+  "ht" 'hs-toggle-hiding
+  "hal" 'hs-hide-all
+  "has" 'hs-show-all
+  "hl" 'hs-hide-level)
+
+;; Use consult-line for incremental search
+(evil-define-key 'normal 'global (kbd "/") #'consult-line)
+(evil-define-key 'visual 'global (kbd "/") #'consult-line)
+(evil-define-key 'normal 'global (kbd "ghh") #'hs-toggle-hiding)
+(evil-define-key 'normal 'global (kbd "ghc") #'hs-hide-all)
+(evil-define-key 'normal 'global (kbd "gho") #'hs-show-all)
+(evil-define-key 'normal 'global (kbd "ghl") #'hs-hide-level)
 
 (use-package evil-exchange)
 
