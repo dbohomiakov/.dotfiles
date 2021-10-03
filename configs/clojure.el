@@ -20,18 +20,4 @@
     (car checkers)
     (cons 'error (cdr checkers))))
 
-;; (use-package elisp-autofmt
-;;   :commands (elisp-autofmt-save-hook-for-this-buffer)
-;;   :hook
-;;   (emacs-lisp-mode
-;;     .
-;;     (apply-partially 'elisp-autofmt-save-hook-for-this-buffer t))
-
-;;   :straight
-;;   (elisp-autofmt
-;;     :type git
-;;     :host gitlab
-;;     :files (:defaults "elisp-autofmt")
-;;     :repo "ideasman42/emacs-elisp-autofmt"))
-
 (add-hook 'emacs-lisp-mode 'hs-minor-mode)

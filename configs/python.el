@@ -2,10 +2,6 @@
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'yas-minor-mode)
 
-;; TODO add function for adding magic headers in files
-;; TODO use flake8 config from project
-;; TODO use checkers variable in dir-locals
-
 ;; Setup flake8 as checker
 (setq flycheck-checkers '(python-flake8))
 
@@ -16,7 +12,7 @@
       (setq tab-width 4)
       (subword-mode 1))))
 
-;; optionally if you want to use debugger
+;; Debugger
 ;; (use-package dap-python)
 
 ;; Pyenv
@@ -65,7 +61,6 @@
 (setq db/auto-blacken nil)
 (setq db/lsp-enable? nil)
 (setq db/test-command nil)
-
 
 (defun db/add-lsp-workspaces ()
   (let*
@@ -155,42 +150,4 @@
 
 (fset 'ipdb
   (kmacro-lambda-form
-    [?i
-      ?m
-      ?p
-      ?o
-      ?r
-      ?t
-      ?
-      ?i
-      ?p
-      ?d
-      ?b
-      ?\;
-      ?i
-      ?p
-      ?d
-      ?b
-      ?.
-      ?s
-      ?e
-      ?t
-      ?_
-      ?t
-      ?r
-      ?a
-      ?c
-      ?e
-      ?\(
-      ?c
-      ?o
-      ?n
-      ?t
-      ?e
-      ?x
-      ?t
-      ?=
-      ?5
-      ?0
-      escape]
-    0 "%d"))
+   [?i?m?p?o?r?t??i?p?d?b?\;?i?p?d?b?.?s?e?t?_?t?r?a?c?e?\(?c?o?n?t?e?x?t?=?5?0\)escape] 0 "%d"))

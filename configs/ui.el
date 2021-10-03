@@ -36,10 +36,8 @@
 (use-package snow)
 
 (defun db/set-font-faces ()
-  ;; (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
   (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font Mono" :height 115 :weight 'light)
   ;; Set the fixed pitch face
-  ;; (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height 100)
   (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono Nerd Font Mono" :height 100 :weight 'light)
   ;; Set the variable pitch face
   (set-face-attribute 'variable-pitch nil :font "JetBrains Mono Nerd Font Mono" :height 50 :weight 'light))
