@@ -84,11 +84,12 @@
     "org"
     "vcs"
     "ui"
-    "kbd"
     "navigation"
     "clojure"
     "treemacs"
     "shell"
     "docker"
     "rust"
-    "buffer"))
+    "buffer"
+    ;; "kbd" should be the last one cause uses defined in configs above variables/function etc.
+    "kbd"))

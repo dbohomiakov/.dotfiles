@@ -13,6 +13,7 @@
 (use-package aggressive-indent)
 
 (use-package evil-mc
+  :after evil
   :init
   (global-evil-mc-mode 1))
 

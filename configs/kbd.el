@@ -23,6 +23,7 @@
   (global-evil-surround-mode 1))
 
 (use-package evil-matchit
+  :after evil
   :init
   (global-evil-matchit-mode 1))
 
