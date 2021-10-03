@@ -6,6 +6,9 @@
   :init
   (setq evil-want-keybinding nil)
   :config
+  ;; remove evil-digraph binding to use "C-k" for
+  ;; vertical movement in insert mode in popups
+  (evil-update-insert-state-bindings "C-k" t t)
   (evil-mode 1))
 
 (use-package evil-collection

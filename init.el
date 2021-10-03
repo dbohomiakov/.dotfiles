@@ -76,7 +76,8 @@
   'db/load-config
   '
   ("common"
-    "autocomplete"
+    "completition-in-minibuffer"
+    "capf"
     "python"
     "project"
     "lsp"
