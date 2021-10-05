@@ -11,4 +11,5 @@
         (db/auto-blacken . t)
         (blacken-line-length . 79)
         (blacken-skip-string-normalization . t)
-        (blacken-fast-unsafe . t))))
+        (blacken-fast-unsafe . t)
+        (db/test-command . "pytest --ignore=src -s -vvv -p no:warnings"))))
