@@ -12,7 +12,6 @@
 (use-package doom-themes
   :config
   (setq doom-gruvbox-light-variant "soft")
-  (setq doom-gruvbox-dark-variant "hard")
   (load-theme 'my-doom-solarized-dark t))
 
 ;; Vertical window divider

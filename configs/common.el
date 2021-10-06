@@ -113,4 +113,4 @@
   :init (setq markdown-command "/usr/bin/pandoc"))
 
 ;; Do not ask about unsafe dir-locals
-(setq-default enable-local-variables t)
+(advice-add 'risky-local-variable-p :override #'ignore)
