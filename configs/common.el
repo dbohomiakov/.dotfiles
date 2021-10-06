@@ -111,3 +111,6 @@
     ("\\.md\\'" . markdown-mode)
     ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "/usr/bin/pandoc"))
+
+;; Do not ask about unsafe dir-locals
+(advice-add 'risky-local-variable-p :override #'ignore)

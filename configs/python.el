@@ -103,9 +103,15 @@
           (pyvenv-deactivate)
           (call-interactively #'pyvenv-workon))))))
 
+(defun db/setup-test-settings ()
+  (when db/test-command
+    (setq python-pytest-executable db/test-command)))
+
 (defun db/configure-python-project ()
+  (interactive)
   (progn
     (db/enable-python-venv)
+    (db/setup-test-settings)
     (db/enable-lsp)))
 
 (defun db/do-nothing () nil)
@@ -132,6 +138,33 @@
 
 (use-package pony-mode)
 
+;; Tests
+(defun db/-project-rel-file-path ()
+  (interactive)
+  (string-remove-prefix (projectile-project-root) (buffer-file-name)))
+
+(defun db/compose-django-tests-path ()
+  (interactive)
+  (replace-regexp-in-string "/" "." (string-remove-suffix ".py" (db/-project-rel-file-path))))
+
+(defun db/-module-test-path ()
+  (interactive)
+  (which-function))
+
+(defun db/compose-pytest-test-name ()
+  (interactive)
+  (kill-new (concat (db/-project-rel-file-path) "::" (replace-regexp-in-string "\\." "::" (db/-module-test-path)))))
+
+(defun db/compose-django-test-name ()
+  (interactive)
+  (kill-new (concat (compose-django-file-test-path) "." (db/-module-test-path))))
+
+(defun db/compose-pytest ()
+  (interactive)
+  (kill-new (concat python-pytest-executable
+                    " "
+                    (db/compose-pytest-test-name))))
+
 ;; (use-package buftra
   ;; :straight (:host github :repo "humitos/buftra.el"))
 
@@ -148,6 +181,6 @@
 (add-hook 'before-save-hook 'db/py-isort-before-save)
 (add-hook 'projectile-after-switch-project-hook 'db/configure-project)
 
-(fset 'ipdb
+(fset 'pdebugger
   (kmacro-lambda-form
-   [?i?m?p?o?r?t? ?i?p?d?b?\;?i?p?d?b?.?s?e?t?_?t?r?a?c?e?\(?c?o?n?t?e?x?t?=?5?0 escape] 0 "%d"))
+   [?i?m?p?o?r?t? ?p?d?b?\;?p?d?b?.?s?e?t?_?t?r?a?c?e?\( escape] 0 "%d"))

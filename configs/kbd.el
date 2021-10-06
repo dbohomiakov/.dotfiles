@@ -70,11 +70,12 @@
   "k"   'save-buffers-kill-terminal
   "b"   'consult-buffer
   "ef"  'eval-defun
-  "ms"  'magit-status
-  "mb"  'magit-blame
-  "md"  'magit-diff
-  "mu"  'browse-at-remote
-  "mc"  'magit-branch-checkout
+  ;; ABBR stands for git
+  "gs"  'magit-status
+  "gb"  'magit-blame
+  "gd"  'magit-diff
+  "gu"  'browse-at-remote
+  "gc"  'magit-branch-checkout
   "er"  'eval-region
   "eb"  'eval-buffer
   "tt"  'treemacs

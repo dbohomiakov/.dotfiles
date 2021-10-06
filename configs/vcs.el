@@ -4,7 +4,9 @@
   (setq magit-view-git-manual-method 'man))
 
 (use-package forge
-  :after magit)
+  :after magit
+  :init
+  (setq auth-sources '("~/.authinfo")))
 
 ;; Show changed lines in linenum modeline
 (use-package git-gutter
