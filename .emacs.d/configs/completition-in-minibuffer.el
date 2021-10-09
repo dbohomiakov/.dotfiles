@@ -222,6 +222,9 @@ folder, otherwise delete a word"
   (setq consult-narrow-key "<") ;; (kbd "C-+")
   (setq consult-project-root-function #'projectile-project-root)
   :custom
+  ;; Show all hidden files except git
+  (consult-ripgrep-args "rg --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
+                         --smart-case --no-heading --line-number --glob !.git .")
   (consult-preview-excluded-hooks
     '
     (python-mode
