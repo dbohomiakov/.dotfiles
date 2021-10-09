@@ -2,13 +2,25 @@
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'yas-minor-mode)
 
+(defun set-display-fill-column-indicator (num)
+  (progn
+    (setq-default display-fill-column-indicator-column num)
+    (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)))
+
+(set-display-fill-column-indicator 80)
+
 ;; Setup flake8 as checker
-(setq flycheck-checkers '(python-flake8))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (progn
+              (setq flycheck-checkers '(python-flake8))
+              (flycheck-mode))))
 
 ;; Fix python indent
 (add-hook 'python-mode-hook
   (lambda ()
     (progn
+      (setq python-indent-offset 4)
       (setq tab-width 4)
       (subword-mode 1))))
 

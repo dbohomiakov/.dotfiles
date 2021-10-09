@@ -23,14 +23,13 @@
   scroll-preserve-screen-position 1)
 
 ;; Enable showing lines numbers in relative style
-(setq-default display-line-numbers-type 'visual
+(setq-default display-line-numbers-type 'relative
               display-line-numbers-current-absolute t
               display-line-numbers-width 4
               display-line-numbers-widen t)
 (global-display-line-numbers-mode)
 
 (setq column-number-mode t) ; enable showing column numbers
-(setq size-indication-mode t)
 (setq require-final-newline t) ; Newline at end of file
 (delete-selection-mode t) ; Delete the selection with a keypress
 (global-auto-revert-mode t) ; revert buffers automatically when underlying files are changed externally
@@ -76,9 +75,11 @@
   :config (which-key-mode))
 
 ;; Use mode for debugging command and keys entered
-(use-package command-log-mode)
+(use-package command-log-mode
+  :defer)
 
-(use-package tramp)
+(use-package tramp
+  :defer)
 
 ;; Higlight braces
 (use-package paren
@@ -97,8 +98,6 @@
 
 (use-package yasnippet)
 
-(use-package json-mode)
-
 (use-package highlight-indent-guides
   :custom (highlight-indent-guides-method 'bitmap)
   :hook (emacs-lisp-mode . highlight-indent-guides-mode))
@@ -114,3 +113,25 @@
 
 ;; Do not ask about unsafe dir-locals
 (advice-add 'risky-local-variable-p :override #'ignore)
+
+(use-package flymake-json)
+(use-package json-mode
+  :mode
+  (("\\.json\\'" . json-mode))
+  :hook
+  (json-mode . flycheck-mode)
+  (json-mode . flymake-json-load))
+
+(use-package yaml-mode
+  :mode
+  (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)))
+
+(use-package toml-mode
+  :mode
+  (("\\.toml\\'" . toml-mode)))
+
+(use-package csv-mode
+  :mode
+  (("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+  :custom
+  (csv-separators '("," "\t" "|" " ")))

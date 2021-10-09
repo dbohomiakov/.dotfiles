@@ -68,7 +68,7 @@
   "-"   'split-window-vertically
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'consult-buffer
+  "b"   'persp-switch-to-buffer
   "ef"  'eval-defun
   ;; ABBR stands for git
   "gs"  'magit-status

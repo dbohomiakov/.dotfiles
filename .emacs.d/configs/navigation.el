@@ -1,3 +1,5 @@
+(electric-indent-mode +1)
+
 (use-package avy)
 
 (use-package ace-window

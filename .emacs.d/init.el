@@ -1,3 +1,17 @@
+;; Reduce frequency of garbage collector
+(setq gc-cons-threshold (* 100 1024 1024)) ;; 100mb
+;; 1mb amount of data which Emacs reads from the process
+(setq read-process-output-max (* 3 1024 1024))
+;; Measure startup time
+(defun db/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                     (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'db/display-startup-time)
+
 ;; KEEP .EMACS.D CLEAN!!!!
 ;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
 (setq
@@ -14,10 +28,6 @@
 (unless backup-directory-alist
   (setq backup-directory-alist
     `(("." . ,(concat user-emacs-directory "backups")))))
-;; Reduce frequency of garbage collector
-(setq gc-cons-threshold (* 200 1024 1024))
-;; 1mb amount of data which Emacs reads from the process
-(setq read-process-output-max (* 3 1024 1024))
 
 ;; Set the right directory to store the native comp cache
 (add-to-list 'native-comp-eln-load-path
@@ -61,6 +71,7 @@
 
 ;; Get environment variables from shell
 (use-package exec-path-from-shell)
+
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 (when (daemonp)

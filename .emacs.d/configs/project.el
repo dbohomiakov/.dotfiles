@@ -13,3 +13,9 @@
 
 (use-package consult-projectile
   :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))
+
+
+;; (setq ripgrep-arguments '("--hidden"))
+
+;; (setq consult-ripgrep-args "rg --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
+;;    --smart-case --no-heading --line-number .")

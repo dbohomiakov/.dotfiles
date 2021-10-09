@@ -3,3 +3,4 @@ eln-cache/
 eshell/history
 eshell/lastdir
 custom.el
+.dir-locals.el

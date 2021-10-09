@@ -1,7 +1,7 @@
 (use-package
   lsp-mode
   :after (pyenv-mode)
-  :init (setq lsp-disabled-clients '(mspyls))
+  :init (setq lsp-disabled-clients '(mspyls pylsp pyls))
   (setq lsp-completion-provider
         :capf)
   (setq lsp-headerline-breadcrumb-enable nil)
@@ -11,6 +11,12 @@
   (setq lsp-enable-on-type-formatting t)
   (setq lsp-file-watch-threshold 85000)
   (setq lsp-file-watch-ignored '("static/**"))
+  (setq lsp-ui-sideline-enable nil)
+  (setq lsp-eldoc-enable-hover t)
+  (setq lsp-completion-show-detail t)
+  (setq lsp-completion-show-kind t)
+  (setq lsp-diagnostics-provider nil)
+  (setq lsp-diagnostics-disabled-modes '(python-mode))
   :hook ((rust-mode . lsp-deferred)
          ;; (clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
