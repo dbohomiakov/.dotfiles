@@ -22,10 +22,6 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
-(use-package
-  lsp-ui
-  :commands lsp-ui-mode
-  :init (setq lsp-ui-doc-enable nil))
 
 (use-package
   lsp-treemacs
@@ -38,7 +34,8 @@
                          (require 'lsp-pyright)
                          (lsp-deferred)))
   :custom (lsp-pyright-auto-import-completions t)
-  (lsp-pyright-venv-path "/home/dbohomiakov/.pyenv/versions"))
+  ;; (lsp-pyright-venv-path "/home/dbohomiakov/.pyenv/versions")
+  )
 
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
@@ -48,3 +45,6 @@
   :hook ((python-mode . yas-minor-mode)))
 
 (use-package consult-lsp)
+
+;; (use-package eglot)
+;; (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))

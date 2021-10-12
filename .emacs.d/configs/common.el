@@ -1,3 +1,13 @@
+;; took from http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
 ;; Eval elisp functions
 (global-set-key (kbd "M-:") 'pp-eval-expression)
 
@@ -42,6 +52,9 @@
 ;; Enable case-switching
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; Make kill-ring work with X-clipboard
+(setq select-enable-primary t)
 
 (setq tab-always-indent 'complete) ;; smart tab behavior - indent or complete
 (setq-default indent-tabs-mode nil)

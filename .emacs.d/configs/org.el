@@ -12,14 +12,15 @@
   :hook (org-mode . org-bullets-mode)
   :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-(use-package
-  org-roam
-  :ensure t
+(use-package org-roam
+  :after org
   :init (setq org-roam-v2-ack t)
-  (setq org-roam-completion-everywhere t)
-  (setq org-roam-dailies-directory "/daily")
-  :custom (org-roam-directory "~/RoamNotes")
+  :custom
+  (org-roam-directory "~/RoamNotes")
+  (org-roam-completion-everywhere t)
+  (org-roam-dailies-directory "/daily")
   :config (org-roam-setup))
 
-(use-package
-  org-ref)
+(use-package org-ref
+  :after org
+  :defer)

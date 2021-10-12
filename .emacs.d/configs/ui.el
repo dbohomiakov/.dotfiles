@@ -31,20 +31,21 @@
   :ensure t
   :custom
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
-  (doom-modeline-hud t)
+  (doom-modeline-hud nil)
   (doom-modeline-buffer-encoding nil)
   (doom-modeline-vcs-max-length 20)
   (doom-modeline-workspace-name nil)
   (doom-modeline-gnus nil)
   (doom-modeline-env-enable-python nil)
   (doom-modeline-major-mode-color-icon nil)
+  (doom-modeline-enable-word-count nil)
   :init (doom-modeline-mode 1))
 
 ;; Fancy show background
 (use-package snow)
 
 (defun db/set-font-faces ()
-  (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font Mono" :height 120 :weight 'light)
+  (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font Mono" :height 115 :weight 'light)
   ;; Set the fixed pitch face
   (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono Nerd Font Mono" :height 100 :weight 'light)
   ;; Set the variable pitch face

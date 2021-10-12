@@ -1,6 +1,7 @@
 ;;;  -*- lexical-binding: t -*-
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'yas-minor-mode)
+(add-hook 'python-mode-hook 'abbrev-mode)
 
 (defun set-display-fill-column-indicator (num)
   (progn
@@ -88,7 +89,6 @@
           "/home/dbohomiakov/.pyenv/")))
     (progn
       (print (format "%s setup!" db/pname))
-      (setq lsp-pyright-venv-directory db/pname)
       (mapcar
         'lsp-workspace-folders-remove
         workspace-folders-to-remove)

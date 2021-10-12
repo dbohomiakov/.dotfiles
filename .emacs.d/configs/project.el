@@ -1,6 +1,5 @@
 (use-package
   projectile
-  :diminish projectile-mode
   :config (projectile-mode)
   :custom ((projectile-completion-system 'default))
   :bind-keymap ("C-c p" . projectile-command-map)
@@ -12,4 +11,5 @@
 (use-package treemacs)
 
 (use-package consult-projectile
+  :after projectile
   :straight (consult-projectile :type git :host gitlab :repo "OlMon/consult-projectile" :branch "master"))

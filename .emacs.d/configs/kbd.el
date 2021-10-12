@@ -1,3 +1,4 @@
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
 ;; Evil mode
 ;; Rebind Ctrl+g to escape
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
@@ -5,6 +6,7 @@
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
   :config
   ;; remove evil-digraph binding to use "C-k" for
   ;; vertical movement in insert mode in popups
@@ -46,8 +48,7 @@
   (global-undo-tree-mode)
   (evil-set-undo-system 'undo-tree))
 
-(use-package
-  general
+(use-package general
   :after evil-collection
   :config (general-evil-setup t)
   (general-create-definer db/leader-keys
@@ -90,7 +91,9 @@
   "ht" 'hs-toggle-hiding
   "hal" 'hs-hide-all
   "has" 'hs-show-all
-  "hl" 'hs-hide-level)
+  "hl" 'hs-hide-level
+  "'"  'expand-abbrev
+  "\/"  'unexpand-abbrev)
 
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)
