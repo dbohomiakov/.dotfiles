@@ -11,6 +11,13 @@
   ;; remove evil-digraph binding to use "C-k" for
   ;; vertical movement in insert mode in popups
   (evil-update-insert-state-bindings "C-k" t t)
+  ;; Define q/Q as text-object for quotes
+  (define-key evil-outer-text-objects-map "q" 'evil-a-single-quote)
+  (define-key evil-inner-text-objects-map "q" 'evil-inner-single-quote)
+  (define-key evil-outer-text-objects-map "Q" 'evil-a-double-quote)
+  (define-key evil-inner-text-objects-map "Q" 'evil-inner-double-quote)
+  (define-key evil-outer-text-objects-map "Q" 'evil-a-back-quote)
+  (define-key evil-inner-text-objects-map "Q" 'evil-inner-back-quote)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -22,6 +29,11 @@
   :ensure t
   :after evil
   :config
+  ;; Define q/Q as text-object for quotes
+  (setq-default evil-surround-pairs-alist
+                (append '((?q . ("'" . "'"))
+                          (?Q . ("\"" . "\"")))
+                        evil-surround-pairs-alist))
   (global-evil-surround-mode 1))
 
 (use-package evil-matchit
