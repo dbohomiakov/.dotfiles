@@ -45,7 +45,8 @@
   :after evil
   :hook
   (clojure-mode . evil-smartparens-mode)
-  (emacs-lisp-mode . evil-smartparens-mode))
+  (emacs-lisp-mode . evil-smartparens-mode)
+  (python-mode . evil-smartparens-mode))
 
 (use-package key-chord
   :init

@@ -105,7 +105,8 @@
 
 (use-package smartparens
   :config
-  (smartparens-global-mode 1)
+  (smartparens-global-strict-mode 1)
+  ;; Setup to not insert double parens before text object, only single
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'clojure-mode "'" nil :actions nil))
 

@@ -8,7 +8,7 @@
     (setq-default display-fill-column-indicator-column num)
     (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)))
 
-(set-display-fill-column-indicator 80)
+(set-display-fill-column-indicator 79)
 
 ;; Setup flake8 as checker
 (add-hook 'python-mode-hook
