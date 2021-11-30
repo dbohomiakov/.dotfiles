@@ -5,9 +5,10 @@
 (use-package clojure-mode
   :config (require 'flycheck-clj-kondo))
 
-(use-package cider)
-;; Always use in repl insert mode
-(add-hook 'cider-repl-mode-hook 'evil-insert-state)
+(use-package cider
+  :hook
+  ;; Always use in repl insert mode
+  (cider-repl-mode-hook . evil-insert-state))
 
 (dolist
   (checkers
