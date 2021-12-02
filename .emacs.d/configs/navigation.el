@@ -10,6 +10,7 @@
 (use-package drag-stuff
   :init
   (drag-stuff-global-mode 1)
+  :config
   (drag-stuff-define-keys))
 
 (use-package aggressive-indent)

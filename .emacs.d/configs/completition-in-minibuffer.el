@@ -243,8 +243,8 @@ folder, otherwise delete a word"
   :after marginalia
   :ensure t
   :bind
-  (("C-." . embark-act) ;; pick some comfortable binding
-    ("C-;" . embark-dwim) ;; good alternative: M-.
+  (("C-;" . embark-act) ;; pick some comfortable binding
+    ("C-." . embark-dwim) ;; good alternative: M-.
     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface

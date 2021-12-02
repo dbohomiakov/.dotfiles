@@ -3,7 +3,7 @@
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :custom
-  (company-minimum-prefix-length 3)
+  (company-minimum-prefix-length 2)
   (company-idle-delay 0.1))
 
 (add-hook 'after-init-hook 'global-company-mode)

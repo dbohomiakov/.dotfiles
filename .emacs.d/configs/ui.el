@@ -11,8 +11,15 @@
 
 (use-package doom-themes
   :config
-  (setq doom-gruvbox-light-variant "soft")
-  (load-theme 'my-doom-solarized-dark t))
+  (setq doom-gruvbox-light-variant "soft"))
+
+(defvar db/dark-theme 'doom-sourcerer)
+
+(load-theme db/dark-theme t)
+
+(defun db/toggle-theme ()
+  (interactive)
+  ())
 
 ;; Vertical window divider
 (use-package frame

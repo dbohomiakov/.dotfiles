@@ -11,15 +11,16 @@
 (run-with-idle-timer
  5 nil
  (lambda ()
-   (setq gc-cons-threshold gc-cons-threshold-original)
+   ;; (setq gc-cons-threshold gc-cons-threshold-original)
+   ;; (makunbound 'gc-cons-threshold-original)
+   ;; (message "gc-cons-threshold restored")
    (setq file-name-handler-alist file-name-handler-alist-original)
-   (makunbound 'gc-cons-threshold-original)
    (makunbound 'file-name-handler-alist-original)
-   (message "gc-cons-threshold and file-name-handler-alist restored")))
+   (message "file-name-handler-alist restored")))
 ;;;;;;;;;;;;;;;;;;;
 
 ;; 3mb amount of data which Emacs reads from the process
-(setq read-process-output-max (* 1 1024 1024))
+(setq read-process-output-max (* 3 1024 1024))
 ;; Measure startup time
 (defun db/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
@@ -123,5 +124,7 @@
             "docker"
             "rust"
             "buffer"
+            "tree-sitter"
+            "http"
             ;; "kbd" should be the last one cause uses defined in configs above variables/function etc.
             "kbd"))

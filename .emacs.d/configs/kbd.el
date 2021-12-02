@@ -7,6 +7,7 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
+  (setq evil-undo-system 'undo-redo)
   :config
   ;; remove evil-digraph binding to use "C-k" for
   ;; vertical movement in insert mode in popups
@@ -19,6 +20,39 @@
   (define-key evil-outer-text-objects-map "Q" 'evil-a-back-quote)
   (define-key evil-inner-text-objects-map "Q" 'evil-inner-back-quote)
   (evil-mode 1))
+
+(use-package evil-textobj-tree-sitter
+  :after evil
+  :config
+  ;; Define keys for different text objects
+  ;; 'f' - function
+  (define-key evil-outer-text-objects-map "f"
+    (evil-textobj-tree-sitter-get-textobj "function.outer"))
+  (define-key evil-inner-text-objects-map "f"
+    (evil-textobj-tree-sitter-get-textobj "function.inner"))
+  ;; 'm' - import
+  (define-key evil-outer-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
+                                              '((python-mode . [(import_statement) @import])
+                                                (rust-mode . [(use_declaration) @import]))))
+  (define-key evil-inner-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
+                                              '((python-mode . [(import_statement) @import])
+                                                (rust-mode . [(use_declaration) @import]))))
+  (define-key evil-outer-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
+                                              '((python-mode . [(import_from_statement) @import])
+                                                (rust-mode . [(use_declaration) @import]))))
+  (define-key evil-inner-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
+                                              '((python-mode . [(import_from_statement) @import])
+                                                (rust-mode . [(use_declaration) @import]))))
+  ;; 'c' - class
+  (define-key evil-outer-text-objects-map "c"
+    (evil-textobj-tree-sitter-get-textobj "class.outer"))
+  (define-key evil-inner-text-objects-map "c"
+    (evil-textobj-tree-sitter-get-textobj "class.inner"))
+  ;; 'e' - expressino statement
+  (define-key evil-outer-text-objects-map "e"
+    (evil-textobj-tree-sitter-get-textobj "statement.outer"))
+  )
+
 
 (use-package evil-collection
   :after evil
@@ -56,11 +90,6 @@
   (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
   (key-chord-define evil-visual-state-map "kj" 'evil-normal-state))
 
-(use-package undo-tree
-  :init
-  (global-undo-tree-mode)
-  (evil-set-undo-system 'undo-tree))
-
 (use-package general
   :after evil-collection
   :config (general-evil-setup t)
@@ -92,9 +121,15 @@
   "gc"  'magit-branch-checkout
   "er"  'eval-region
   "eb"  'eval-buffer
-  "tt"  'treemacs
-  "tw"  'delete-trailing-whitespace
-  "tl"  'delete-trailing-lines
+  ;; "tt"  'treemacs
+  ;; "tw"  'delete-trailing-whitespace
+  ;; "tl"  'delete-trailing-lines
+  "tf" 'transpose-frame
+  "tr" 'rotate-frame
+  "tr" 'rotate-frame-clockwise
+  "tl" 'rotate-frame-anclockwise
+  "th" 'flop-frame
+  "tv" 'flip-frame
   "w"  'ace-window
   "d"  'ace-delete-window
   "rb" 'revert-buffer
@@ -111,6 +146,9 @@
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)
 (evil-define-key 'visual 'global (kbd "/") #'consult-line)
+(evil-define-key 'normal 'global (kbd "?") #'avy-goto-char-2)
+(evil-define-key 'normal 'visual (kbd "?") #'avy-goto-char-2)
+(evil-define-key 'normal 'global (kbd "gs") #'avy-goto-char-2)
 ;; Folding keys
 (evil-define-key 'normal 'global (kbd "ghh") #'hs-toggle-hiding)
 (evil-define-key 'normal 'global (kbd "ghc") #'hs-hide-all)

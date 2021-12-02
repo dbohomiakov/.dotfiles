@@ -72,6 +72,7 @@
 (setq db/auto-isort nil)
 (setq db/remove-unused-imports nil)
 (setq db/auto-blacken nil)
+(setq db/exclude-from-blacken '())
 (setq db/lsp-enable? nil)
 (setq db/test-command nil)
 
@@ -177,6 +178,7 @@
                     " "
                     (db/compose-pytest-test-name))))
 
+(define-key python-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 ;; (use-package buftra
   ;; :straight (:host github :repo "humitos/buftra.el"))
 

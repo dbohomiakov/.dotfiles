@@ -5,12 +5,11 @@
   (setq lsp-completion-provider
         :capf)
   (setq lsp-headerline-breadcrumb-enable nil)
-  (setq lsp-idle-delay 0.300)
+  (setq lsp-idle-delay 0.500)
   (setq lsp-lens-enable t)
   (setq lsp-log-io nil) ;; if set to true can cause a performance hit
   (setq lsp-enable-on-type-formatting t)
-  (setq lsp-file-watch-threshold 85000)
-  (setq lsp-file-watch-ignored '("static/**"))
+  (setq lsp-file-watch-threshold 2000)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-eldoc-enable-hover t)
   (setq lsp-completion-show-detail t)
@@ -22,6 +21,14 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
+;; TODO: move to .dir-locals
+;; add dirs excluded from watching
+(with-eval-after-load 'lsp-mode
+  (mapcar
+   (lambda (x) (add-to-list 'lsp-file-watch-ignored-directories x))
+   '("[/\\\\]\\static\\'"
+     "[/\\\\]\\__pycache__\\'"
+     "[/\\\\]\\.mypy_cache\\'")))
 
 (use-package
   lsp-treemacs
