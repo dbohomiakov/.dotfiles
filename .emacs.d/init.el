@@ -112,6 +112,7 @@
             "completition-in-minibuffer"
             "capf"
             "python"
+            "go"
             "project"
             "lsp"
             "org"
