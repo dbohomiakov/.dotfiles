@@ -1,4 +1,8 @@
-(use-package vterm)
+(use-package vterm
+  :config
+  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-copy-exclude-prompt t)
+  (setq vterm-ignore-blink-cursor nil))
 
 (use-package vterm-toggle
   :ensure t
@@ -14,3 +18,15 @@
          (display-buffer-reuse-window display-buffer-same-window)))
 (global-set-key [f2] 'vterm-toggle)
 (global-set-key [C-f2] 'vterm-toggle-cd)
+
+
+(defun evil-collection-vterm-escape-stay ()
+"Go back to normal state but don't move
+cursor backwards. Moving cursor backwards is the default vim behavior but it is
+not appropriate in some cases like terminals."
+  (setq-local evil-move-cursor-back nil))
+
+(add-hook 'vterm-mode-hook #'evil-collection-vterm-escape-stay)
+
+(define-key vterm-mode-map (kbd "<C-backspace>")
+    (lambda () (interactive) (vterm-send-key (kbd "C-w"))))
