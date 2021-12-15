@@ -107,8 +107,8 @@
   "pd"  'projectile-dired
   "pp"  'consult-projectile
   "ff"  'find-file
-  "\\"   'split-window-horizontally
-  "-"   'split-window-vertically
+  "\\"  'evil-window-vsplit
+  "-"   'evil-window-split
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
   "b"   'persp-switch-to-buffer
