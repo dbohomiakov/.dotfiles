@@ -1,3 +1,15 @@
+;; Fix for long lines hangs https://www.gnu.org/software/emacs/manual/html_node/emacs/Long-Lines.html
+(global-so-long-mode 1)
+;; took from http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
 ;; Eval elisp functions
 (global-set-key (kbd "M-:") 'pp-eval-expression)
 
@@ -6,7 +18,8 @@
 
 ;; Cursor settings
 (set-cursor-color "#f6f6f6")
-(blink-cursor-mode -1) ; Disable blinking cursor
+(setq visible-cursor nil) ; Disable blinking cursor for terminal
+(blink-cursor-mode -1) ; Disable blinking cursor for XWindow
 
 (scroll-bar-mode -1) ; Disable visible scrollbar
 (horizontal-scroll-bar-mode -1) ; Disable visible horizontal scrollbar
@@ -23,10 +36,11 @@
   scroll-preserve-screen-position 1)
 
 ;; Enable showing lines numbers in relative style
-(setq-default display-line-numbers-type 'relative
-              display-line-numbers-current-absolute t
-              display-line-numbers-width 4
-              display-line-numbers-widen t)
+(when (display-graphic-p)
+    (setq-default display-line-numbers-type 'relative
+                  display-line-numbers-current-absolute t
+                  display-line-numbers-width 4
+                  display-line-numbers-widen t))
 (global-display-line-numbers-mode)
 
 (setq column-number-mode t) ; enable showing column numbers
@@ -42,6 +56,9 @@
 ;; Enable case-switching
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; Make kill-ring work with X-clipboard
+(setq select-enable-primary t)
 
 (setq tab-always-indent 'complete) ;; smart tab behavior - indent or complete
 (setq-default indent-tabs-mode nil)
@@ -93,6 +110,7 @@
 (use-package smartparens
   :config
   (smartparens-global-mode 1)
+  ;; Setup to not insert double parens before text object, only single
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'clojure-mode "'" nil :actions nil))
 

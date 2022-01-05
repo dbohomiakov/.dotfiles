@@ -1,8 +1,10 @@
 ((nil . ((db/pname . PROJECT-NAME)
         (db/plang . "python")
         (db/lsp-enable? . t)
-        (db/venv-path . "/home/dbohomiakov/.pyenv/versions/PROJECT-NAME")
-        (db/actual-venv-path . "/home/dbohomiakov/.pyenv/versions/PYTHON-VERSION/envs/PROJECT-NAME")
+        ;; needed only in case if env is located not in default "~/.virtualenvs/"
+        ;; or name doesn't match to PROJECT-NAME.
+        ;; IN SUCH CASES UNCOMMENT STATEMENT BELOW!
+        ;; (db/venv-path . "/home/dbohomiakov/.virtualenvs/PROJECT-NAME")
         ;; isort
         (db/auto-isort . t)
         ;; pyflakes

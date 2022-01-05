@@ -1,6 +1,25 @@
-;; Reduce frequency of garbage collector
-(setq gc-cons-threshold (* 100 1024 1024)) ;; 100mb
-;; 1mb amount of data which Emacs reads from the process
+;;;;; Startup optimizations
+;;;;;; Set garbage collection threshold
+;; From https://www.reddit.com/r/emacs/comments/3kqt6e/2_easy_little_known_steps_to_speed_up_emacs_start/
+(setq gc-cons-threshold-original gc-cons-threshold)
+(setq gc-cons-threshold (* 1024 1024 100))
+;;;;;; Set file-name-handler-alist
+;; Also from https://www.reddit.com/r/emacs/comments/3kqt6e/2_easy_little_known_steps_to_speed_up_emacs_start/
+(setq file-name-handler-alist-original file-name-handler-alist)
+(setq file-name-handler-alist nil)
+;;;;;; Set deferred timer to reset them
+(run-with-idle-timer
+ 5 nil
+ (lambda ()
+   ;; (setq gc-cons-threshold gc-cons-threshold-original)
+   ;; (makunbound 'gc-cons-threshold-original)
+   ;; (message "gc-cons-threshold restored")
+   (setq file-name-handler-alist file-name-handler-alist-original)
+   (makunbound 'file-name-handler-alist-original)
+   (message "file-name-handler-alist restored")))
+;;;;;;;;;;;;;;;;;;;
+
+;; 3mb amount of data which Emacs reads from the process
 (setq read-process-output-max (* 3 1024 1024))
 ;; Measure startup time
 (defun db/display-startup-time ()
@@ -69,6 +88,10 @@
 (use-package no-littering
   :straight (:host github :repo "emacscollective/no-littering"))
 
+;; Profiling
+(use-package esup
+  :ensure t)
+
 ;; Get environment variables from shell
 (use-package exec-path-from-shell)
 
@@ -83,24 +106,26 @@
 (defun db/load-config (config-filename)
   (load-file (concat db/config-folder config-filename ".el")))
 
-(mapcar
-  'db/load-config
-  '
-  ("common"
-    "completition-in-minibuffer"
-    "capf"
-    "python"
-    "project"
-    "lsp"
-    "org"
-    "vcs"
-    "ui"
-    "navigation"
-    "clojure"
-    "treemacs"
-    "shell"
-    "docker"
-    "rust"
-    "buffer"
-    ;; "kbd" should be the last one cause uses defined in configs above variables/function etc.
-    "kbd"))
+(mapcar 'db/load-config
+        '(
+           "common"
+           "completition-in-minibuffer"
+           "capf"
+           "python"
+           "go"
+           "project"
+           "lsp"
+           "org"
+           "vcs"
+           "ui"
+           "navigation"
+           "clojure"
+           "treemacs"
+           "shell"
+           "docker"
+           "rust"
+           "buffer"
+           "tree-sitter"
+           "http"
+            ;; "kbd" should be the last one cause uses defined in configs above variables/function etc.
+            "kbd"))

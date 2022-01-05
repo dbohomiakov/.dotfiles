@@ -1,39 +1,29 @@
 ;;;  -*- lexical-binding: t -*-
-(add-hook 'python-mode-hook 'hs-minor-mode)
-(add-hook 'python-mode-hook 'yas-minor-mode)
-
 (defun set-display-fill-column-indicator (num)
   (progn
     (setq-default display-fill-column-indicator-column num)
     (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)))
 
-(set-display-fill-column-indicator 80)
+(defun setup-flake8-flycheck ()
+  (setq flycheck-checkers '(python-flake8))
+  (flycheck-mode))
 
-;; Setup flake8 as checker
-(add-hook 'python-mode-hook
-          (lambda ()
-            (progn
-              (setq flycheck-checkers '(python-flake8))
-              (flycheck-mode))))
+(defun fix-python-indent ()
+  (setq python-indent-offset 4)
+  (setq tab-width 4)
+  (subword-mode 1))
 
-;; Fix python indent
-(add-hook 'python-mode-hook
-  (lambda ()
-    (progn
-      (setq python-indent-offset 4)
-      (setq tab-width 4)
-      (subword-mode 1))))
+(use-package python-mode
+  :bind ("TAB" . company-indent-or-complete-common)
+  :hook ((python-mode-hook . fix-python-indent)
+         (python-mode-hook . setup-flake8-flycheck)
+         (python-mode-hook . (lambda () (set-display-fill-column-indicator 79)))
+         (python-mode-hook . hs-minor-mode)
+         (python-mode-hook . yas-minor-mode)
+         (python-mode-hook . abbrev-mode)))
 
 ;; Debugger
 ;; (use-package dap-python)
-
-;; Pyenv
-(use-package pyenv-mode
-  :init
-  (let ((pyenv-path (expand-file-name "~/.pyenv/bin")))
-    (setenv "PATH" (concat pyenv-path ":" (getenv "PATH")))
-    (add-to-list 'exec-path pyenv-path))
-  :config (pyenv-mode))
 
 (use-package python-pytest
   :init
@@ -52,7 +42,6 @@
 
 (use-package pyvenv
   :ensure t
-  :init (setenv "WORKON_HOME" "~/.pyenv/versions")
   :config
   ;; Set correct Python interpreter
   (setq pyvenv-post-activate-hooks
@@ -67,44 +56,33 @@
 (setq db/pname nil)
 (setq db/plang nil)
 (setq db/venv-path nil)
-(setq db/actual-venv-path nil)
 (setq db/auto-isort nil)
 (setq db/remove-unused-imports nil)
 (setq db/auto-blacken nil)
+(setq db/exclude-from-blacken '())
 (setq db/lsp-enable? nil)
 (setq db/test-command nil)
 
-(defun db/add-lsp-workspaces ()
+(defun db/setup-lsp-workspaces ()
   (let*
-    (
-      (project-path (projectile-project-root))
+    ((project-path (projectile-project-root))
       (workspace-folders-to-remove
         (lsp-session-folders (lsp-session)))
-      (workspace-folders-to-add
-        `
-        (,project-path
-          ,db/venv-path
-          ,db/actual-venv-path
-          "/home/dbohomiakov/.pyenv/")))
+      ;; setup custom venv-path or build from envs-path and project name
+      (venv-path (or
+                  db/venv-path
+                  (concat (pyvenv-workon-home) "/" db/pname)))
+      (workspace-folders-to-add `(,project-path ,venv-path)))
     (progn
       (print (format "%s setup!" db/pname))
-      (setq lsp-pyright-venv-directory db/pname)
       (mapcar
         'lsp-workspace-folders-remove
         workspace-folders-to-remove)
       (mapcar 'lsp-workspace-folders-add workspace-folders-to-add))))
 
-(defun db/run-lsp ()
-  (interactive)
-  (let ((lsp-activated? (lsp-session-folders (lsp-session))))
-    (progn
-      (when lsp-activated?
-        (lsp-workspace-shutdown))
-      (db/add-lsp-workspaces))))
-
-(defun db/enable-lsp ()
+(defun db/setup-lsp ()
   (when db/lsp-enable?
-    (db/run-lsp)))
+    (db/setup-lsp-workspaces)))
 
 (defun db/enable-python-venv ()
   (let ((pname db/pname))
@@ -124,7 +102,7 @@
   (progn
     (db/enable-python-venv)
     (db/setup-test-settings)
-    (db/enable-lsp)))
+    (db/setup-lsp)))
 
 (defun db/do-nothing () nil)
 
@@ -147,8 +125,6 @@
 (defun db/blacken-buffer ()
   (when (and db/auto-blacken)
     (blacken-buffer)))
-
-(use-package pony-mode)
 
 ;; Tests
 (defun db/-project-rel-file-path ()
@@ -192,7 +168,3 @@
 (add-hook 'before-save-hook 'db/blacken-buffer)
 (add-hook 'before-save-hook 'db/py-isort-before-save)
 (add-hook 'projectile-after-switch-project-hook 'db/configure-project)
-
-(fset 'pdebugger
-  (kmacro-lambda-form
-   [?i?m?p?o?r?t? ?p?d?b?\;?p?d?b?.?s?e?t?_?t?r?a?c?e?\( escape] 0 "%d"))
