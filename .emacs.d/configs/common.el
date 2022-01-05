@@ -174,8 +174,7 @@
   (selection-coding-system             'utf-8)
   :init
   (setq-default wl-copy-process nil)
-  ;; check if terminal and window manager is wayland
-  (when (and (not window-system) (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY")))
+  (when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
     (defun wl-copy-handler (text)
       (setq wl-copy-process (make-process :name "wl-copy"
                                           :buffer nil
