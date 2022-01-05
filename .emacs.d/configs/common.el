@@ -153,3 +153,26 @@
   (("\\.[Cc][Ss][Vv]\\'" . csv-mode))
   :custom
   (csv-separators '("," "\t" "|" " ")))
+
+(use-package select
+  :demand t
+  :custom
+  (save-interprogram-paste-before-kill t)
+  (select-enable-clipboard             t)
+  (selection-coding-system             'utf-8)
+  :init
+  (setq-default wl-copy-process nil)
+  (when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
+    (defun wl-copy-handler (text)
+      (setq wl-copy-process (make-process :name "wl-copy"
+                                          :buffer nil
+                                          :command '("wl-copy" "-f" "-n")
+                                          :connection-type 'pipe))
+      (process-send-string wl-copy-process text)
+      (process-send-eof wl-copy-process))
+    (defun wl-paste-handler ()
+      (if (and wl-copy-process (process-live-p wl-copy-process))
+          nil ; should return nil if we're the current paste owner
+        (shell-command-to-string "wl-paste -n | tr -d \r")))
+    (setq interprogram-cut-function 'wl-copy-handler
+          interprogram-paste-function 'wl-paste-handler)))

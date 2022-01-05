@@ -17,7 +17,6 @@
    (setq file-name-handler-alist file-name-handler-alist-original)
    (makunbound 'file-name-handler-alist-original)
    (message "file-name-handler-alist restored")))
-;;;;;;;;;;;;;;;;;;;
 
 ;; 3mb amount of data which Emacs reads from the process
 (setq read-process-output-max (* 3 1024 1024))
