@@ -30,19 +30,14 @@
     (evil-textobj-tree-sitter-get-textobj "function.outer"))
   (define-key evil-inner-text-objects-map "f"
     (evil-textobj-tree-sitter-get-textobj "function.inner"))
-  ;; 'm' - import
-  (define-key evil-outer-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
-                                              '((python-mode . [(import_statement) @import])
-                                                (rust-mode . [(use_declaration) @import]))))
-  (define-key evil-inner-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
-                                              '((python-mode . [(import_statement) @import])
-                                                (rust-mode . [(use_declaration) @import]))))
-  (define-key evil-outer-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
-                                              '((python-mode . [(import_from_statement) @import])
-                                                (rust-mode . [(use_declaration) @import]))))
-  (define-key evil-inner-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import"
-                                              '((python-mode . [(import_from_statement) @import])
-                                                (rust-mode . [(use_declaration) @import]))))
+  ;; 'i' - import
+  (define-key evil-inner-text-objects-map "i" (evil-textobj-tree-sitter-get-textobj "import.inner"
+                                              '((python-mode . [(import_statement) @import.inner])
+                                                (rust-mode . [(use_declaration) @import.inner]))))
+  ;; 'm' - import from
+  (define-key evil-inner-text-objects-map "I" (evil-textobj-tree-sitter-get-textobj "import_from.inner"
+                                              '((python-mode . [(import_from_statement) @import_from.inner])
+                                                (rust-mode . [(use_declaration) @import_from.inner]))))
   ;; 'c' - class
   (define-key evil-outer-text-objects-map "c"
     (evil-textobj-tree-sitter-get-textobj "class.outer"))
@@ -50,8 +45,7 @@
     (evil-textobj-tree-sitter-get-textobj "class.inner"))
   ;; 'e' - expressino statement
   (define-key evil-outer-text-objects-map "e"
-    (evil-textobj-tree-sitter-get-textobj "statement.outer"))
-  )
+    (evil-textobj-tree-sitter-get-textobj "statement.outer")))
 
 
 (use-package evil-collection
@@ -182,3 +176,5 @@
   ([remap describe-variable] . helpful-variable)
   ([remap describe-command] . helpful-command)
   ([remap describe-key] . helpful-key))
+
+(global-set-key [f5] 'db/toggle-theme)

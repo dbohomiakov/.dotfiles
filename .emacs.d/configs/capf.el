@@ -4,6 +4,7 @@
   :hook (lsp-mode . company-mode)
   :custom
   (company-minimum-prefix-length 2)
+  (company-tooltip-align-annotations t)
   (company-idle-delay 0.1))
 
 (add-hook 'after-init-hook 'global-company-mode)
