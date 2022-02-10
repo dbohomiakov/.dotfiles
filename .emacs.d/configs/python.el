@@ -37,6 +37,13 @@
     (when (executable-find python-path)
         (setq python-shell-interpreter python-path))))
 
+;; TODO: move selection of python interpreter to .dir-locals
+(defun db/setup-python-shell-interpreter ()
+  (interactive)
+  (let ((python-path (concat pyvenv-virtual-env "bin/python")))
+    (when (executable-find python-path)
+        (setq python-shell-interpreter python-path))))
+
 (use-package python-pytest
   :init
   (setq pytest-cmd-flags "--pdbcls=IPython.terminal.debugger:Pdb")

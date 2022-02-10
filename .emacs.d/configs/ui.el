@@ -15,8 +15,9 @@
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
-(defvar db/dark-theme 'my-doom-sourcerer)
-(defvar db/light-theme 'doom-nord)
+;; (defvar db/dark-theme 'my-doom-sourcerer)
+(defvar db/dark-theme 'doom-wilmersdorf)
+(defvar db/light-theme 'doom-solarized-light)
 
 ;; Fix theme applying for emacsclient in terminal mode
 (defun db/load-theme (frame)
