@@ -114,7 +114,10 @@
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'clojure-mode "'" nil :actions nil))
 
-(use-package yasnippet)
+(use-package yasnippet
+  :commands yas-minor-mode)
+
+(use-package yasnippet-snippets)
 
 (use-package highlight-indent-guides
   :custom (highlight-indent-guides-method 'bitmap)
@@ -162,7 +165,8 @@
   (selection-coding-system             'utf-8)
   :init
   (setq-default wl-copy-process nil)
-  (when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
+  ;; check if terminal and window manager is wayland
+  (when (and (not window-system) (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY")))
     (defun wl-copy-handler (text)
       (setq wl-copy-process (make-process :name "wl-copy"
                                           :buffer nil
@@ -176,3 +180,25 @@
         (shell-command-to-string "wl-paste -n | tr -d \r")))
     (setq interprogram-cut-function 'wl-copy-handler
           interprogram-paste-function 'wl-paste-handler)))
+
+(use-package string-inflection)
+
+(defun db/string-inflection-cycle-auto ()
+  "switching by major-mode"
+  (interactive)
+  (cond
+   ;; for emacs-lisp-mode
+   ((eq major-mode 'emacs-lisp-mode)
+    (string-inflection-all-cycle))
+   ;; for python
+   ((eq major-mode 'python-mode)
+    (string-inflection-python-style-cycle))
+   ;; for java
+   ((eq major-mode 'java-mode)
+    (string-inflection-java-style-cycle))
+   (t
+    ;; default
+    (string-inflection-ruby-style-cycle))))
+
+;; Multi-language code formatting package
+(use-package apheleia)

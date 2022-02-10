@@ -21,6 +21,7 @@
   (global-evil-mc-mode 1))
 
 (use-package transpose-frame)
+(use-package minimap)
 
 (use-package expand-region)
 

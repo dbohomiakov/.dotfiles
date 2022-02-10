@@ -13,14 +13,14 @@
   (setq lsp-idle-delay 0.500)
   (setq lsp-lens-enable t)
   (setq lsp-log-io nil) ;; if set to true can cause a performance hit
-  (setq lsp-enable-on-type-formatting t)
+  (setq lsp-enable-on-type-formatting nil)
   (setq lsp-file-watch-threshold 20000)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-eldoc-enable-hover t)
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
-  (setq lsp-diagnostics-provider nil)
-  (setq lsp-diagnostics-disabled-modes '(python-mode))
+  ;; (setq lsp-diagnostics-provider nil)
+  ;; (setq lsp-diagnostics-disabled-modes '(python-mode))
   (setq lsp-use-plists t)
   (setq lsp-headerline-breadcrumb-enable nil))
 
@@ -35,23 +35,22 @@
      "[/\\\\]\\__pycache__\\'"
      "[/\\\\]\\.mypy_cache\\'")))
 
-(use-package
-  lsp-treemacs
+(use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-(use-package
-  lsp-pyright
+(use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp-deferred)))
-  :custom (lsp-pyright-auto-import-completions t))
+  :custom (lsp-pyright-auto-import-completions t)
+  )
 
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
-(use-package
-  yasnippet
-  :commands yas-minor-mode
-  :hook ((python-mode . yas-minor-mode)))
-
 (use-package consult-lsp)
+
+;; EGLOT
+
+(use-package eglot
+  :disabled)

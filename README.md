@@ -14,6 +14,11 @@ wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip ~/Downloads/Je
 unzip -j JetBrainsMono-2.242.zip "fonts/ttf/*" -d ~/.local/share/fonts
 fc-cache -f -v
 ```
+## Setup keyboard key-repeat and frequency
+```
+gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 15
+gsettings set org.gnome.desktop.peripherals.keyboard delay 300
+```
 ## Configuring
 ```
 sh

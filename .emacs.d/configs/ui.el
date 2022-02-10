@@ -9,11 +9,16 @@
 
 (icons-in-terminal-icon-for-mode 'dired-mode)
 
+(use-package vscode-dark-plus-theme)
+
+(use-package solaire-mode)
+
 (use-package doom-themes
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
-(defvar db/dark-theme 'my-doom-sourcerer)
+;; (defvar db/dark-theme 'my-doom-sourcerer)
+(defvar db/dark-theme 'doom-wilmersdorf)
 (defvar db/light-theme 'doom-solarized-light)
 
 ;; Fix theme applying for emacsclient in terminal mode
