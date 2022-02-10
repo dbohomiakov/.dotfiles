@@ -23,6 +23,8 @@ folder, otherwise delete a word"
   :custom (vertico-cycle t)
   :init (vertico-mode))
 
+(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+
 ;; Add funcy prefix before candidates
 (advice-add #'vertico--format-candidate
   :around
@@ -33,6 +35,9 @@ folder, otherwise delete a word"
         (propertize "» " 'face 'vertico-current)
         "  ")
       cand)))
+
+(use-package vertico-posframe
+  :disabled)
 
 (use-package orderless
   :config
@@ -214,16 +219,18 @@ folder, otherwise delete a word"
     consult-bookmark
     consult-recent-file
     consult-xref
-    consult--source-file
-    consult--source-project-file
     consult--source-bookmark
-    :preview-key (kbd "M-."))
+    consult--source-recent-file
+    consult--source-project-recent-file
+    :preview-key (list
+                  (kbd "C-SPC")
+                  :debounce 0.5 (kbd "C-k") (kbd "C-j")))
 
   (setq consult-narrow-key "<") ;; (kbd "C-+")
   (setq consult-project-root-function #'projectile-project-root)
   :custom
   ;; Show all hidden files except git
-  (consult-ripgrep-args "rg --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
+  (consult-ripgrep-args "rg --null --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
                          --smart-case --no-heading --line-number --glob !.git .")
   (consult-preview-excluded-hooks
     '
@@ -236,8 +243,9 @@ folder, otherwise delete a word"
   :after vertico
   :custom
   (marginalia-annotators
-    '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :init (marginalia-mode))
+   '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 
 (use-package embark
   :after marginalia

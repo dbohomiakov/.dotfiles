@@ -4,9 +4,9 @@
     (setq-default display-fill-column-indicator-column num)
     (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)))
 
-(defun setup-flake8-flycheck ()
-  (setq flycheck-checkers '(python-flake8))
-  (flycheck-mode))
+;; (defun setup-flake8-flycheck ()
+;;   (setq flycheck-checkers '(python-flake8))
+;;   (flycheck-mode))
 
 (defun fix-python-indent ()
   (setq python-indent-offset 4)
@@ -15,15 +15,20 @@
 
 (use-package python-mode
   :bind ("TAB" . company-indent-or-complete-common)
-  :hook ((python-mode-hook . fix-python-indent)
-         (python-mode-hook . setup-flake8-flycheck)
-         (python-mode-hook . (lambda () (set-display-fill-column-indicator 79)))
-         (python-mode-hook . hs-minor-mode)
-         (python-mode-hook . yas-minor-mode)
-         (python-mode-hook . abbrev-mode)))
+  :hook ((python-mode . fix-python-indent)
+         ;; (python-mode . setup-flake8-flycheck)
+         (python-mode . (lambda ()
+                               (set-display-fill-column-indicator 79)))
+         (python-mode . hs-minor-mode)
+         (python-mode . yas-minor-mode)
+         (python-mode . abbrev-mode)))
 
-;; Debugger
-;; (use-package dap-python)
+;; TODO: move selection of python interpreter to .dir-locals
+(defun db/setup-python-shell-interpreter ()
+  (interactive)
+  (let ((python-path (concat pyvenv-virtual-env "bin/python")))
+    (when (executable-find python-path)
+        (setq python-shell-interpreter python-path))))
 
 (use-package python-pytest
   :init
@@ -45,12 +50,10 @@
   :config
   ;; Set correct Python interpreter
   (setq pyvenv-post-activate-hooks
-    (list
-      (lambda ()
-        (setq python-shell-interpreter
-          (concat pyvenv-virtual-env "bin/python")))))
+        (list 'db/setup-python-shell-interpreter))
   (setq pyvenv-post-deactivate-hooks
-    (list (lambda () (setq python-shell-interpreter "python")))))
+        (list (lambda ()
+                (setq python-shell-interpreter "python")))))
 
 ;; Initialize .dir-locals variables
 (setq db/pname nil)

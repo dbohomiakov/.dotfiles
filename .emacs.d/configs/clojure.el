@@ -22,3 +22,5 @@
     (cons 'error (cdr checkers))))
 
 (add-hook 'emacs-lisp-mode 'hs-minor-mode)
+
+(use-package lispy)

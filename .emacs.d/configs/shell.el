@@ -1,8 +1,12 @@
+(use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode))
+
 (use-package vterm
   :config
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-copy-exclude-prompt t)
-  (setq vterm-ignore-blink-cursor nil))
+  (setq vterm-ignore-blink-cursor nil)
+  (advice-add #'vterm--redraw :after (lambda (&rest args) (evil-refresh-cursor evil-state))))
 
 (use-package vterm-toggle
   :ensure t

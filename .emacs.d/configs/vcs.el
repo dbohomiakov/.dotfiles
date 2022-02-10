@@ -13,9 +13,10 @@
   :config
   (global-git-gutter-mode +1))
 
-(use-package
-  ibuffer-vc
+(use-package ibuffer-vc
   :init (setq ibuffer-vc t))
 
 (use-package browse-at-remote
   :straight (:host github :repo "rmuslimov/browse-at-remote"))
+
+(use-package git-timemachine)
