@@ -1,5 +1,8 @@
 ;; Fix for long lines hangs https://www.gnu.org/software/emacs/manual/html_node/emacs/Long-Lines.html
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq-default bidi-inhibit-bpa t)
 (global-so-long-mode 1)
+
 ;; took from http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 (defun my-minibuffer-setup-hook ()
   (setq gc-cons-threshold most-positive-fixnum))
@@ -15,6 +18,8 @@
 
 ;; General
 (setq inhibit-startup-screen t)
+;; Fullscreen mode
+(toggle-frame-fullscreen)
 
 ;; Cursor settings
 (set-cursor-color "#f6f6f6")
@@ -29,17 +34,20 @@
 (menu-bar-mode -1) ; Disable menu bar
 (setq visible-bell nil) ; Enable visible bell
 
-;; nice scrolling
-(setq
-  scroll-margin
-  0
-  scroll-preserve-screen-position 1)
+
+;; Make scrolling less stuttered
+(setq auto-window-vscroll nil)
+(customize-set-variable 'fast-but-imprecise-scrolling t)
+(customize-set-variable 'scroll-conservatively 101)
+(customize-set-variable 'scroll-margin 0)
+(customize-set-variable 'scroll-preserve-screen-position t)
 
 ;; Enable showing lines numbers in relative style
 (when (display-graphic-p)
     (setq-default display-line-numbers-type 'relative
                   display-line-numbers-current-absolute t
-                  display-line-numbers-width 4
+                  display-line-numbers-width 2
+                  display-line-numbers-grow-only t
                   display-line-numbers-widen t))
 (global-display-line-numbers-mode)
 
@@ -47,6 +55,7 @@
 (setq require-final-newline t) ; Newline at end of file
 (delete-selection-mode t) ; Delete the selection with a keypress
 (global-auto-revert-mode t) ; revert buffers automatically when underlying files are changed externally
+(setq global-auto-revert-non-file-buffers t) ; Revert dired and other buffers
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -114,7 +123,10 @@
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   (sp-local-pair 'clojure-mode "'" nil :actions nil))
 
-(use-package yasnippet)
+(use-package yasnippet
+  :commands yas-minor-mode)
+
+(use-package yasnippet-snippets)
 
 (use-package highlight-indent-guides
   :custom (highlight-indent-guides-method 'bitmap)
@@ -162,7 +174,8 @@
   (selection-coding-system             'utf-8)
   :init
   (setq-default wl-copy-process nil)
-  (when (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY"))
+  ;; check if terminal and window manager is wayland
+  (when (and (not window-system) (string-prefix-p "wayland" (getenv "WAYLAND_DISPLAY")))
     (defun wl-copy-handler (text)
       (setq wl-copy-process (make-process :name "wl-copy"
                                           :buffer nil
@@ -176,3 +189,27 @@
         (shell-command-to-string "wl-paste -n | tr -d \r")))
     (setq interprogram-cut-function 'wl-copy-handler
           interprogram-paste-function 'wl-paste-handler)))
+
+(use-package string-inflection)
+
+(defun db/string-inflection-cycle-auto ()
+  "switching by major-mode"
+  (interactive)
+  (cond
+   ;; for emacs-lisp-mode
+   ((eq major-mode 'emacs-lisp-mode)
+    (string-inflection-all-cycle))
+   ;; for python
+   ((eq major-mode 'python-mode)
+    (string-inflection-python-style-cycle))
+   ;; for java
+   ((eq major-mode 'java-mode)
+    (string-inflection-java-style-cycle))
+   (t
+    ;; default
+    (string-inflection-ruby-style-cycle))))
+
+;; Multi-language code formatting package
+(use-package apheleia)
+
+(recentf-mode 1)

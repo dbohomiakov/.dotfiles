@@ -1,5 +1,7 @@
 (use-package lsp-mode
   :after (pyvenv-mode)
+  :bind (:map lsp-mode-map
+        ("TAB" . completion-at-point))
   :custom
   (lsp-headerline-breadcrumb-enable nil)
   :hook ((rust-mode . lsp-deferred)
@@ -7,21 +9,22 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
+
 (defun db/configure-lsp ()
   (setq lsp-disabled-clients '(mspyls pylsp pyls))
   (setq lsp-completion-provider :capf)
   (setq lsp-idle-delay 0.500)
   (setq lsp-lens-enable t)
   (setq lsp-log-io nil) ;; if set to true can cause a performance hit
-  (setq lsp-enable-on-type-formatting t)
+  (setq lsp-enable-on-type-formatting nil)
   (setq lsp-file-watch-threshold 20000)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-eldoc-enable-hover t)
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
-  (setq lsp-diagnostics-provider nil)
-  (setq lsp-diagnostics-disabled-modes '(python-mode))
   (setq lsp-use-plists t)
+  ;; (setq lsp-diagnostics-provider nil)
+  ;; (setq lsp-diagnostics-disabled-modes '(python-mode))
   (setq lsp-headerline-breadcrumb-enable nil))
 
 (db/configure-lsp)
@@ -35,23 +38,17 @@
      "[/\\\\]\\__pycache__\\'"
      "[/\\\\]\\.mypy_cache\\'")))
 
-(use-package
-  lsp-treemacs
+(use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-(use-package
-  lsp-pyright
+(use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp-deferred)))
-  :custom (lsp-pyright-auto-import-completions t))
+  :custom (lsp-pyright-auto-import-completions t)
+  )
 
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
-
-(use-package
-  yasnippet
-  :commands yas-minor-mode
-  :hook ((python-mode . yas-minor-mode)))
 
 (use-package consult-lsp)

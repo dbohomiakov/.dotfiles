@@ -9,12 +9,14 @@
 
 (icons-in-terminal-icon-for-mode 'dired-mode)
 
+(use-package solaire-mode)
+
 (use-package doom-themes
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
 (defvar db/dark-theme 'my-doom-sourcerer)
-(defvar db/light-theme 'doom-solarized-light)
+(defvar db/light-theme 'doom-nord)
 
 ;; Fix theme applying for emacsclient in terminal mode
 (defun db/load-theme (frame)
@@ -30,8 +32,9 @@
   (interactive)
   (let ((enabled-theme (car custom-enabled-themes)))
     (disable-theme enabled-theme)
-    (if (equal enabled-theme db/dark-theme)
-      (load-theme db/light-theme t)
+    (if (equal enabled-theme
+               db/dark-theme)
+        (load-theme db/light-theme t)
       (load-theme db/dark-theme t))))
 
 ;; Vertical window divider
@@ -49,7 +52,7 @@
 (use-package doom-modeline
   :ensure t
   :custom
-  (doom-modeline-buffer-file-name-style 'truncate-with-project)
+  ;; (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-hud nil)
   (doom-modeline-buffer-encoding nil)
   (doom-modeline-vcs-max-length 20)
@@ -57,18 +60,26 @@
   (doom-modeline-gnus nil)
   (doom-modeline-env-enable-python nil)
   (doom-modeline-major-mode-color-icon nil)
-  (doom-modeline-enable-word-count nil)
-  :init (doom-modeline-mode 1))
+  (doom-modeline-enable-word-count nil))
 
-;; Fancy show background
+(add-hook 'after-init-hook 'doom-modeline-init)
+
+;; Hide modeline
+(use-package hide-mode-line)
+
+;; Fancy backgrounds
 (use-package snow)
+(use-package fireplace)
+
+(defvar db/font-family "JetBrainsMono")
+(defvar db/font-weight 'normal)
 
 (defun db/set-font-faces ()
-  (set-face-attribute 'default nil :font "JetBrainsMono" :height 120)
+  (set-face-attribute 'default nil :font db/font-family :height 140 :weight db/font-weight)
   ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono" :height 100 :weight 'light)
+  (set-face-attribute 'fixed-pitch nil :font db/font-family :height 100 :weight 'light)
   ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil :font "JetBrainsMono" :height 50 :weight 'light))
+  (set-face-attribute 'variable-pitch nil :font db/font-family :height 50 :weight 'light))
 
 (if (daemonp)
     (add-hook 'server-after-make-frame-hook
@@ -79,4 +90,13 @@
    (db/set-font-faces)))
 
 (setq echo-keystrokes 0.1)
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.03)
+
+;; Flash the current line
+(defun pulse-line (&rest _)
+      "Pulse the current line."
+      (pulse-momentary-highlight-one-line (point)))
+
+(dolist (command '(scroll-up-command scroll-down-command
+                   recenter-top-bottom other-window))
+  (advice-add command :after #'pulse-line))

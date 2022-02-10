@@ -2,6 +2,8 @@
 ;; Evil mode
 ;; Rebind Ctrl+g to escape
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+;; Rebind universal argument
+(global-set-key (kbd "C-M-u") 'universal-argument)
 
 (use-package evil
   :init
@@ -19,7 +21,12 @@
   (define-key evil-inner-text-objects-map "Q" 'evil-inner-double-quote)
   (define-key evil-outer-text-objects-map "Q" 'evil-a-back-quote)
   (define-key evil-inner-text-objects-map "Q" 'evil-inner-back-quote)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-mode 1))
+
+;; Use visual line motions even outside of visual-line-mode buffers
+(evil-global-set-key 'motion "j" 'evil-next-visual-line)
+(evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
 (use-package evil-textobj-tree-sitter
   :after evil
@@ -47,6 +54,10 @@
   (define-key evil-outer-text-objects-map "e"
     (evil-textobj-tree-sitter-get-textobj "statement.outer")))
 
+(use-package evil-numbers
+  :config
+  (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt))
 
 (use-package evil-collection
   :after evil
@@ -150,6 +161,8 @@
 (evil-define-key 'normal 'global (kbd "ghl") #'hs-hide-level)
 ;; Multiple cursor (redefine default key sequences)
 (evil-define-key '(normal visual) 'global (kbd "gm") evil-mc-cursors-map)
+;; CamelCase/snake_case switch
+(evil-define-key 'normal 'global (kbd "gc") #'db/string-inflection-cycle-auto)
 
 (use-package evil-exchange)
 
