@@ -39,7 +39,7 @@ determine the exact padding."
 
   ;; name        default   256       16
   (
-   (bg         '("#001E26" "#001E26"       nil     ))
+   (bg         '("#001b26" "#001b26"       nil     ))
    (bg-alt     '("#00212B" "#00212B"       nil     ))
    (base0      '("#073642" "#073642"   "black"     ))
    (base1      '("#03282F" "#03282F" "brightblack" ))
@@ -56,12 +56,12 @@ determine the exact padding."
 		   '("#839496" "#839496" "brightwhite")))
 
    (grey       base4)
-   (red        '("#dc322f" "#ff6655" "red"          ))
-   (orange     '("#cb4b16" "#dd8844" "brightred"    ))
+   (red        '("#9c5060" "#9c5060" "red"          ))
+   (orange     '("#9c5060" "#9c5060" "brightred"    ))
    (green      '("#859900" "#99bb66" "green"        ))
    (teal       '("#35a69c" "#33aa99" "brightgreen"  ))
    (yellow     '("#b58900" "#ECBE7B" "yellow"       ))
-   (blue       '("#268bd2" "#51afef" "brightblue"   ))
+   (blue       '("#1a6091" "#1a6091" "brightblue"   ))
    (dark-blue  '("#3F88AD" "#2257A0" "blue"         ))
    (magenta    '("#d33682" "#c678dd" "magenta"      ))
    (violet     '("#6c71c4" "#a9a1e1" "brightmagenta"))
@@ -69,12 +69,12 @@ determine the exact padding."
    (dark-cyan  '("#204052" "#5699AF" "cyan"         ))
    ;; Custom colors
    (soft-green '("#4f978b", "#4f978b", "soft-green"))
-   (soft-blue '("#3B92BE", "#46719a", "soft-blue"))
+   (soft-blue '("#3583ab", "#3583ab", "soft-blue"))
    (soft-dark-blue '("#4f978b", "#4f978b", "soft-dark-blue"))
-   (soft-yellow     '("#92950C" "#9E9D01" "soft-yellow"))
+   ;; (soft-yellow     '("#92950C" "#9E9D01" "soft-yellow"))
 
    ;; face categories -- required for all themes
-   (highlight      blue)
+   (highlight      dark-blue)
    (vertical-bar   (doom-darken base1 0.5))
    (selection      dark-blue)
    (builtin        fg)

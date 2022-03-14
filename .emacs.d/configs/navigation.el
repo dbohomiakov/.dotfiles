@@ -3,8 +3,12 @@
 (use-package avy)
 
 (use-package ace-window
-  :init
-  (setq aw-keys '(?h ?j ?k ?l)))
+  :custom
+  (aw-scope 'frame)
+  (aw-keys '(?h ?j ?k ?l))
+  (aw-minibuffer-flag t)
+  :config
+  (ace-window-display-mode 1))
 
 ;; Move blocks of code horizontaly
 (use-package drag-stuff
@@ -21,6 +25,7 @@
   (global-evil-mc-mode 1))
 
 (use-package transpose-frame)
+(use-package minimap)
 
 (use-package expand-region)
 

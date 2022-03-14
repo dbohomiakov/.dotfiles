@@ -5,26 +5,26 @@
 (defvar modeline-bg)
 
 ;;
-(defgroup doom-miramare-theme nil
+(defgroup my-doom-miramare-theme nil
   "Options for doom-miramare."
   :group 'doom-themes)
 
-(defcustom doom-miramare-brighter-comments nil
+(defcustom my-doom-miramare-brighter-comments nil
   "If non-nil, comments will be highlighted in more vivid colors."
-  :group 'doom-miramare-theme
+  :group 'my-doom-miramare-theme
   :type 'boolean)
 
 (defcustom doom-miramare-padded-modeline doom-themes-padded-modeline
   "If non-nil, adds a 4px padding to the mode-line. Can be an integer to
 determine the exact padding."
-  :group 'doom-miramare-theme
+  :group 'my-doom-miramare-theme
   :type '(choice integer boolean))
 
-(def-doom-theme doom-miramare
+(def-doom-theme my-doom-miramare
   "A gruvbox variant with comfortable and pleasant colors."
 
   ;; name        gui       256       16
-  ((bg         '("#2a2426" "#2a2426" nil          )) ; bg1
+  ((bg         '("#1F1F1F" "#1F1F1F" nil          )) ; bg1
    (bg-alt     '("#242021" "#242021" nil          )) ; bg1
    (bg-alt2    '("#504945" "#504945" "brown"      )) ; bg2 (for region, selection etc.)
 
@@ -37,30 +37,30 @@ determine the exact padding."
    (base6      '("#928374" "#909090" "brightblack")) ; gray
    (base7      '("#d5c4a1" "#cccccc" "brightblack")) ; fg2
    (base8      '("#fbf1c7" "#fbfbfb" "brightwhite")) ; fg0
-   (fg         '("#e6d6ac" "#e6d6ac" "brightwhite")) ; fg/fg1
+   (fg         '("#C0B18B" "#C0B18B" "brightwhite")) ; fg/fg1
    (fg-alt     '("#d8caac" "#d8caac" "brightwhite")) ; fg2
 
-   (grey       '("#5b5b5b" "#5b5b5b" "brightblack"))   ; gray
-   (red        '("#e68183" "#e68183" "red"))           ; bright-red
-   (magenta    '("#e68183" "#e68183" "magenta"))       ; red
-   (violet     '("#d3a0bc" "#d3a0bc" "brightmagenta")) ; bright-purple
+   (grey       '("#4A3637" "#4A3637" "brightblack"))   ; gray
+   (red        '("#D17B49" "#D17B49" "red"))           ; bright-red
+   (magenta    '("#D17B49" "#D17B49" "magenta"))       ; red
+   (violet     '("#775759" "#775759" "brightmagenta")) ; bright-purple
    (orange     '("#e39b7b" "#e39b7b" "orange"))        ; bright-orange
-   (yellow     '("#d9bb80" "#d9bb80" "yellow"))        ; bright-yellow
-   (teal       '("#87af87" "#87af87" "green"))         ; bright-aqua
-   (green      '("#87af87" "#87af87" "green"))         ; bright-green
-   (dark-green '("#678f67" "#678f67" "green"))         ; green
-   (blue       '("#89beba" "#89beba" "brightblue"))    ; bright-blue
-   (dark-blue  '("#458588" "#458588" "blue"))          ; blue
-   (cyan       '("#87c095" "#87c095" "brightcyan"))    ; bright-aqua
-   (dark-cyan  '("#67a075" "#67a075" "cyan"))          ; aqua
+   (yellow     '("#AF865A" "#AF865A" "yellow"))        ; bright-yellow
+   (teal       '("#7B8748" "#7B8748" "green"))         ; bright-aqua
+   (green      '("#7B8748" "#7B8748" "green"))         ; bright-green
+   (dark-green '("#7B8748" "#7B8748" "green"))         ; green
+   (blue       '("#535C5C" "#535C5C" "brightblue"))    ; bright-blue
+   (dark-blue  '("#535C5C" "#535C5C" "blue"))          ; blue
+   (cyan       '("#6D715E" "#6D715E" "brightcyan"))    ; bright-aqua
+   (dark-cyan  '("#6D715E" "#6D715E" "cyan"))          ; aqua
 
    ;; face categories
    (highlight      yellow)
    (vertical-bar   grey)
    (selection      bg-alt2)
    (builtin        orange)
-   (comments       (if doom-miramare-brighter-comments magenta grey))
-   (doc-comments   (if doom-miramare-brighter-comments (doom-lighten magenta 0.2) (doom-lighten fg-alt 0.25)))
+   (comments       (if my-doom-miramare-brighter-comments magenta grey))
+   (doc-comments   (if my-doom-miramare-brighter-comments (doom-lighten magenta 0.2) (doom-lighten fg-alt 0.25)))
    (constants      violet)
    (functions      cyan)
    (keywords       red)
@@ -175,7 +175,7 @@ determine the exact padding."
    (ivy-minibuffer-match-face-1 :background nil :foreground yellow :bold t)
    (ivy-minibuffer-match-face-2 :background nil :foreground red :bold t)
    (ivy-minibuffer-match-highlight :foreground cyan)
-   (counsel-key-binding :foreground cyan)
+   (counsel-key-biding :foreground cyan)
    ;;;; ivy-posframe
    (ivy-posframe :background bg-alt)
    (ivy-posframe-border :background base1)
