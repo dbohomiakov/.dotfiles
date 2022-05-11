@@ -1,8 +1,11 @@
-(use-package
-  org
+(use-package org
   :config (setq org-agenda-files '("~/Org/Notes.org"))
   (setq org-default-notes-file "~/Org/Notes.org")
-  (setq org-ellipsis " ▾"))
+  (setq org-ellipsis " ▾")
+  :hook (org-mode . visual-line-mode)
+  :custom
+  (org-src-preserve-indentation t)
+  (org-hide-emphasis-markers t))
 
 (setq org-agenda-include-diary t)
 

@@ -25,7 +25,6 @@
   (global-evil-mc-mode 1))
 
 (use-package transpose-frame)
-(use-package minimap)
 
 (use-package expand-region)
 
@@ -34,3 +33,9 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 (setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
+
+(use-package evil-lion
+  :after evil
+  :ensure t
+  :config
+  (evil-lion-mode))

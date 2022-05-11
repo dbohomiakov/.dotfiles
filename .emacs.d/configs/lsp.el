@@ -1,5 +1,5 @@
 (use-package lsp-mode
-  :after (pyvenv-mode)
+  ;; :after (pyvenv-mode)
   :bind (:map lsp-mode-map
         ("TAB" . completion-at-point))
   :custom

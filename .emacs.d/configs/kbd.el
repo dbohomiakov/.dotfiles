@@ -118,14 +118,22 @@
   "k"   'save-buffers-kill-terminal
   "b"   'persp-switch-to-buffer
   "ef"  'eval-defun
+  "er"  'eval-region
+  "eb"  'eval-buffer
   ;; ABBR stands for git
   "gs"  'magit-status
   "gb"  'magit-blame
   "gd"  'magit-diff
-  "gu"  'browse-at-remote
+  "gu"  'git-link
   "gc"  'magit-branch-checkout
-  "er"  'eval-region
-  "eb"  'eval-buffer
+  ;; ORG
+  "oe"  'org-babel-execute-src-block
+  "or"  'org-babel-remove-result-one-or-many
+  ;; KMACRO
+  "mq"   'kmacro-start-macro
+  "mQ"   'kmacro-end-macro
+  "mn"   'kmacro-name-last-macro
+  "me"   'kmacro-call-macro
   ;; "tt"  'treemacs
   ;; "tw"  'delete-trailing-whitespace
   ;; "tl"  'delete-trailing-lines
@@ -138,9 +146,6 @@
   "w"  'ace-window
   "d"  'ace-delete-window
   "rb" 'revert-buffer
-  "nw" 'db/to-and-from-minibuffer
-  "nj" 'db/down-from-outside
-  "nk" 'db/up-from-outside
   "ht" 'hs-toggle-hiding
   "hal" 'hs-hide-all
   "has" 'hs-show-all
@@ -149,11 +154,11 @@
   "\/"  'unexpand-abbrev)
 
 ;; Use consult-line for incremental search
-(evil-define-key 'normal 'global (kbd "/") #'consult-line)
-(evil-define-key 'visual 'global (kbd "/") #'consult-line)
+;; (evil-define-key 'normal 'global (kbd "/") #'consult-line)
+;; (evil-define-key 'visual 'global (kbd "/") #'consult-line)
 (evil-define-key 'normal 'global (kbd "?") #'avy-goto-char-2)
 (evil-define-key 'normal 'visual (kbd "?") #'avy-goto-char-2)
-(evil-define-key 'normal 'global (kbd "gs") #'avy-goto-char-2)
+(evil-define-key 'normal 'global (kbd "gs") #'evil-ex-sort)
 ;; Folding keys
 (evil-define-key 'normal 'global (kbd "ghh") #'hs-toggle-hiding)
 (evil-define-key 'normal 'global (kbd "ghc") #'hs-hide-all)
@@ -167,14 +172,14 @@
 (use-package evil-exchange)
 
 ;; Use q to quit the read-only buffers
-(defun my-evil-record-macro ()
+(defun db/evil-record-macro ()
   (interactive)
   (if buffer-read-only
       (quit-window)
     (call-interactively 'evil-record-macro)))
 
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map (kbd "q") 'my-evil-record-macro))
+  (define-key evil-normal-state-map (kbd "q") 'db/evil-record-macro))
 
 ;; Disable copy with selection
 (fset 'evil-visual-update-x-selection 'ignore)

@@ -14,7 +14,7 @@
   (subword-mode 1))
 
 (use-package python-mode
-  :bind ("TAB" . company-indent-or-complete-common)
+  ;; :bind ("TAB" . company-indent-or-complete-common)
   :hook ((python-mode . fix-python-indent)
          ;; (python-mode . setup-flake8-flycheck)
          (python-mode . (lambda ()

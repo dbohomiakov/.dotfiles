@@ -24,3 +24,19 @@
 (add-hook 'emacs-lisp-mode 'hs-minor-mode)
 
 (use-package lispy)
+
+(use-package
+  symex
+  :after evil
+  :config (setq symex--user-evil-keyspec
+                '(("j" . symex-go-up)
+                  ("k" . symex-go-down)
+                  ("C-j" . symex-climb-branch)
+                  ("C-k" . symex-descend-branch)
+                  ("M-j" . symex-goto-highest)
+                  ("M-k" . symex-goto-lowest)))
+  (symex-initialize)
+  (global-set-key
+   (kbd "s-\\")
+   'symex-mode-interface)
+  :custom (symex-modal-backend 'evil))
