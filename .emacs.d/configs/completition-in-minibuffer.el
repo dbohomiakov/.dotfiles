@@ -129,10 +129,12 @@ folder, otherwise delete a word"
   (prescient-persist-mode +1))
 
 (use-package consult
+  :after perspective
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind
   ( ;; C-c bindings (mode-specific-map)
     ("C-c h" . consult-history)
+    ("C-s" . consult-line)
     ("C-c m" . consult-mode-command)
     ("C-c b" . consult-bookmark)
     ("C-c k" . consult-kmacro)
@@ -194,6 +196,8 @@ folder, otherwise delete a word"
     0
     register-preview-function #'consult-register-format)
 
+  (add-to-list 'consult-buffer-sources persp-consult-source)
+
   ;; Optionally tweak the register preview window.
   ;; This adds thin lines, sorting and hides the mode line of the window.
   (advice-add #'register-preview :override #'consult-register-window)
@@ -224,7 +228,9 @@ folder, otherwise delete a word"
     consult--source-project-recent-file
     :preview-key (list
                   (kbd "C-SPC")
-                  :debounce 0.5 (kbd "C-k") (kbd "C-j")))
+                  :debounce 0.5 (kbd "C-k") (kbd "C-j"))
+    ;; Filter buffers to current perspective
+    consult--source-buffer :hidden t :default nil)
 
   (setq consult-narrow-key "<") ;; (kbd "C-+")
   (setq consult-project-root-function #'projectile-project-root)

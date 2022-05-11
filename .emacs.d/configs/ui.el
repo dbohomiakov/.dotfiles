@@ -15,8 +15,14 @@
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
-(defvar db/dark-theme 'my-doom-sourcerer)
-(defvar db/light-theme 'doom-nord)
+;; Use different themes for terminal/GUI
+(if (display-graphic-p)
+    (progn
+      (defvar db/dark-theme 'my-doom-solarized-dark)
+      (defvar db/light-theme 'doom-gruvbox-light))
+  (progn
+    (defvar db/dark-theme 'my-doom-solarized-dark)
+    (defvar db/light-theme 'doom-gruvbox-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode
 (defun db/load-theme (frame)
@@ -53,13 +59,14 @@
   :ensure t
   :custom
   ;; (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-icon (display-graphic-p))
   (doom-modeline-hud nil)
   (doom-modeline-buffer-encoding nil)
-  (doom-modeline-vcs-max-length 20)
+  (doom-modeline-vcs-max-length 40)
   (doom-modeline-workspace-name nil)
   (doom-modeline-gnus nil)
   (doom-modeline-env-enable-python nil)
-  (doom-modeline-major-mode-color-icon nil)
+  (doom-modeline-major-mode-color-icon t)
   (doom-modeline-enable-word-count nil))
 
 (add-hook 'after-init-hook 'doom-modeline-init)

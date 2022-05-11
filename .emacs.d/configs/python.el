@@ -14,7 +14,7 @@
   (subword-mode 1))
 
 (use-package python-mode
-  :bind ("TAB" . company-indent-or-complete-common)
+  ;; :bind ("TAB" . company-indent-or-complete-common)
   :hook ((python-mode . fix-python-indent)
          ;; (python-mode . setup-flake8-flycheck)
          (python-mode . (lambda ()
@@ -22,6 +22,13 @@
          (python-mode . hs-minor-mode)
          (python-mode . yas-minor-mode)
          (python-mode . abbrev-mode)))
+
+;; TODO: move selection of python interpreter to .dir-locals
+(defun db/setup-python-shell-interpreter ()
+  (interactive)
+  (let ((python-path (concat pyvenv-virtual-env "bin/python")))
+    (when (executable-find python-path)
+        (setq python-shell-interpreter python-path))))
 
 ;; TODO: move selection of python interpreter to .dir-locals
 (defun db/setup-python-shell-interpreter ()

@@ -1,5 +1,5 @@
 (use-package lsp-mode
-  :after (pyvenv-mode)
+  ;; :after (pyvenv-mode)
   :bind (:map lsp-mode-map
         ("TAB" . completion-at-point))
   :custom
@@ -22,6 +22,8 @@
   (setq lsp-eldoc-enable-hover t)
   (setq lsp-completion-show-detail t)
   (setq lsp-completion-show-kind t)
+  ;; (setq lsp-diagnostics-provider nil)
+  ;; (setq lsp-diagnostics-disabled-modes '(python-mode))
   (setq lsp-use-plists t)
   ;; (setq lsp-diagnostics-provider nil)
   ;; (setq lsp-diagnostics-disabled-modes '(python-mode))
@@ -52,3 +54,8 @@
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
 (use-package consult-lsp)
+
+;; EGLOT
+
+(use-package eglot
+  :disabled)

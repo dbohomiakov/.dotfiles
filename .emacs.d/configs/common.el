@@ -33,7 +33,7 @@
 (set-fringe-mode 10) ; Give some brithing room
 (menu-bar-mode -1) ; Disable menu bar
 (setq visible-bell nil) ; Enable visible bell
-
+(setq ring-bell-function 'ignore)
 
 ;; Make scrolling less stuttered
 (setq auto-window-vscroll nil)
@@ -213,3 +213,7 @@
 (use-package apheleia)
 
 (recentf-mode 1)
+
+(use-package powerthesaurus)
+
+(display-battery-mode 1)
