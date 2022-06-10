@@ -9,8 +9,6 @@
 
 (icons-in-terminal-icon-for-mode 'dired-mode)
 
-(use-package solaire-mode)
-
 (use-package doom-themes
   :config
   (setq doom-gruvbox-light-variant "soft"))
@@ -18,10 +16,10 @@
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
-      (defvar db/dark-theme 'my-doom-solarized-dark)
+      (defvar db/dark-theme 'doom-wilmersdorf)
       (defvar db/light-theme 'doom-gruvbox-light))
   (progn
-    (defvar db/dark-theme 'my-doom-solarized-dark)
+    (defvar db/dark-theme 'doom-wilmersdorf)
     (defvar db/light-theme 'doom-gruvbox-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode

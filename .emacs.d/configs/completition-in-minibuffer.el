@@ -36,82 +36,116 @@ folder, otherwise delete a word"
         "  ")
       cand)))
 
-(use-package vertico-posframe
-  :disabled)
-
 (use-package orderless
+  :straight t
+  :ensure t
+  :commands (orderless-filter))
+
+(use-package flx-rs
+  :ensure t
+  :straight
+  (flx-rs
+   :repo "jcs-elpa/flx-rs"
+   :fetcher github
+   :files (:defaults "bin"))
   :config
-  ;; Recognizes the following patterns:
-  ;; * ~flex flex~
-  ;; * =literal literal=
-  ;; * %char-fold char-fold%
-  ;; * `initialism initialism`
-  ;; * !without-literal without-literal!
-  ;; * .ext (file extension)
-  ;; * regexp$ (regexp matching at end)
-  (defun my-orderless-dispatch (pattern _index _total)
-    (
-      cond
-      ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
-      ((string-suffix-p "$" pattern)
-        `
-        (orderless-regexp
-          .
-          ,(concat (substring pattern 0 -1) "[\x100000-\x10FFFD]*$")))
-      ;; File extensions
-      ((string-match-p "\\`\\.." pattern)
-        `
-        (orderless-regexp
-          .
-          ,
-          (concat
-            "\\."
-            (substring pattern 1)
-            "[\x100000-\x10FFFD]*$")))
-      ;; Ignore single !
-      ((string= "!" pattern)
-        `(orderless-literal . ""))
-      ;; Character folding
-      ((string-prefix-p "%" pattern)
-        `(char-fold-to-regexp . ,(substring pattern 1)))
-      ((string-suffix-p "%" pattern)
-        `(char-fold-to-regexp . ,(substring pattern 0 -1)))
-      ;; Without literal
-      ((string-prefix-p "!" pattern)
-        `(orderless-without-literal . ,(substring pattern 1)))
-      ((string-suffix-p "!" pattern)
-        `(orderless-without-literal . ,(substring pattern 0 -1)))
-      ;; Initialism matching
-      ((string-prefix-p "`" pattern)
-        `(orderless-initialism . ,(substring pattern 1)))
-      ((string-suffix-p "`" pattern)
-        `(orderless-initialism . ,(substring pattern 0 -1)))
-      ;; Literal matching
-      ((string-prefix-p "=" pattern)
-        `(orderless-literal . ,(substring pattern 1)))
-      ((string-suffix-p "=" pattern)
-        `(orderless-literal . ,(substring pattern 0 -1)))
-      ;; Flex matching
-      ((string-prefix-p "~" pattern)
-        `(orderless-flex . ,(substring pattern 1)))
-      ((string-suffix-p "~" pattern)
-        `(orderless-flex . ,(substring pattern 0 -1)))))
+  (setq fussy-score-fn 'flx-rs-score)
+  (flx-rs-load-dyn))
+
+(use-package fussy
+  :ensure t
+  :straight
+  (fussy :type git :host github :repo "jojojames/fussy")
+  :config
+  (setq fussy-score-fn 'flx-rs-score)
+  (setq fussy-filter-fn 'fussy-filter-orderless-flex)
+
+  (push 'fussy completion-styles)
   (setq
-    completion-styles
-    '(orderless)
-    completion-category-defaults
-    nil
-    ;;; Enable partial-completion for files.
-    ;;; Either give orderless precedence or partial-completion.
-    ;;; Note that completion-category-overrides is not really an override,
-    ;;; but rather prepended to the default completion-styles.
-    completion-category-overrides
-    '((file (styles orderless partial-completion))) ;; orderless is tried first
-    ;; completion-category-overrides '((file (styles partial-completion))) ;; partial-completion is tried first
-    orderless-component-separator
-    #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
-    orderless-style-dispatchers
-    '(my-orderless-dispatch)))
+   ;; For example, project-find-file uses 'project-files which uses
+   ;; substring completion by default. Set to nil to make sure it's using
+   ;; flx.
+   completion-category-defaults nil
+   completion-category-overrides nil)
+
+  ;; `eglot' defaults to flex, so set an override to point to fussy instead.
+  (with-eval-after-load 'eglot
+    (add-to-list 'completion-category-overrides
+                 '(eglot (styles fussy basic)))))
+
+;; (use-package orderless
+;;   :config
+;;   ;; Recognizes the following patterns:
+;;   ;; * ~flex flex~
+;;   ;; * =literal literal=
+;;   ;; * %char-fold char-fold%
+;;   ;; * `initialism initialism`
+;;   ;; * !without-literal without-literal!
+;;   ;; * .ext (file extension)
+;;   ;; * regexp$ (regexp matching at end)
+;;   (defun my-orderless-dispatch (pattern _index _total)
+;;     (
+;;       cond
+;;       ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
+;;       ((string-suffix-p "$" pattern)
+;;         `
+;;         (orderless-regexp
+;;           .
+;;           ,(concat (substring pattern 0 -1) "[\x100000-\x10FFFD]*$")))
+;;       ;; File extensions
+;;       ((string-match-p "\\`\\.." pattern)
+;;         `
+;;         (orderless-regexp
+;;           .
+;;           ,
+;;           (concat
+;;             "\\."
+;;             (substring pattern 1)
+;;             "[\x100000-\x10FFFD]*$")))
+;;       ;; Ignore single !
+;;       ((string= "!" pattern)
+;;         `(orderless-literal . ""))
+;;       ;; Character folding
+;;       ((string-prefix-p "%" pattern)
+;;         `(char-fold-to-regexp . ,(substring pattern 1)))
+;;       ((string-suffix-p "%" pattern)
+;;         `(char-fold-to-regexp . ,(substring pattern 0 -1)))
+;;       ;; Without literal
+;;       ((string-prefix-p "!" pattern)
+;;         `(orderless-without-literal . ,(substring pattern 1)))
+;;       ((string-suffix-p "!" pattern)
+;;         `(orderless-without-literal . ,(substring pattern 0 -1)))
+;;       ;; Initialism matching
+;;       ((string-prefix-p "`" pattern)
+;;         `(orderless-initialism . ,(substring pattern 1)))
+;;       ((string-suffix-p "`" pattern)
+;;         `(orderless-initialism . ,(substring pattern 0 -1)))
+;;       ;; Literal matching
+;;       ((string-prefix-p "=" pattern)
+;;         `(orderless-literal . ,(substring pattern 1)))
+;;       ((string-suffix-p "=" pattern)
+;;         `(orderless-literal . ,(substring pattern 0 -1)))
+;;       ;; Flex matching
+;;       ((string-prefix-p "~" pattern)
+;;         `(orderless-flex . ,(substring pattern 1)))
+;;       ((string-suffix-p "~" pattern)
+;;         `(orderless-flex . ,(substring pattern 0 -1)))))
+;;   (setq
+;;     completion-styles
+;;     '(orderless)
+;;     completion-category-defaults
+;;     nil
+;;     ;;; Enable partial-completion for files.
+;;     ;;; Either give orderless precedence or partial-completion.
+;;     ;;; Note that completion-category-overrides is not really an override,
+;;     ;;; but rather prepended to the default completion-styles.
+;;     completion-category-overrides
+;;     '((file (styles orderless partial-completion))) ;; orderless is tried first
+;;     ;; completion-category-overrides '((file (styles partial-completion))) ;; partial-completion is tried first
+;;     orderless-component-separator
+;;     #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
+;;     orderless-style-dispatchers
+;;     '(my-orderless-dispatch)))
 
 ;; Persist history over Emacs restarts
 (use-package savehist

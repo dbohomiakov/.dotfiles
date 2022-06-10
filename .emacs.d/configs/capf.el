@@ -67,6 +67,23 @@
 
 ;;----------------------------------------------------------------------------------
 
+(defun bb-company-capf (f &rest args)
+  "Manage `completion-styles'."
+  (if (length< company-prefix 2)
+      (let ((completion-styles (remq 'fussy completion-styles)))
+        (apply f args))
+    (apply f args)))
+
+(defun bb-company-transformers (f &rest args)
+  "Manage `company-transformers'."
+  (if (length< company-prefix 2)
+      (apply f args)
+    (let ((company-transformers '(fussy-company-sort-by-completion-score)))
+      (apply f args))))
+
+(advice-add 'company--transform-candidates :around 'bb-company-transformers)
+(advice-add 'company-capf :around 'bb-company-capf)
+
 (use-package corfu
   :after evil
   :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion

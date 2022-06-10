@@ -10,6 +10,7 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-redo)
+  ;; :bind ("C-s" . evil-ex-search-forward)
   :config
   ;; remove evil-digraph binding to use "C-k" for
   ;; vertical movement in insert mode in popups
@@ -154,8 +155,8 @@
   "\/"  'unexpand-abbrev)
 
 ;; Use consult-line for incremental search
-;; (evil-define-key 'normal 'global (kbd "/") #'consult-line)
-;; (evil-define-key 'visual 'global (kbd "/") #'consult-line)
+(evil-define-key 'normal 'global (kbd "/") #'consult-line)
+(evil-define-key 'visual 'global (kbd "/") #'consult-line)
 (evil-define-key 'normal 'global (kbd "?") #'avy-goto-char-2)
 (evil-define-key 'normal 'visual (kbd "?") #'avy-goto-char-2)
 (evil-define-key 'normal 'global (kbd "gs") #'evil-ex-sort)
@@ -168,7 +169,6 @@
 (evil-define-key '(normal visual) 'global (kbd "gm") evil-mc-cursors-map)
 ;; CamelCase/snake_case switch
 (evil-define-key 'normal 'global (kbd "gc") #'db/string-inflection-cycle-auto)
-
 (use-package evil-exchange)
 
 ;; Use q to quit the read-only buffers

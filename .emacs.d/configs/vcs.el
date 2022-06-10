@@ -3,10 +3,10 @@
   :config
   (setq magit-view-git-manual-method 'man))
 
-(use-package magit-todos
-  :after magit
-  :init
-  (magit-todos-mode))
+;; (use-package magit-todos
+;;   :after magit
+;;   :init
+;;   (magit-todos-mode))
 
 (use-package magithub
   :after magit
