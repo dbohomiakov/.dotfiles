@@ -36,8 +36,37 @@ folder, otherwise delete a word"
         "  ")
       cand)))
 
-(use-package vertico-posframe
-  :disabled)
+(use-package flx-rs
+  :ensure t
+  :straight
+  (flx-rs
+   :repo "jcs-elpa/flx-rs"
+   :fetcher github
+   :files (:defaults "bin"))
+  :config
+  (setq fussy-score-fn 'flx-rs-score)
+  (flx-rs-load-dyn))
+
+(use-package fussy
+  :ensure t
+  :straight
+  (fussy :type git :host github :repo "jojojames/fussy")
+  :config
+  (setq fussy-score-fn 'flx-rs-score)
+  (setq fussy-filter-fn 'fussy-filter-orderless-flex)
+
+  (push 'fussy completion-styles)
+  (setq
+   ;; For example, project-find-file uses 'project-files which uses
+   ;; substring completion by default. Set to nil to make sure it's using
+   ;; flx.
+   completion-category-defaults nil
+   completion-category-overrides nil)
+
+  ;; `eglot' defaults to flex, so set an override to point to fussy instead.
+  (with-eval-after-load 'eglot
+    (add-to-list 'completion-category-overrides
+                 '(eglot (styles fussy basic)))))
 
 (use-package orderless
   :config
@@ -118,15 +147,6 @@ folder, otherwise delete a word"
   :config
   (setq history-length 25)
   (savehist-mode 1))
-
-(use-package prescient
-  :config
-  (setq selectrum-refine-candidates-function #'orderless-filter)
-  (setq selectrum-highlight-candidates-function
-    #'orderless-highlight-matches)
-  ;; to save your command history on disk, so the sorting gets more
-  ;; intelligent over time
-  (prescient-persist-mode +1))
 
 (use-package consult
   :after perspective
@@ -257,9 +277,8 @@ folder, otherwise delete a word"
   :after marginalia
   :ensure t
   :bind
-  (("C-;" . embark-act) ;; pick some comfortable binding
-    ("C-." . embark-dwim) ;; good alternative: M-.
-    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  (("C-'" . embark-act) ;; pick some comfortable binding
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -282,101 +301,8 @@ folder, otherwise delete a word"
 (use-package ripgrep)
 (use-package ag)
 
-;;;;;;;;;;; SELECTRUM ;;;;;;;;;;;;;;;;;;
-(use-package selectrum
-  :disabled
-  :bind
-  (:map
-    selectrum-minibuffer-map
-    ("C-j" . selectrum-next-candidate)
-    ("C-k" . selectrum-previous-candidate))
-  :init (selectrum-mode +1)
-  :config
-  ;; Optional performance optimization
-  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
-  (setq selectrum-highlight-candidates-function
-    #'orderless-highlight-matches))
-
-(use-package selectrum-prescient
-  :disabled
-  :after prescient
-  :config
-  ;; to make sorting and filtering more intelligent
-  (selectrum-prescient-mode +1)
-  (setq selectrum-prescient-enable-filtering nil))
-
-;;;;;;;;;;; IVY ;;;;;;;;;;;;;;
-(use-package counsel
-  :disabled
-  :init (counsel-mode 1)
-  :custom (counsel-async-command-delay 0.5))
-
-(use-package ivy
-  :disabled
-  :diminish
-  :bind (:map ivy-minibuffer-map
-              ("TAB" . ivy-alt-done)
-              ("C-l" . ivy-alt-done)
-              ("C-j" . ivy-next-line)
-              ("C-k" . ivy-previous-line)
-              :map ivy-switch-buffer-map
-              ("C-k" . ivy-previous-line)
-              ("C-l" . ivy-done)
-              ("C-d" . ivy-switch-buffer-kill)
-              :map ivy-reverse-i-search-map
-              ("C-k" . ivy-previous-line)
-              ("C-d" . ivy-reverse-i-search-kill))
-  :init (ivy-mode 1)
-  :config (setq ivy-use-virtual-buffers t)
-  (setq ivy-wrap t)
-  (setq ivy-initial-inputs-alist nil)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t)
-  (setq ivy-use-selectable-prompt t)
-  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)
-                                (counsel-rg . ivy--regex)
-                                (counsel-grep-or-swiper . ivy--regex)
-                                ;; (counsel-M-x . ivy--regex-fuzzy)
-                                ;; (counsel-buffer-or-recentf . ivy--regex-ignore-order)
-                                ;; (counsel-find-file . ivy--regex-fuzzy)
-                                (t . ivy--regex-ignore-order))))
-
-(use-package ivy-hydra
-  :disabled)
-
-(use-package ivy-posframe
-  :disabled
-  :after ivy
-  :diminish
-  :config (setq ivy-posframe-display-functions-alist '((swiper .
-                                                               ivy-posframe-display-at-window-center)
-                                                       (t .
-                                                          ivy-posframe-display))
-                ivy-posframe-height-alist '((t . 10)) ivy-posframe-parameters
-                '((internal-border-width . 10)
-                  (left-fringe . 8)
-                  (right-fringe . 8)))
-  (setq ivy-posframe-width 70)
-  (ivy-posframe-mode +1))
-
-;; Improves sorting for fuzzy-matched results
-(use-package
-  flx
-  :defer t
-  :after ivy
-  :init (setq ivy-flx-limit 10000))
-
 ;; Adds M-x recent command sorting for counsel-M-x
 (use-package smex
   :disabled
   :defer 1
   :after counsel)
-
-(use-package ivy-rich
-  :disabled
-  :init (ivy-rich-mode 1))
-
-(use-package all-the-icons-ivy-rich
-  :disabled
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))

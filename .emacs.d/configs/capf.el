@@ -1,50 +1,15 @@
 ;; Company autocompletion
 (use-package company
-  :disabled
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
   :custom
   (company-minimum-prefix-length 2)
   (company-tooltip-align-annotations t)
   (company-idle-delay 0.1))
-
-;; (add-hook 'after-init-hook 'global-company-mode)
-
-(use-package company-prescient
-  :disabled
-  :after prescient
-  :init (company-prescient-mode +1))
 
 ;; Abbreviation completition
 (use-package dabbrev
   ;; Swap M-/ and C-M-/
   :bind (("M-/" . dabbrev-completion)
          ("C-M-/" . dabbrev-expand)))
-
-(use-package cape
-  :disabled
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-tex)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-abbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
-  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
-  ;;(add-to-list 'completion-at-point-functions #'cape-line)
-  )
-
-;; (use-package kind-icon
-;;   :disabled
-;;   :after corfu
-;;   :custom
-;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-;;   :config
-;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package all-the-icons-completion
   :init
@@ -66,6 +31,23 @@
  '(evil-goggles-yank-face ((t (:inherit 'isearch-fail)))))
 
 ;;----------------------------------------------------------------------------------
+
+(defun bb-company-capf (f &rest args)
+  "Manage `completion-styles'."
+  (if (length< company-prefix 2)
+      (let ((completion-styles (remq 'fussy completion-styles)))
+        (apply f args))
+    (apply f args)))
+
+(defun bb-company-transformers (f &rest args)
+  "Manage `company-transformers'."
+  (if (length< company-prefix 2)
+      (apply f args)
+    (let ((company-transformers '(fussy-company-sort-by-completion-score)))
+      (apply f args))))
+
+(advice-add 'company--transform-candidates :around 'bb-company-transformers)
+(advice-add 'company-capf :around 'bb-company-capf)
 
 (use-package corfu
   :after evil

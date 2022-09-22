@@ -10,6 +10,7 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-redo)
+  ;; :bind ("C-s" . evil-ex-search-forward)
   :config
   ;; remove evil-digraph binding to use "C-k" for
   ;; vertical movement in insert mode in popups
@@ -105,10 +106,9 @@
     :global-prefix "C-SPC"))
 
 (db/leader-keys
-  "pf"  'projectile-find-file
+  "pf"  'project-find-file
   "ps"  'projectile-switch-project
   "pg"  'consult-ripgrep
-  "pc"  'projectile-compile-project
   "pd"  'projectile-dired
   "pp"  'consult-projectile
   "ff"  'find-file
@@ -116,7 +116,7 @@
   "-"   'evil-window-split
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'persp-switch-to-buffer
+  "b"   'consult-project-buffer
   "ef"  'eval-defun
   "er"  'eval-region
   "eb"  'eval-buffer
@@ -134,9 +134,7 @@
   "mQ"   'kmacro-end-macro
   "mn"   'kmacro-name-last-macro
   "me"   'kmacro-call-macro
-  ;; "tt"  'treemacs
-  ;; "tw"  'delete-trailing-whitespace
-  ;; "tl"  'delete-trailing-lines
+  "tt"  'treemacs
   "tf" 'transpose-frame
   "tr" 'rotate-frame
   "tr" 'rotate-frame-clockwise
@@ -154,8 +152,8 @@
   "\/"  'unexpand-abbrev)
 
 ;; Use consult-line for incremental search
-;; (evil-define-key 'normal 'global (kbd "/") #'consult-line)
-;; (evil-define-key 'visual 'global (kbd "/") #'consult-line)
+(evil-define-key 'normal 'global (kbd "/") #'consult-line)
+(evil-define-key 'visual 'global (kbd "/") #'consult-line)
 (evil-define-key 'normal 'global (kbd "?") #'avy-goto-char-2)
 (evil-define-key 'normal 'visual (kbd "?") #'avy-goto-char-2)
 (evil-define-key 'normal 'global (kbd "gs") #'evil-ex-sort)
@@ -168,7 +166,6 @@
 (evil-define-key '(normal visual) 'global (kbd "gm") evil-mc-cursors-map)
 ;; CamelCase/snake_case switch
 (evil-define-key 'normal 'global (kbd "gc") #'db/string-inflection-cycle-auto)
-
 (use-package evil-exchange)
 
 ;; Use q to quit the read-only buffers

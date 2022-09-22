@@ -153,6 +153,8 @@
   (json-mode . flymake-json-load))
 
 (use-package yaml-mode
+  :init
+  (setq yaml-indent-offset 4)
   :mode
   (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)))
 
@@ -210,7 +212,12 @@
     (string-inflection-ruby-style-cycle))))
 
 ;; Multi-language code formatting package
-(use-package apheleia)
+(use-package apheleia
+  :init
+  (apheleia-global-mode +1))
+
+(setf (alist-get 'python-mode apheleia-mode-alist)
+      '(isort black))
 
 (recentf-mode 1)
 

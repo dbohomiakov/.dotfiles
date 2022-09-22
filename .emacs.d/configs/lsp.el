@@ -54,8 +54,3 @@
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
 (use-package consult-lsp)
-
-;; EGLOT
-
-(use-package eglot
-  :disabled)
