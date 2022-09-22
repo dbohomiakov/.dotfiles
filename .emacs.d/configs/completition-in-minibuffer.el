@@ -36,11 +36,6 @@ folder, otherwise delete a word"
         "  ")
       cand)))
 
-(use-package orderless
-  :straight t
-  :ensure t
-  :commands (orderless-filter))
-
 (use-package flx-rs
   :ensure t
   :straight
@@ -73,94 +68,85 @@ folder, otherwise delete a word"
     (add-to-list 'completion-category-overrides
                  '(eglot (styles fussy basic)))))
 
-;; (use-package orderless
-;;   :config
-;;   ;; Recognizes the following patterns:
-;;   ;; * ~flex flex~
-;;   ;; * =literal literal=
-;;   ;; * %char-fold char-fold%
-;;   ;; * `initialism initialism`
-;;   ;; * !without-literal without-literal!
-;;   ;; * .ext (file extension)
-;;   ;; * regexp$ (regexp matching at end)
-;;   (defun my-orderless-dispatch (pattern _index _total)
-;;     (
-;;       cond
-;;       ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
-;;       ((string-suffix-p "$" pattern)
-;;         `
-;;         (orderless-regexp
-;;           .
-;;           ,(concat (substring pattern 0 -1) "[\x100000-\x10FFFD]*$")))
-;;       ;; File extensions
-;;       ((string-match-p "\\`\\.." pattern)
-;;         `
-;;         (orderless-regexp
-;;           .
-;;           ,
-;;           (concat
-;;             "\\."
-;;             (substring pattern 1)
-;;             "[\x100000-\x10FFFD]*$")))
-;;       ;; Ignore single !
-;;       ((string= "!" pattern)
-;;         `(orderless-literal . ""))
-;;       ;; Character folding
-;;       ((string-prefix-p "%" pattern)
-;;         `(char-fold-to-regexp . ,(substring pattern 1)))
-;;       ((string-suffix-p "%" pattern)
-;;         `(char-fold-to-regexp . ,(substring pattern 0 -1)))
-;;       ;; Without literal
-;;       ((string-prefix-p "!" pattern)
-;;         `(orderless-without-literal . ,(substring pattern 1)))
-;;       ((string-suffix-p "!" pattern)
-;;         `(orderless-without-literal . ,(substring pattern 0 -1)))
-;;       ;; Initialism matching
-;;       ((string-prefix-p "`" pattern)
-;;         `(orderless-initialism . ,(substring pattern 1)))
-;;       ((string-suffix-p "`" pattern)
-;;         `(orderless-initialism . ,(substring pattern 0 -1)))
-;;       ;; Literal matching
-;;       ((string-prefix-p "=" pattern)
-;;         `(orderless-literal . ,(substring pattern 1)))
-;;       ((string-suffix-p "=" pattern)
-;;         `(orderless-literal . ,(substring pattern 0 -1)))
-;;       ;; Flex matching
-;;       ((string-prefix-p "~" pattern)
-;;         `(orderless-flex . ,(substring pattern 1)))
-;;       ((string-suffix-p "~" pattern)
-;;         `(orderless-flex . ,(substring pattern 0 -1)))))
-;;   (setq
-;;     completion-styles
-;;     '(orderless)
-;;     completion-category-defaults
-;;     nil
-;;     ;;; Enable partial-completion for files.
-;;     ;;; Either give orderless precedence or partial-completion.
-;;     ;;; Note that completion-category-overrides is not really an override,
-;;     ;;; but rather prepended to the default completion-styles.
-;;     completion-category-overrides
-;;     '((file (styles orderless partial-completion))) ;; orderless is tried first
-;;     ;; completion-category-overrides '((file (styles partial-completion))) ;; partial-completion is tried first
-;;     orderless-component-separator
-;;     #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
-;;     orderless-style-dispatchers
-;;     '(my-orderless-dispatch)))
+(use-package orderless
+  :config
+  ;; Recognizes the following patterns:
+  ;; * ~flex flex~
+  ;; * =literal literal=
+  ;; * %char-fold char-fold%
+  ;; * `initialism initialism`
+  ;; * !without-literal without-literal!
+  ;; * .ext (file extension)
+  ;; * regexp$ (regexp matching at end)
+  (defun my-orderless-dispatch (pattern _index _total)
+    (
+      cond
+      ;; Ensure that $ works with Consult commands, which add disambiguation suffixes
+      ((string-suffix-p "$" pattern)
+        `
+        (orderless-regexp
+          .
+          ,(concat (substring pattern 0 -1) "[\x100000-\x10FFFD]*$")))
+      ;; File extensions
+      ((string-match-p "\\`\\.." pattern)
+        `
+        (orderless-regexp
+          .
+          ,
+          (concat
+            "\\."
+            (substring pattern 1)
+            "[\x100000-\x10FFFD]*$")))
+      ;; Ignore single !
+      ((string= "!" pattern)
+        `(orderless-literal . ""))
+      ;; Character folding
+      ((string-prefix-p "%" pattern)
+        `(char-fold-to-regexp . ,(substring pattern 1)))
+      ((string-suffix-p "%" pattern)
+        `(char-fold-to-regexp . ,(substring pattern 0 -1)))
+      ;; Without literal
+      ((string-prefix-p "!" pattern)
+        `(orderless-without-literal . ,(substring pattern 1)))
+      ((string-suffix-p "!" pattern)
+        `(orderless-without-literal . ,(substring pattern 0 -1)))
+      ;; Initialism matching
+      ((string-prefix-p "`" pattern)
+        `(orderless-initialism . ,(substring pattern 1)))
+      ((string-suffix-p "`" pattern)
+        `(orderless-initialism . ,(substring pattern 0 -1)))
+      ;; Literal matching
+      ((string-prefix-p "=" pattern)
+        `(orderless-literal . ,(substring pattern 1)))
+      ((string-suffix-p "=" pattern)
+        `(orderless-literal . ,(substring pattern 0 -1)))
+      ;; Flex matching
+      ((string-prefix-p "~" pattern)
+        `(orderless-flex . ,(substring pattern 1)))
+      ((string-suffix-p "~" pattern)
+        `(orderless-flex . ,(substring pattern 0 -1)))))
+  (setq
+    completion-styles
+    '(orderless)
+    completion-category-defaults
+    nil
+    ;;; Enable partial-completion for files.
+    ;;; Either give orderless precedence or partial-completion.
+    ;;; Note that completion-category-overrides is not really an override,
+    ;;; but rather prepended to the default completion-styles.
+    completion-category-overrides
+    '((file (styles orderless partial-completion))) ;; orderless is tried first
+    ;; completion-category-overrides '((file (styles partial-completion))) ;; partial-completion is tried first
+    orderless-component-separator
+    #'orderless-escapable-split-on-space ;; allow escaping space with backslash!
+    orderless-style-dispatchers
+    '(my-orderless-dispatch)))
 
 ;; Persist history over Emacs restarts
 (use-package savehist
   :config
   (setq history-length 25)
   (savehist-mode 1))
-
-(use-package prescient
-  :config
-  (setq selectrum-refine-candidates-function #'orderless-filter)
-  (setq selectrum-highlight-candidates-function
-    #'orderless-highlight-matches)
-  ;; to save your command history on disk, so the sorting gets more
-  ;; intelligent over time
-  (prescient-persist-mode +1))
 
 (use-package consult
   :after perspective
@@ -291,9 +277,8 @@ folder, otherwise delete a word"
   :after marginalia
   :ensure t
   :bind
-  (("C-;" . embark-act) ;; pick some comfortable binding
-    ("C-." . embark-dwim) ;; good alternative: M-.
-    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  (("C-'" . embark-act) ;; pick some comfortable binding
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -316,101 +301,8 @@ folder, otherwise delete a word"
 (use-package ripgrep)
 (use-package ag)
 
-;;;;;;;;;;; SELECTRUM ;;;;;;;;;;;;;;;;;;
-(use-package selectrum
-  :disabled
-  :bind
-  (:map
-    selectrum-minibuffer-map
-    ("C-j" . selectrum-next-candidate)
-    ("C-k" . selectrum-previous-candidate))
-  :init (selectrum-mode +1)
-  :config
-  ;; Optional performance optimization
-  (setq orderless-skip-highlighting (lambda () selectrum-is-active))
-  (setq selectrum-highlight-candidates-function
-    #'orderless-highlight-matches))
-
-(use-package selectrum-prescient
-  :disabled
-  :after prescient
-  :config
-  ;; to make sorting and filtering more intelligent
-  (selectrum-prescient-mode +1)
-  (setq selectrum-prescient-enable-filtering nil))
-
-;;;;;;;;;;; IVY ;;;;;;;;;;;;;;
-(use-package counsel
-  :disabled
-  :init (counsel-mode 1)
-  :custom (counsel-async-command-delay 0.5))
-
-(use-package ivy
-  :disabled
-  :diminish
-  :bind (:map ivy-minibuffer-map
-              ("TAB" . ivy-alt-done)
-              ("C-l" . ivy-alt-done)
-              ("C-j" . ivy-next-line)
-              ("C-k" . ivy-previous-line)
-              :map ivy-switch-buffer-map
-              ("C-k" . ivy-previous-line)
-              ("C-l" . ivy-done)
-              ("C-d" . ivy-switch-buffer-kill)
-              :map ivy-reverse-i-search-map
-              ("C-k" . ivy-previous-line)
-              ("C-d" . ivy-reverse-i-search-kill))
-  :init (ivy-mode 1)
-  :config (setq ivy-use-virtual-buffers t)
-  (setq ivy-wrap t)
-  (setq ivy-initial-inputs-alist nil)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t)
-  (setq ivy-use-selectable-prompt t)
-  (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)
-                                (counsel-rg . ivy--regex)
-                                (counsel-grep-or-swiper . ivy--regex)
-                                ;; (counsel-M-x . ivy--regex-fuzzy)
-                                ;; (counsel-buffer-or-recentf . ivy--regex-ignore-order)
-                                ;; (counsel-find-file . ivy--regex-fuzzy)
-                                (t . ivy--regex-ignore-order))))
-
-(use-package ivy-hydra
-  :disabled)
-
-(use-package ivy-posframe
-  :disabled
-  :after ivy
-  :diminish
-  :config (setq ivy-posframe-display-functions-alist '((swiper .
-                                                               ivy-posframe-display-at-window-center)
-                                                       (t .
-                                                          ivy-posframe-display))
-                ivy-posframe-height-alist '((t . 10)) ivy-posframe-parameters
-                '((internal-border-width . 10)
-                  (left-fringe . 8)
-                  (right-fringe . 8)))
-  (setq ivy-posframe-width 70)
-  (ivy-posframe-mode +1))
-
-;; Improves sorting for fuzzy-matched results
-(use-package
-  flx
-  :defer t
-  :after ivy
-  :init (setq ivy-flx-limit 10000))
-
 ;; Adds M-x recent command sorting for counsel-M-x
 (use-package smex
   :disabled
   :defer 1
   :after counsel)
-
-(use-package ivy-rich
-  :disabled
-  :init (ivy-rich-mode 1))
-
-(use-package all-the-icons-ivy-rich
-  :disabled
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))

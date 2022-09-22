@@ -27,3 +27,7 @@
 (use-package org-ref
   :after org
   :defer)
+
+(use-package ob-ipython
+  :after org
+  :defer)

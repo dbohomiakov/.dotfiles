@@ -106,10 +106,9 @@
     :global-prefix "C-SPC"))
 
 (db/leader-keys
-  "pf"  'projectile-find-file
+  "pf"  'project-find-file
   "ps"  'projectile-switch-project
   "pg"  'consult-ripgrep
-  "pc"  'projectile-compile-project
   "pd"  'projectile-dired
   "pp"  'consult-projectile
   "ff"  'find-file
@@ -117,7 +116,7 @@
   "-"   'evil-window-split
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'persp-switch-to-buffer
+  "b"   'consult-project-buffer
   "ef"  'eval-defun
   "er"  'eval-region
   "eb"  'eval-buffer
@@ -135,9 +134,7 @@
   "mQ"   'kmacro-end-macro
   "mn"   'kmacro-name-last-macro
   "me"   'kmacro-call-macro
-  ;; "tt"  'treemacs
-  ;; "tw"  'delete-trailing-whitespace
-  ;; "tl"  'delete-trailing-lines
+  "tt"  'treemacs
   "tf" 'transpose-frame
   "tr" 'rotate-frame
   "tr" 'rotate-frame-clockwise

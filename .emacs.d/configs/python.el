@@ -101,7 +101,7 @@
   (progn
     (db/enable-python-venv)
     (db/setup-test-settings)
-    ;; (db/setup-lsp)
+    (db/setup-lsp)
     (db/configure-formatting)
     ))
 
