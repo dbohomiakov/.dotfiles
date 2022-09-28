@@ -24,7 +24,9 @@ gsettings set org.gnome.desktop.peripherals.keyboard delay 300
 sh
 gh repo clone dbohomiakov/.dotfiles
 cd .dotfiles
-stow .
+stow -t .emacs.d emacs.d
+stow -t ~/.tmux.conf tmux.conf
+stow -t ~/.config/nvim/ nvim/
 ```
 ## Setup emacs to work correctly in terminal (colorscheme)
 ```

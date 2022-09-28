@@ -14,11 +14,6 @@ keymap("n", "<C-s>", ':Telescope current_buffer_fuzzy_find<CR>', opts)
 keymap("n", "<C-s>", ':Telescope current_buffer_fuzzy_find<CR>', opts)
 
 ---- NORMAL ----
--- better window navigation
-keymap("n", "<A-h>", "<C-w>h", opts)
-keymap("n", "<A-j>", "<C-w>j", opts)
-keymap("n", "<A-k>", "<C-w>k", opts)
-keymap("n", "<A-l>", "<C-w>l", opts)
 -- Resize with arrows
 --keymap("n", "<A-Up>", ":resize -2<CR>", opts)
 --keymap("n", "<A-Down>", ":resize +2<CR>", opts)

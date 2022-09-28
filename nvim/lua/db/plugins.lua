@@ -118,6 +118,8 @@ require('packer').startup(function(use)
     }
   })
   use("nvim-neotest/neotest-python")
+  -- Navigation
+  use('numToStr/Navigator.nvim')
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
