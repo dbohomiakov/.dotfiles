@@ -47,8 +47,9 @@ require('packer').startup(function(use)
   use('jose-elias-alvarez/null-ls.nvim')
   -- Colorscheme
   use("shaunsingh/nord.nvim")
+  use('sainnhe/gruvbox-material')
   -- Surround
-  use("echasnovski/mini.nvim") -- TODO: check if it is better then below
+  use({"echasnovski/mini.nvim", branch = 'stable'}) -- TODO: check if it is better then below
   use("kylechui/nvim-surround")
   -- Treesitter
   use({
@@ -94,8 +95,6 @@ require('packer').startup(function(use)
   use('andymass/vim-matchup')
   -- Autopairs
   use("windwp/nvim-autopairs")
-  -- Window motions
-  use("hyt589/nvim-window") 
   -- Project
   use("ahmedkhalf/project.nvim")
   -- Icons

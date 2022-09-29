@@ -1,0 +1,198 @@
+font:
+  normal:
+    family: JetBrainsMono
+    style: Light
+
+  bold:
+    family: JetBrainsMono
+    style: Medium
+
+  italic:
+    family: JetBrainsMono
+    style: "Light Italic"
+
+  size: 14.0
+
+  offset:
+    x: 0
+    y: 0
+
+  glyph_offset:
+    x: 0
+    y: 0
+
+  use_thin_strokes: true
+
+window:
+  decorations: none
+
+shell:
+  program: /usr/bin/tmux
+  args:
+    - new-session
+    - -A
+    - -D
+    - -s 
+    - main
+
+key_bindings:
+  - { key: F11, action: ToggleFullscreen }
+
+schemes:
+  gruvbox_material_hard_dark: &gruvbox_material_hard_dark
+    primary:
+      background: '0x1d2021'
+      foreground: '0xd4be98'
+    normal:
+      black: '0x32302f'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+    bright:
+      black: '0x32302f'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+  gruvbox_material_medium_dark: &gruvbox_material_medium_dark
+    primary:
+      background: '0x282828'
+      foreground: '0xd4be98'
+    normal:
+      black: '0x3c3836'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+    bright:
+      black: '0x3c3836'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+  gruvbox_material_soft_dark: &gruvbox_material_soft_dark
+    primary:
+      background: '0x32302f'
+      foreground: '0xd4be98'
+    normal:
+      black: '0x45403d'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+    bright:
+      black: '0x45403d'
+      red: '0xea6962'
+      green: '0xa9b665'
+      yellow: '0xd8a657'
+      blue: '0x7daea3'
+      magenta: '0xd3869b'
+      cyan: '0x89b482'
+      white: '0xd4be98'
+  gruvbox_material_hard_light: &gruvbox_material_hard_light
+    primary:
+      background: '0xf9f5d7'
+      foreground: '0x654735'
+    normal:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xf2e5bc'
+    bright:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xf2e5bc'
+  gruvbox_material_medium_light: &gruvbox_material_medium_light
+    primary:
+      background: '0xfbf1c7'
+      foreground: '0x654735'
+    normal:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xeee0b7'
+    bright:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xeee0b7'
+  gruvbox_material_soft_light: &gruvbox_material_soft_light
+    primary:
+      background: '0xf2e5bc'
+      foreground: '0x654735'
+    normal:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xe6d5ae'
+    bright:
+      black: '0x654735'
+      red: '0xc14a4a'
+      green: '0x6c782e'
+      yellow: '0xb47109'
+      blue: '0x45707a'
+      magenta: '0x945e80'
+      cyan: '0x4c7a5d'
+      white: '0xe6d5ae'
+  nord: &nord
+    primary:
+      background: '0x2E3440'
+      foreground: '0xD8DEE9'
+    normal:
+      black: '0x3B4252'
+      red: '0xBF616A'
+      green: '0xA3BE8C'
+      yellow: '0xEBCB8B'
+      blue: '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan: '0x88C0D0'
+      white: '0xE5E9F0'
+    bright:
+      black: '0x4C566A'
+      red: '0xBF616A'
+      green: '0xA3BE8C'
+      yellow: '0xEBCB8B'
+      blue: '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan: '0x8FBCBB'
+      white: '0xECEFF4'
+
+# Apply the color scheme.
+colors: *gruvbox_material_hard_dark

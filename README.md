@@ -27,6 +27,7 @@ cd .dotfiles
 stow -t .emacs.d emacs.d
 stow -t ~/.tmux.conf tmux.conf
 stow -t ~/.config/nvim/ nvim/
+stow -t ~/.config/alacritty/ alacritty/
 ```
 ## Setup emacs to work correctly in terminal (colorscheme)
 ```
