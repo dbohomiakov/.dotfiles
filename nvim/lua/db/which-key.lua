@@ -15,7 +15,6 @@ local mappings = {
   ["-"] = {"<cmd>sb<cr>", "Split window horizontally"},
   s = {"<cmd>w<cr>", "Save"},
   k = {"<cmd>q<cr>", "Quit"},
-  w = {"<cmd>lua require('nvim-window').pick()<CR>", "Switch buffer"},
   l = {
     name="LSP",
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -23,6 +22,7 @@ local mappings = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols"
     },
+    r = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
   },
 }
 

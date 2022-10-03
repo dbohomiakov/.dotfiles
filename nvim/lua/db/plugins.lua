@@ -45,6 +45,11 @@ require('packer').startup(function(use)
   -- LSP
   use('neovim/nvim-lspconfig')
   use('jose-elias-alvarez/null-ls.nvim')
+  use({
+    'filipdutescu/renamer.nvim',
+    branch = 'master',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  })
   -- Colorscheme
   use("shaunsingh/nord.nvim")
   use('sainnhe/gruvbox-material')
@@ -119,7 +124,6 @@ require('packer').startup(function(use)
   use("nvim-neotest/neotest-python")
   -- Navigation
   use('numToStr/Navigator.nvim')
-
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
