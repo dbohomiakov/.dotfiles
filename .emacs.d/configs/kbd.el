@@ -116,7 +116,7 @@
   "-"   'evil-window-split
   "s"   'save-buffer
   "k"   'save-buffers-kill-terminal
-  "b"   'consult-project-buffer
+  "b"   'persp-switch-to-buffer
   "ef"  'eval-defun
   "er"  'eval-region
   "eb"  'eval-buffer
