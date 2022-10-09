@@ -30,8 +30,6 @@
  '(evil-goggles-paste-face ((t (:inherit 'lazy-highlight))))
  '(evil-goggles-yank-face ((t (:inherit 'isearch-fail)))))
 
-;;----------------------------------------------------------------------------------
-
 (defun bb-company-capf (f &rest args)
   "Manage `completion-styles'."
   (if (length< company-prefix 2)

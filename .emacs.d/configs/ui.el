@@ -16,10 +16,10 @@
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
-      (defvar db/dark-theme 'doom-wilmersdorf)
+      (defvar db/dark-theme 'my-doom-sourcerer)
       (defvar db/light-theme 'doom-gruvbox-light))
   (progn
-    (defvar db/dark-theme 'doom-wilmersdorf)
+    (defvar db/dark-theme 'my-doom-sourcerer)
     (defvar db/light-theme 'doom-gruvbox-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode
@@ -55,6 +55,7 @@
 ;; Fancy modeline
 (use-package doom-modeline
   :ensure t
+  :hook (after-init . doom-modeline-mode)
   :custom
   ;; (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-icon (display-graphic-p))
@@ -63,11 +64,10 @@
   (doom-modeline-vcs-max-length 40)
   (doom-modeline-workspace-name nil)
   (doom-modeline-gnus nil)
+  (doom-modeline-time t)
   (doom-modeline-env-enable-python nil)
   (doom-modeline-major-mode-color-icon t)
   (doom-modeline-enable-word-count nil))
-
-(add-hook 'after-init-hook 'doom-modeline-init)
 
 ;; Hide modeline
 (use-package hide-mode-line)
@@ -105,3 +105,6 @@
 (dolist (command '(scroll-up-command scroll-down-command
                    recenter-top-bottom other-window))
   (advice-add command :after #'pulse-line))
+
+(use-package solaire-mode
+  :init (solaire-global-mode +1))

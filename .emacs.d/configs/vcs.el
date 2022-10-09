@@ -33,6 +33,6 @@
   (git-link-use-single-line-number t)
   (git-link-use-commit t))
 
-(use-package git-timemachine)
+;; (use-package git-timemachine)
 
 (use-package git-modes)

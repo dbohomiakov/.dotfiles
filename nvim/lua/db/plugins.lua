@@ -50,9 +50,20 @@ require('packer').startup(function(use)
     branch = 'master',
     requires = { {'nvim-lua/plenary.nvim'} }
   })
+  -- Virtualenv
+  use('AckslD/swenv.nvim') 
+  -- Debug
+  use({
+      "andrewferrier/debugprint.nvim",
+      config = function()
+          require("debugprint").setup()
+      end,
+  })
   -- Colorscheme
   use("shaunsingh/nord.nvim")
   use('sainnhe/gruvbox-material')
+  -- UI improvements
+  use('stevearc/dressing.nvim') 
   -- Surround
   use({"echasnovski/mini.nvim", branch = 'stable'}) -- TODO: check if it is better then below
   use("kylechui/nvim-surround")

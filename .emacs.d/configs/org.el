@@ -4,10 +4,10 @@
   (setq org-ellipsis " ▾")
   :hook (org-mode . visual-line-mode)
   :custom
+  (org-agenda-include-diary t)
+  (org-confirm-babel-evaluate nil)
   (org-src-preserve-indentation t)
   (org-hide-emphasis-markers t))
-
-(setq org-agenda-include-diary t)
 
 (use-package
   org-bullets
@@ -31,3 +31,11 @@
 (use-package ob-ipython
   :after org
   :defer)
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))

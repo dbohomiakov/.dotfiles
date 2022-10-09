@@ -17,8 +17,6 @@
   :config
   (drag-stuff-define-keys))
 
-(use-package aggressive-indent)
-
 (use-package evil-mc
   :after evil
   :init

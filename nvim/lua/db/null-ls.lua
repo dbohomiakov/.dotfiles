@@ -5,15 +5,16 @@ end
 
 local formatting =  null_ls.builtins.formatting
 local diagnostics =  null_ls.builtins.diagnostics
+local completion = null_ls.builtins.completion
 
-
-require("null-ls").setup({
-  debug = false,
+null_ls.setup({
+  debug = true,
   sources = {
     formatting.black,
     formatting.isort,
     -- formatting.stylua,
+    -- completion.spell,
     -- diagnostics.eslint,
-    -- require("null-ls").builtins.completion.spell,
   },
 })
+

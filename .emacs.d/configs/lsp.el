@@ -53,4 +53,5 @@
 
 (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
-(use-package consult-lsp)
+(use-package consult-lsp
+  :straight (:host github :repo "gagbo/consult-lsp"))

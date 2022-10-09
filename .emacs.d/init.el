@@ -68,6 +68,9 @@
 (use-package esup
   :defer t)
 
+(use-package bug-hunter
+  :defer t)
+
 ;; Get environment variables from shell
 (use-package exec-path-from-shell)
 
@@ -83,14 +86,15 @@
 (mapcar 'db/load-config
         '(
         "common"
+        "evil"
         "completition-in-minibuffer"
         "capf"
         "org"
         "python"
         "go"
         "project"
-        "lsp"
-        ;; "eglot"
+        ;; "lsp"
+        "eglot"
         ;; "lspb"
         "vcs"
         "ui"
