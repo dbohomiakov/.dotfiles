@@ -13,6 +13,13 @@
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
+;; `gruvbox-material' contrast and palette options
+(setq doom-gruvbox-material-background  "hard"  ; or hard (defaults to soft)
+     doom-gruvbox-material-palette     "material") ; or original (defaults to material)
+;; `gruvbox-material-light' contrast and palette options
+(setq doom-gruvbox-material-light-background  "hard" ; or hard (defaults to soft)
+      doom-gruvbox-material-light-palette     "material") ; or original (defaults to material)
+
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
