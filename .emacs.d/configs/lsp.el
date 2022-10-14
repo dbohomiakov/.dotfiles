@@ -41,7 +41,9 @@
      "[/\\\\]\\.mypy_cache\\'")))
 
 (use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
+  :commands lsp-treemacs-errors-list
+  :init
+  (lsp-treemacs-sync-mode 1))
 
 (use-package lsp-pyright
   :ensure t

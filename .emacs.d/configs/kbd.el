@@ -27,6 +27,7 @@
     :global-prefix "C-SPC"))
 
 (db/leader-keys
+  ;; Project
   "pf"  'project-find-file
   "ps"  'projectile-switch-project
   "pg"  'consult-ripgrep
@@ -60,14 +61,18 @@
   "wn"  'evil-window-new
   "wo"  'delete-other-windows
   "ww"  'other-window
-  "d"  'ace-delete-window
+  "wd"  'ace-delete-window
   "rb" 'revert-buffer
   "ht" 'hs-toggle-hiding
   "hal" 'hs-hide-all
   "has" 'hs-show-all
   "hl" 'hs-hide-level
   "'"  'expand-abbrev
-  "\/"  'unexpand-abbrev)
+  "\/"  'unexpand-abbrev
+  ;; LSP
+  "lr"  'lsp-rename
+  "lS"  'consult-lsp-symbols
+  "ls"  'consult-imenu)
 
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)
@@ -92,8 +97,13 @@
       (quit-window)
     (call-interactively 'evil-record-macro)))
 
+(defun db/evil-execute-last-macro ()
+  (interactive)
+  (evil-execute-macro 1 last-kbd-macro))
+
 (with-eval-after-load 'evil-maps
-  (define-key evil-normal-state-map (kbd "q") 'db/evil-record-macro))
+  (define-key evil-normal-state-map (kbd "q") 'db/evil-record-macro)
+  (define-key evil-normal-state-map (kbd "Q") 'db/evil-execute-last-macro))
 
 ;; Disable copy with selection
 (fset 'evil-visual-update-x-selection 'ignore)

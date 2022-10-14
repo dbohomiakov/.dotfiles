@@ -23,10 +23,10 @@
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
-      (defvar db/dark-theme 'my-doom-sourcerer)
+      (defvar db/dark-theme 'doom-nord-aurora)
       (defvar db/light-theme 'doom-gruvbox-light))
   (progn
-    (defvar db/dark-theme 'my-doom-sourcerer)
+    (defvar db/dark-theme 'doom-nord-aurora)
     (defvar db/light-theme 'doom-gruvbox-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode

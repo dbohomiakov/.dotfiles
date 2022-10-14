@@ -95,7 +95,6 @@
         "project"
         "lsp"
         ;; "eglot"
-        ;; "lspb"
         "vcs"
         "ui"
         "navigation"
