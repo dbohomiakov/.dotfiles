@@ -1,9 +1,10 @@
 ;; Company autocompletion
 (use-package company
+  :disabled
   :custom
-  (company-minimum-prefix-length 2)
-  (company-tooltip-align-annotations t)
-  (company-idle-delay 0.1)
+  ;; (company-minimum-prefix-length 2)
+  ;; (company-tooltip-align-annotations t)
+  ;; (company-idle-delay 0.1)
   ;; disable company mode
   (company-global-modes nil))
 
@@ -171,11 +172,11 @@ default lsp-passthrough."
 (use-package cape
   :hook ((emacs-lisp-mode .  kb/cape-capf-setup-elisp)
          (lsp-completion-mode . kb/cape-capf-setup-lsp)
-         (org-mode . kb/cape-capf-setup-org)
+         ;; (org-mode . kb/cape-capf-setup-org)
          (eshell-mode . kb/cape-capf-setup-eshell)
          (magit-mode . kb/cape-capf-setup-git-commit)
-         (LaTeX-mode . kb/cape-capf-setup-latex)
-         (sh-mode . kb/cape-capf-setup-sh)
+         ;; (LaTeX-mode . kb/cape-capf-setup-latex)
+         ;; (sh-mode . kb/cape-capf-setup-sh)
          )
   ;; :general (:prefix "M-c"               ; Particular completion function
   ;;                   "p" 'completion-at-point
@@ -203,6 +204,7 @@ default lsp-passthrough."
 :history)."
     (or (not (keywordp cand))
         (eq (char-after (car completion-in-region--data)) ?:)))
+
   (defun kb/cape-capf-setup-elisp ()
     "Replace the default `elisp-completion-at-point'
 completion-at-point-function. Doing it this way will prevent
@@ -215,33 +217,35 @@ Additionally, add `cape-file' as early as possible to the list."
     (add-to-list 'completion-at-point-functions #'cape-symbol)
     ;; I prefer this being early/first in the list
     (add-to-list 'completion-at-point-functions #'cape-file)
-    (require 'company-yasnippet)
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet)))
+    ;; (require 'company-yasnippet)
+    ;; (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet))
+    )
 
   ;; LSP
   (defun kb/cape-capf-setup-lsp ()
-    "Replace the default `lsp-completion-at-point' with its
-`cape-capf-buster' version. Also add `cape-file' and
-`company-yasnippet' backends."
+;;     "Replace the default `lsp-completion-at-point' with its
+;; `cape-capf-buster' version. Also add `cape-file' and
+;; `company-yasnippet' backends."
     (setf (elt (cl-member 'lsp-completion-at-point completion-at-point-functions) 0)
           (cape-capf-buster #'lsp-completion-at-point))
     ;; TODO 2022-02-28: Maybe use `cape-wrap-predicate' to have candidates
     ;; listed when I want?
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet))
+    ;; (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet))
     (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
 
   ;; Org
-  (defun kb/cape-capf-setup-org ()
-    (require 'org-roam)
-    (if (org-roam-file-p)
-        (org-roam--register-completion-functions-h)
-      (let (result)
-        (dolist (element (list
-                          (cape-super-capf #'cape-ispell #'cape-dabbrev)
-                          (cape-company-to-capf #'company-yasnippet))
-                         result)
-          (add-to-list 'completion-at-point-functions element)))
-      ))
+  ;; (defun kb/cape-capf-setup-org ()
+  ;;   (require 'org-roam)
+  ;;   (if (org-roam-file-p)
+  ;;       (org-roam--register-completion-functions-h)
+  ;;     (let (result
+  ;;       (dolist (element (list
+  ;;                         (cape-super-capf #'cape-ispell #'cape-dabbrev)
+  ;;                         ;; (cape-company-to-capf #'company-yasnippet)
+  ;;                         )
+  ;;                        result)
+  ;;         (add-to-list 'completion-at-point-functions element)))
+  ;;     )))
 
   ;; Eshell
   (defun kb/cape-capf-setup-eshell ()
@@ -261,29 +265,29 @@ Additionally, add `cape-file' as early as possible to the list."
         (add-to-list 'completion-at-point-functions element))))
 
   ;; LaTeX
-  (defun kb/cape-capf-setup-latex ()
-    (require 'company-auctex)
-    (let ((result))
-      (dolist (element (list
-                        ;; First add `company-yasnippet'
-                        (cape-company-to-capf #'company-yasnippet)
-                        ;; Then add `cape-tex'
-                        #'cape-tex
-                        ;; Then add `company-auctex' in the order it adds its
-                        ;; backends.
-                        (cape-company-to-capf #'company-auctex-bibs)
-                        (cape-company-to-capf #'company-auctex-labels)
-                        (cape-company-to-capf
-                         (apply-partially #'company--multi-backend-adapter
-                                          '(company-auctex-macros company-auctex-symbols company-auctex-environments))))
-                       result)
-        (add-to-list 'completion-at-point-functions element))))
+  ;; (defun kb/cape-capf-setup-latex ()
+  ;;   ;; (require 'company-auctex)
+  ;;   (let ((result))
+  ;;     (dolist (element (list
+  ;;                       ;; First add `company-yasnippet'
+  ;;                       ;; (cape-company-to-capf #'company-yasnippet)
+  ;;                       ;; Then add `cape-tex'
+  ;;                       #'cape-tex
+  ;;                       ;; Then add `company-auctex' in the order it adds its
+  ;;                       ;; backends.
+  ;;                       (cape-company-to-capf #'company-auctex-bibs)
+  ;;                       (cape-company-to-capf #'company-auctex-labels)
+  ;;                       (cape-company-to-capf
+  ;;                        (apply-partially #'company--multi-backend-adapter
+  ;;                                         '(company-auctex-macros company-auctex-symbols company-auctex-environments))))
+  ;;                      result)
+  ;;       (add-to-list 'completion-at-point-functions element))))
 
 
   ;; Sh
-  (defun kb/cape-capf-setup-sh ()
-    (require 'company-shell)
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-shell)))
+  ;; (defun kb/cape-capf-setup-sh ()
+  ;;   (require 'company-shell)
+  ;;   (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-shell)))
   :config
   ;; For pcomplete. For now these two advices are strongly recommended to
   ;; achieve a sane Eshell experience. See
@@ -294,3 +298,7 @@ Additionally, add `cape-file' as early as possible to the list."
   ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
   ;; `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+
+
+;; properly handle indent or completition
+(setq tab-always-indent 'complete)

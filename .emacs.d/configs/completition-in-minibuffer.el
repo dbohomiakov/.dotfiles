@@ -49,8 +49,7 @@ folder, otherwise delete a word"
 
 (use-package fussy
   :ensure t
-  :straight
-  (fussy :type git :host github :repo "jojojames/fussy")
+  :straight (fussy :type git :host github :repo "jojojames/fussy")
   :config
   (setq fussy-score-fn 'flx-rs-score)
   (setq fussy-filter-fn 'fussy-filter-orderless-flex)

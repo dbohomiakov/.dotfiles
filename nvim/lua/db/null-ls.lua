@@ -12,6 +12,7 @@ null_ls.setup({
   sources = {
     formatting.black,
     formatting.isort,
+    formatting.gofmt,
     -- formatting.stylua,
     -- completion.spell,
     -- diagnostics.eslint,

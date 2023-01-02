@@ -1,13 +1,28 @@
 ;; Folder for searching custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/custom-themes/")
 
+;; Show battery percentage, current time
+(display-battery-mode 1)
+
+(use-package time
+  :init
+  (display-time-mode 1)
+  :custom
+  (display-time-interval 60)
+  (display-time-24hr-format t)
+  ;; remove average load
+  (display-time-load-average t)
+  (display-time-load-average-threshold 1000))
+
 (use-package all-the-icons
   :diminish)
 
-(use-package icons-in-terminal
-  :straight (:host github :repo "seagle0128/icons-in-terminal.el"))
+(use-package all-the-icons-dired
+  :straight (:host github :repo "wyuenho/all-the-icons-dired")
+  :custom
+  (all-the-icons-dired-monochrome nil))
 
-(icons-in-terminal-icon-for-mode 'dired-mode)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (use-package doom-themes
   :config
@@ -71,7 +86,6 @@
   (doom-modeline-vcs-max-length 40)
   (doom-modeline-workspace-name nil)
   (doom-modeline-gnus nil)
-  (doom-modeline-time t)
   (doom-modeline-env-enable-python nil)
   (doom-modeline-major-mode-color-icon t)
   (doom-modeline-enable-word-count nil))
@@ -87,7 +101,7 @@
 (defvar db/font-weight 'normal)
 
 (defun db/set-font-faces ()
-  (set-face-attribute 'default nil :font db/font-family :height 140 :weight db/font-weight)
+  (set-face-attribute 'default nil :font db/font-family :height 130 :weight db/font-weight)
   ;; Set the fixed pitch face
   (set-face-attribute 'fixed-pitch nil :font db/font-family :height 100 :weight 'light)
   ;; Set the variable pitch face

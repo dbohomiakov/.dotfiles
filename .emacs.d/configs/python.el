@@ -44,9 +44,11 @@
         (list 'db/setup-python-shell-interpreter))
   (setq pyvenv-post-deactivate-hooks
         (list (lambda ()
-                (setq python-shell-interpreter "python")))))
+                (setq python-shell-interpreter "python"))))
+  :init
+  (pyvenv-tracking-mode))
 
-(use-package djangonaut)
+(add-hook 'pyvenv-post-activate-hooks #'pyvenv-restart-python)
 
 ;; Initialize .dir-locals variables
 (setq db/pname nil)
@@ -62,35 +64,40 @@
 
 (defun db/setup-lsp-workspaces ()
   (let*
-    ((project-path (projectile-project-root))
-      (workspace-folders-to-remove
-        (lsp-session-folders (lsp-session)))
-      ;; setup custom venv-path or build from envs-path and project name
-      (venv-path (or
-                  db/venv-path
-                  (concat (pyvenv-workon-home) "/" db/pname)))
-      (workspace-folders-to-add `(,project-path ,venv-path))
-      )
-    (progn
-      (print (format "%s setup!" db/pname))
-      (mapcar
-        'lsp-workspace-folders-remove
-        workspace-folders-to-remove)
-      (mapcar 'lsp-workspace-folders-add workspace-folders-to-add)
-      )))
+   ((project-path (projectile-project-root))
+     (workspace-folders-to-remove
+       (lsp-session-folders (lsp-session)))
+     ; setup custom venv-path or build from envs-path and project name
+     (venv-path (or
+                 db/venv-path
+                 (concat (pyvenv-workon-home) "/" db/pname)))
+     (workspace-folders-to-add `(,project-path ,venv-path))
+     )
+   (progn
+     (print (format "%s setup!" db/pname))
+     (mapcar
+       'lsp-workspace-folders-remove
+       workspace-folders-to-remove)
+     (mapcar 'lsp-workspace-folders-add workspace-folders-to-add)
+     ))
+  )
 
 (defun db/setup-lsp ()
   (when db/lsp-enable?
     (db/setup-lsp-workspaces)))
 
+;; (defun db/enable-python-venv ()
+;;   (let ((pname db/pname))
+;;     (progn
+;;       (pyvenv-mode)
+;;       (pyvenv-workon pname)
+;;       (unless (file-directory-p pyvenv-virtual-env)
+;;         (progn
+;;           (pyvenv-deactivate)
+;;           (call-interactively #'pyvenv-workon))))))
+
 (defun db/enable-python-venv ()
-  (let ((pname db/pname))
-    (progn
-      (pyvenv-workon pname)
-      (unless (file-directory-p pyvenv-virtual-env)
-        (progn
-          (pyvenv-deactivate)
-          (call-interactively #'pyvenv-workon))))))
+  (pyvenv-mode))
 
 (defun db/setup-test-settings ()
   (when db/test-command
@@ -101,7 +108,7 @@
   (progn
     (db/enable-python-venv)
     (db/setup-test-settings)
-    (db/setup-lsp)
+    ;; (db/setup-lsp)
     (db/configure-formatting)
     ))
 

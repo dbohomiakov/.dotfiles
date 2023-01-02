@@ -6,6 +6,7 @@ My dotfiles
 ```
 paru -S asdf-vm
 asdf plugin add python
+npm i tree-sitter-elisp
 ```
 ## Install fonts (fetch the latest font version)
 ```

@@ -1,5 +1,6 @@
 (defvar db/emacs-dir (or (getenv "EMACSDIR") "~/.emacs.d"))
-(add-to-list 'load-path (concat db/emacs-dir "/custom-scripts"))
+(defvar db/custom-scripts (concat db/emacs-dir "/custom-scripts"))
+(add-to-list 'load-path db/custom-scripts)
 
 ;; 3mb amount of data which Emacs reads from the process
 (setq read-process-output-max (* 3 1024 1024))
@@ -25,6 +26,8 @@
 (setq backup-directory-alist
         `(("." . ,(concat user-emacs-directory "backups")))))
 
+(setq native-comp-deferred-compilation t)
+(setq native-compile-prune-cache t)
 (setq comp-deferred-compilation-deny-list nil)
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq native-comp-async-report-warnings-errors nil)
@@ -90,6 +93,7 @@
         "completition-in-minibuffer"
         "capf"
         "org"
+        "http"
         "python"
         "go"
         "project"
@@ -105,6 +109,7 @@
         "rust"
         "buffer"
         "tree-sitter"
-        "http"
         ;; "kbd" should be the last one cause uses defined in configs above variables/function etc.
-        "kbd"))
+        "kbd"
+        ))
+(put 'list-timers 'disabled nil)

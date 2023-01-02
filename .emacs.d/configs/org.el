@@ -1,7 +1,9 @@
 (use-package org
+  :mode ("\\.org\\'" . org-mode)
   :config (setq org-agenda-files '("~/Org/Notes.org"))
   (setq org-default-notes-file "~/Org/Notes.org")
   (setq org-ellipsis " ▾")
+  ; (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
   :hook (org-mode . visual-line-mode)
   :custom
   (org-agenda-include-diary t)
@@ -39,3 +41,7 @@
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+(use-package org-present
+  :ensure t
+  :straight (org-present :type git :host github :repo "rlister/org-present"))

@@ -11,3 +11,7 @@
 
 (add-hook 'python-mode-hook 'eglot-ensure)
 (add-hook 'rust-mode-hook 'eglot-ensure)
+
+;; (setq-default eglot-workspace-configuration
+;;               '((:pyright . (:python (:analysis (:autoSearchPaths t :diagnosticMode "workspace" :useLibraryCodeForTypes t)
+;;                                                 :venvPath "/home/dbohomiakov/.virtualenvs/" :venv "gulfstream")))))

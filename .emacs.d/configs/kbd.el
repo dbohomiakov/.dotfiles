@@ -33,12 +33,15 @@
   "pg"  'consult-ripgrep
   "pd"  'projectile-dired
   "pp"  'consult-projectile
-  "ff"  'find-file
+  "po"  'find-file
+
   "\\"  'evil-window-vsplit
   "-"   'evil-window-split
   "s"   'save-buffer
+  "d"   'evil-window-delete
   "k"   'save-buffers-kill-terminal
-  "b"   'persp-switch-to-buffer
+  "b"   'consult-buffer
+
   "ef"  'eval-defun
   "er"  'eval-region
   "eb"  'eval-buffer
@@ -49,7 +52,7 @@
   "gu"  'git-link
   "gc"  'magit-branch-checkout
   ;; ORG
-  "oe"  'org-babel-execute-src-block
+  "oe"  'org-ctrl-c-ctrl-c
   "or"  'org-babel-remove-result-one-or-many
   ;; KMACRO
   "mq"   'kmacro-start-macro
@@ -62,11 +65,13 @@
   "wo"  'delete-other-windows
   "ww"  'other-window
   "wd"  'ace-delete-window
+
+  ;; Folding
+  "ff" 'ts-fold-toggle
+  "fc" 'ts-fold-close-all
+  "fo" 'ts-fold-open-all
+
   "rb" 'revert-buffer
-  "ht" 'hs-toggle-hiding
-  "hal" 'hs-hide-all
-  "has" 'hs-show-all
-  "hl" 'hs-hide-level
   "'"  'expand-abbrev
   "\/"  'unexpand-abbrev
   ;; LSP
