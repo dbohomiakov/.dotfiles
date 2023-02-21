@@ -31,9 +31,9 @@
   "pf"  'project-find-file
   "ps"  'projectile-switch-project
   "pg"  'consult-ripgrep
-  "pd"  'projectile-dired
+  "pd"  'project-dired
   "pp"  'consult-projectile
-  "po"  'find-file
+  "ff"  'find-file
 
   "\\"  'evil-window-vsplit
   "-"   'evil-window-split
@@ -67,7 +67,7 @@
   "wd"  'ace-delete-window
 
   ;; Folding
-  "ff" 'ts-fold-toggle
+  "ft" 'ts-fold-toggle
   "fc" 'ts-fold-close-all
   "fo" 'ts-fold-open-all
 

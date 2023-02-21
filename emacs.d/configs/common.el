@@ -159,6 +159,10 @@
   :custom
   (csv-separators '("," "\t" "|" " ")))
 
+(use-package markdown-mode
+  :mode
+  (("\\.md\\'" . markdown-mode)))
+
 (use-package xml-format
   :demand t
   :after nxml-mode)
@@ -222,3 +226,5 @@
   :init
   (setq wttrin-default-cities          '("Heidelberg" "Tel-Aviv")
         wttrin-default-accept-language '("Accept-Language" . "en-US")))
+
+(use-package inspector)

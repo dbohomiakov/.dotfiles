@@ -17,13 +17,13 @@ folder, otherwise delete a word"
     ("C-j" . vertico-next)
     ("C-k" . vertico-previous)
     ("C-f" . vertico-exit)
+    ;; ("M-q" . vertico-quick-insert)
+    ;; ("C-q" . vertico-quick-exit)
     :map
     minibuffer-local-map
     ("M-h" . db/minibuffer-backward-kill))
   :custom (vertico-cycle t)
   :init (vertico-mode))
-
-(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
 ;; Add funcy prefix before candidates
 (advice-add #'vertico--format-candidate

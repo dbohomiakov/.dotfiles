@@ -25,7 +25,7 @@ gsettings set org.gnome.desktop.peripherals.keyboard delay 300
 sh
 gh repo clone dbohomiakov/.dotfiles
 cd .dotfiles
-stow -t .emacs.d emacs.d
+stow -t ~/.emacs.d emacs.d/
 stow -t ~/.tmux.conf tmux.conf
 stow -t ~/.config/nvim/ nvim/
 stow -t ~/.config/alacritty/ alacritty/

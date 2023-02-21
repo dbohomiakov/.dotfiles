@@ -9,7 +9,10 @@
   (org-agenda-include-diary t)
   (org-confirm-babel-evaluate nil)
   (org-src-preserve-indentation t)
-  (org-hide-emphasis-markers t))
+  (org-hide-emphasis-markers t)
+  (org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w@/!)" "PROGRESS(p!)" "|" "DONE(d!)" "CANCELED(c@)"))))
+
 
 (use-package
   org-bullets

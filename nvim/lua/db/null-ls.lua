@@ -10,7 +10,9 @@ local completion = null_ls.builtins.completion
 null_ls.setup({
   debug = true,
   sources = {
-    formatting.black,
+    formatting.black.with({
+      extra_args = {"--config", ".black.toml"}
+    }),
     formatting.isort,
     formatting.gofmt,
     -- formatting.stylua,
@@ -18,4 +20,3 @@ null_ls.setup({
     -- diagnostics.eslint,
   },
 })
-

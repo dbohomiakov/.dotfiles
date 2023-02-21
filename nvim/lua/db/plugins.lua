@@ -42,6 +42,7 @@ require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   -- Keyboard
   use("folke/which-key.nvim")
+  use("max397574/better-escape.nvim")
   -- Mason
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
@@ -65,7 +66,7 @@ require("packer").startup(function(use)
     end
   })
   -- Virtualenv
-  use("AckslD/swenv.nvim") 
+  use("AckslD/swenv.nvim")
   -- Debug
   use({
       "andrewferrier/debugprint.nvim",
@@ -75,8 +76,9 @@ require("packer").startup(function(use)
   })
   -- Colorscheme
   use("shaunsingh/nord.nvim")
+  use("andersevenrud/nordic.nvim")
   -- UI improvements
-  use("stevearc/dressing.nvim") 
+  use("stevearc/dressing.nvim")
   use("rebelot/heirline.nvim")
   -- Surround
   use({"echasnovski/mini.nvim", branch = "stable"}) -- TODO: check if it is better then below
@@ -102,7 +104,7 @@ require("packer").startup(function(use)
   })
   use("nvim-telescope/telescope-file-browser.nvim")
   use({
-    "nvim-telescope/telescope-fzf-native.nvim", 
+    "nvim-telescope/telescope-fzf-native.nvim",
     run = "make",
   })
   use("gbrlsnchs/telescope-lsp-handlers.nvim")
@@ -151,6 +153,10 @@ require("packer").startup(function(use)
   -- Navigation
   use("numToStr/Navigator.nvim")
   -- JUST TO TEST!!!!!!!!!!!!!!!!!!!!!
+  use({
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  })
   use('ThePrimeagen/harpoon')
   use("jvgrootveld/telescope-zoxide")
   use('nvim-telescope/telescope-github.nvim')
@@ -161,4 +167,3 @@ require("packer").startup(function(use)
     require("packer").sync()
   end
 end)
-

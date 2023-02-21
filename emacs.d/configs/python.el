@@ -2,7 +2,10 @@
 (defun set-display-fill-column-indicator (num)
   (progn
     (setq-default display-fill-column-indicator-column num)
-    (add-hook 'python-mode-hook 'display-fill-column-indicator-mode)))
+    ))
+
+
+(add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
 
 ;; (defun setup-flake8-flycheck ()
 ;;   (setq flycheck-checkers '(python-flake8))
@@ -17,8 +20,8 @@
   ;; :bind ("TAB" . company-indent-or-complete-common)
   :hook ((python-mode . fix-python-indent)
          ;; (python-mode . setup-flake8-flycheck)
-         (python-mode . (lambda ()
-                               (set-display-fill-column-indicator 79)))
+         ;; (python-mode . (lambda ()
+         ;;                       (set-display-fill-column-indicator 79)))
          (python-mode . hs-minor-mode)
          (python-mode . yas-minor-mode)
          (python-mode . abbrev-mode)))
@@ -38,6 +41,7 @@
   (python-pytest-pdb-track t))
 
 (use-package pyvenv
+  :ensure t
   :config
   ;; Set correct Python interpreter
   (setq pyvenv-post-activate-hooks
@@ -47,6 +51,11 @@
                 (setq python-shell-interpreter "python"))))
   :init
   (pyvenv-tracking-mode))
+
+(use-package asdf
+  :straight (:host github :repo "tabfugnic/asdf.el")
+  :custom
+  (asdf-binary "/opt/asdf-vm/bin/asdf"))
 
 (add-hook 'pyvenv-post-activate-hooks #'pyvenv-restart-python)
 
@@ -108,7 +117,7 @@
   (progn
     (db/enable-python-venv)
     (db/setup-test-settings)
-    ;; (db/setup-lsp)
+    (db/setup-lsp)
     (db/configure-formatting)
     ))
 
