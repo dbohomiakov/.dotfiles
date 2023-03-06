@@ -1,4 +1,4 @@
-(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+(setq abbrev-file-name (concat db/emacs-dir "/abbrev_defs"))
 ;; Evil mode
 ;; Rebind Ctrl+g to escape
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit)

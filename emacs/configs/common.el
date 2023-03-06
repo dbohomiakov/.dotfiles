@@ -228,3 +228,4 @@
         wttrin-default-accept-language '("Accept-Language" . "en-US")))
 
 (use-package inspector)
+(use-package visual-regexp)

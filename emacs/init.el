@@ -1,4 +1,4 @@
-(defvar db/emacs-dir (or (getenv "EMACSDIR") "~/.emacs.d"))
+(defvar db/emacs-dir (or (getenv "EMACSDIR") "~/config/emacs"))
 (defvar db/custom-scripts (concat db/emacs-dir "/custom-scripts"))
 (add-to-list 'load-path db/custom-scripts)
 
@@ -97,8 +97,8 @@
         "python"
         "go"
         "project"
-        "lsp"
-        ;; "eglot"
+        ;; "lsp"
+        "eglot"
         "vcs"
         "ui"
         "navigation"
