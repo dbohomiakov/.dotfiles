@@ -8,8 +8,9 @@
 
 ;; General
 (setq inhibit-startup-screen t)
+
 ;; Fullscreen mode
-(toggle-frame-fullscreen)
+;; (toggle-frame-fullscreen)
 
 ;; Cursor settings
 (set-cursor-color "#f6f6f6")
@@ -95,8 +96,8 @@
 (use-package command-log-mode
   :defer)
 
-(use-package tramp
-  :defer)
+; (use-package tramp
+;   :defer)
 
 ;; Higlight braces
 (use-package paren
@@ -219,12 +220,3 @@
       '(isort black))
 
 (recentf-mode 1)
-
-(use-package powerthesaurus)
-
-(use-package wttrin
-  :init
-  (setq wttrin-default-cities          '("Heidelberg" "Tel-Aviv")
-        wttrin-default-accept-language '("Accept-Language" . "en-US")))
-
-(use-package inspector)

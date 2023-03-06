@@ -9,8 +9,8 @@ url-history-file
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;; Start in fullscreen
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+;; (custom-set-variables
+;;  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (setq package-enable-at-startup nil)
 

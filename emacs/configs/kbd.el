@@ -34,6 +34,9 @@
   "pd"  'project-dired
   "pp"  'consult-projectile
   "ff"  'find-file
+  ;; Docker
+  "tc"  'docker-containers
+  "ti"  'docker-images
 
   "\\"  'evil-window-vsplit
   "-"   'evil-window-split
@@ -59,7 +62,6 @@
   "mQ"   'kmacro-end-macro
   "mn"   'kmacro-name-last-macro
   "me"   'kmacro-call-macro
-  "tt"  'dirvish-side
   ;; Evil window
   "wn"  'evil-window-new
   "wo"  'delete-other-windows

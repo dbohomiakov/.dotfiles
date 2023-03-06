@@ -51,6 +51,7 @@
 (advice-add 'company-capf :around 'bb-company-capf)
 
 (use-package corfu
+  :load-path "straight/build/corfu/extensions/"
   :after evil
   :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
   :bind (:map corfu-map
@@ -93,8 +94,12 @@
   ;; Other
   (corfu-echo-documentation nil)        ; Already use corfu-doc
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
+  (corfu-popupinfo-max-width 70)
+  (corfu-popupinfo-min-width 20)
   :init
   (global-corfu-mode)
+  (require 'corfu-popupinfo)
+  (corfu-popupinfo-mode 1)
   :config
   ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
   ;; `corfu-insert-separator' work with space in insert mode without resorting to
@@ -148,26 +153,6 @@ default lsp-passthrough."
   ;; since I have a light theme and dark theme I switch between. This has no
   ;; function unless you use something similar
   (add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache))))
-
-(use-package corfu-doc
-  ;; NOTE 2022-02-05: At the time of writing, `corfu-doc' is not yet on melpa
-  :after corfu
-  :straight (:host github :repo "galeo/corfu-doc")
-  :hook (corfu-mode . corfu-doc-mode)
-  :bind (:map corfu-map
-              ("M-k" . corfu-doc-scroll-up)
-              ("M-j" . corfu-doc-scroll-down)
-              ([remap corfu-show-documentation] . corfu-doc-toggle))
-  :custom
-  (corfu-doc-delay 2.5)
-  (corfu-doc-hide-threshold 2.5)
-  (corfu-doc-max-width 70)
-  (corfu-doc-max-height 20)
-
-  ;; NOTE 2022-02-05: I've also set this in the `corfu' use-package to be
-  ;; extra-safe that this is set when corfu-doc is loaded. I do not want
-  ;; documentation shown in both the echo area and in the `corfu-doc' popup.
-  (corfu-echo-documentation nil))
 
 (use-package cape
   :hook ((emacs-lisp-mode .  kb/cape-capf-setup-elisp)

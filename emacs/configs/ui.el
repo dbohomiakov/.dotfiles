@@ -1,5 +1,5 @@
 ;; Folder for searching custom themes
-(add-to-list 'custom-theme-load-path "~/.emacs.d/custom-themes/")
+(add-to-list 'custom-theme-load-path (concat db/emacs-dir "/custom-themes/"))
 
 ;; Show battery percentage, current time
 (display-battery-mode 1)
@@ -97,7 +97,7 @@
 (use-package snow)
 (use-package fireplace)
 
-(defvar db/font-family "JetBrainsMono")
+(defvar db/font-family "JetBrainsMono Nerd Font")
 (defvar db/font-weight 'normal)
 
 (defun db/set-font-faces ()
