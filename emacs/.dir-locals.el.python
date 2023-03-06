@@ -1,17 +1,14 @@
-((nil . ((db/pname . PROJECT-NAME)
-        (db/plang . "python")
-        (db/lsp-enable? . t)
-        ;; needed only in case if env is located not in default "~/.virtualenvs/"
-        ;; or name doesn't match to PROJECT-NAME.
-        ;; IN SUCH CASES UNCOMMENT STATEMENT BELOW!
-        ;; (db/venv-path . "/home/dbohomiakov/.virtualenvs/PROJECT-NAME")
-        ;; isort
-        (db/auto-isort . t)
-        ;; pyflakes
-        (db/remove-unused-imports . t)
-        ;; black formatting
-        (db/auto-blacken . t)
-        (blacken-line-length . 79)
-        (blacken-skip-string-normalization . t)
-        (blacken-fast-unsafe . t)
-        (db/test-command . "pytest --ignore=src -s -vvv -p no:warnings"))))
+((nil
+  . ((db/pname . <PNAME>)
+     (db/auto-isort . t)
+     (db/plang . "python")
+     (db/auto-blacken . t)
+     (db/test-command . "pytest --ignore=src -s -vvv -p no:warnings")))
+ (python-mode
+  . ((eglot-workspace-configuration
+      . (:pyright (:useLibraryCodeForTypes t :openFilesOnly :json-false)
+                  :r (:lsp (:diagnostics :json-false))
+                  :venv <PNAME>
+                  :venvPath "/home/dbohomiakov/.virtualenvs"
+                  :pythonPath "/home/dbohomiakov/.virtualenvs/<PNAME>/bin/python"))
+      (python-shell-interpreter . "/home/dbohomiakov/.virtualenvs/<PNAME>/bin/python"))))

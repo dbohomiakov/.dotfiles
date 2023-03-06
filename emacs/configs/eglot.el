@@ -1,4 +1,11 @@
 (use-package eglot
+  :init
+  (setq eglot-stay-out-of '(company eldoc flymake)
+        ;; eglot-workspace-configuration
+        ;; '(:pyright (:useLibraryCodeForTypes t :openFilesOnly :json-false)
+        ;;            :r (:lsp (:diagnostics :json-false))
+        ;;            )
+        read-process-output-max (* 1024 1024))
   :custom
   (eglot-sync-connect 1)
   (eglot-connect-timeout 10)
@@ -6,13 +13,15 @@
   (eglot-send-changes-idle-time 0.5)
   (eglot-auto-display-help-buffer nil)
   (eglot-autoshutdown t)
-  :config
-  (setq eglot-stay-out-of '(eldoc flymake))
   )
 
 (add-hook 'python-mode-hook 'eglot-ensure)
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
-;; (setq-default eglot-workspace-configuration
-;;               '((:pyright . (:python (:analysis (:autoSearchPaths t :diagnosticMode "workspace" :useLibraryCodeForTypes t)
-;;                                                 :venvPath "/home/dbohomiakov/.virtualenvs/" :venv "gulfstream")))))
+(use-package consult-eglot
+  :custom
+  (consult-eglot-ignore-column t)
+  (consult-eglot-narrow
+   '(;; Lowercase classes
+     (?c . "Class")
+     (?f . "Function"))))

@@ -220,3 +220,6 @@
       '(isort black))
 
 (recentf-mode 1)
+
+(use-package inspector)
+(use-package visual-regexp)
