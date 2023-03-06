@@ -1,10 +1,10 @@
 font:
   normal:
-    family: JetBrainsMono
+    family: JetBrainsMono NL
     style: Light
 
   bold:
-    family: JetBrainsMono
+    family: JetBrainsMono NL
     style: Medium
 
   italic:
@@ -37,8 +37,7 @@ key_bindings:
   - { key: F11, action: ToggleFullscreen }
 
 schemes:
-  gruvbox_material_hard_dark:
-    &gruvbox_material_hard_dark
+  gruvbox_material_hard_dark: &gruvbox_material_hard_dark
     primary:
       background: '0x1d2021'
       foreground: '0xd4be98'
@@ -60,8 +59,8 @@ schemes:
       magenta: '0xd3869b'
       cyan: '0x89b482'
       white: '0xd4be98'
-  gruvbox_material_medium_dark:
-    &gruvbox_material_medium_dark
+
+  gruvbox_material_medium_dark: &gruvbox_material_medium_dark
     primary:
       background: '0x282828'
       foreground: '0xd4be98'
@@ -83,8 +82,8 @@ schemes:
       magenta: '0xd3869b'
       cyan: '0x89b482'
       white: '0xd4be98'
-  gruvbox_material_soft_dark:
-    &gruvbox_material_soft_dark
+
+  gruvbox_material_soft_dark: &gruvbox_material_soft_dark
     primary:
       background: '0x32302f'
       foreground: '0xd4be98'
@@ -106,8 +105,8 @@ schemes:
       magenta: '0xd3869b'
       cyan: '0x89b482'
       white: '0xd4be98'
-  gruvbox_material_hard_light:
-    &gruvbox_material_hard_light
+
+  gruvbox_material_hard_light: &gruvbox_material_hard_light
     primary:
       background: '0xf9f5d7'
       foreground: '0x654735'
@@ -129,8 +128,8 @@ schemes:
       magenta: '0x945e80'
       cyan: '0x4c7a5d'
       white: '0xf2e5bc'
-  gruvbox_material_medium_light:
-    &gruvbox_material_medium_light
+
+  gruvbox_material_medium_light: &gruvbox_material_medium_light
     primary:
       background: '0xfbf1c7'
       foreground: '0x654735'
@@ -152,8 +151,8 @@ schemes:
       magenta: '0x945e80'
       cyan: '0x4c7a5d'
       white: '0xeee0b7'
-  gruvbox_material_soft_light:
-    &gruvbox_material_soft_light
+
+  gruvbox_material_soft_light: &gruvbox_material_soft_light
     primary:
       background: '0xf2e5bc'
       foreground: '0x654735'
@@ -175,8 +174,8 @@ schemes:
       magenta: '0x945e80'
       cyan: '0x4c7a5d'
       white: '0xe6d5ae'
-  nord:
-    &nord
+
+  nord: &nord
     primary:
       background: '#2e3440'
       foreground: '#d8dee9'
@@ -224,8 +223,8 @@ schemes:
       magenta: '#8c738c'
       cyan: '#6d96a5'
       white: '#aeb3bb'
-  sourcerer:
-    &sourcerer
+
+  sourcerer: &sourcerer
     primary:
       background: '#222222'
       foreground: '#c2c2b0'
@@ -250,8 +249,8 @@ schemes:
       magenta: '#8181a6'
       cyan: '#87ceeb'
       white: '#c1cdc1'
-  solarized_dark:
-    &solarized_dark
+
+  solarized_dark: &solarized_dark
     primary:
       background: '0x002b36'
       foreground: '0x839496'

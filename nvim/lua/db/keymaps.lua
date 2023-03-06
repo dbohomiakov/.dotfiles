@@ -24,9 +24,9 @@ keymap("n", "<A-Down>", "<Esc>:m .+1<CR>==", opts)
 keymap("n", "<C-j>", "o<Esc>==", opts)
 keymap("n", "<C-k>", "ddk==", opts)
 
----- INSERT ---- 
+---- INSERT ----
 
----- VISUAL ---- 
+---- VISUAL ----
 ---- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
