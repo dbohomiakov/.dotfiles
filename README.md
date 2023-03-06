@@ -11,8 +11,8 @@ npm i tree-sitter-elisp
 ## Install fonts (fetch the latest font version)
 ```
 mkdir -p ~/.local/share/fonts
-wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip ~/Downloads/JetBrainsFont.zip
-unzip -j JetBrainsMono-2.242.zip "fonts/ttf/*" -d ~/.local/share/fonts
+wget -c https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip -P ~/Downloads/
+unzip -j ~/Downloads/JetBrainsMono.zip "fonts/ttf/*" -d ~/.local/share/fonts
 fc-cache -f -v
 ```
 ## Setup keyboard key-repeat and frequency
