@@ -3,23 +3,14 @@
 (setq-default bidi-inhibit-bpa t)
 (global-so-long-mode 1)
 
-;; took from http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
-(defun my-minibuffer-setup-hook ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun my-minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000))
-
-(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
 ;; Eval elisp functions
 (global-set-key (kbd "M-:") 'pp-eval-expression)
 
 ;; General
 (setq inhibit-startup-screen t)
+
 ;; Fullscreen mode
-(toggle-frame-fullscreen)
+;; (toggle-frame-fullscreen)
 
 ;; Cursor settings
 (set-cursor-color "#f6f6f6")
@@ -41,6 +32,7 @@
 (customize-set-variable 'scroll-conservatively 101)
 (customize-set-variable 'scroll-margin 0)
 (customize-set-variable 'scroll-preserve-screen-position t)
+(pixel-scroll-precision-mode 1)
 
 ;; Enable showing lines numbers in relative style
 (when (display-graphic-p)
@@ -104,8 +96,8 @@
 (use-package command-log-mode
   :defer)
 
-(use-package tramp
-  :defer)
+; (use-package tramp
+;   :defer)
 
 ;; Higlight braces
 (use-package paren
@@ -168,6 +160,14 @@
   :custom
   (csv-separators '("," "\t" "|" " ")))
 
+(use-package markdown-mode
+  :mode
+  (("\\.md\\'" . markdown-mode)))
+
+(use-package xml-format
+  :demand t
+  :after nxml-mode)
+
 (use-package select
   :demand t
   :custom
@@ -221,6 +221,5 @@
 
 (recentf-mode 1)
 
-(use-package powerthesaurus)
-
-(display-battery-mode 1)
+(use-package inspector)
+(use-package visual-regexp)

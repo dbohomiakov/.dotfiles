@@ -17,8 +17,6 @@
   :config
   (drag-stuff-define-keys))
 
-(use-package aggressive-indent)
-
 (use-package evil-mc
   :after evil
   :init
@@ -26,7 +24,8 @@
 
 (use-package transpose-frame)
 
-(use-package expand-region)
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling

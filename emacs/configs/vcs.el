@@ -3,10 +3,10 @@
   :config
   (setq magit-view-git-manual-method 'man))
 
-;; (use-package magit-todos
-;;   :after magit
-;;   :init
-;;   (magit-todos-mode))
+(use-package magit-todos
+  :after magit
+  :init
+  (magit-todos-mode))
 
 (use-package magithub
   :after magit
@@ -20,9 +20,12 @@
   (setq auth-sources '("~/.authinfo")))
 
 ;; Show changed lines in linenum modeline
-(use-package git-gutter
+(use-package diff-hl
   :config
-  (global-git-gutter-mode +1))
+  (global-diff-hl-mode))
+
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 (use-package ibuffer-vc
   :init (setq ibuffer-vc t))
@@ -32,7 +35,5 @@
   (git-link-open-in-browser t)
   (git-link-use-single-line-number t)
   (git-link-use-commit t))
-
-(use-package git-timemachine)
 
 (use-package git-modes)

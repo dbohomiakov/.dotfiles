@@ -1,25 +1,47 @@
 ;; Folder for searching custom themes
-(add-to-list 'custom-theme-load-path "~/.emacs.d/custom-themes/")
+(add-to-list 'custom-theme-load-path (concat db/emacs-dir "/custom-themes/"))
+
+;; Show battery percentage, current time
+(display-battery-mode 1)
+
+(use-package time
+  :init
+  (display-time-mode 1)
+  :custom
+  (display-time-interval 60)
+  (display-time-24hr-format t)
+  ;; remove average load
+  (display-time-load-average t)
+  (display-time-load-average-threshold 1000))
 
 (use-package all-the-icons
   :diminish)
 
-(use-package icons-in-terminal
-  :straight (:host github :repo "seagle0128/icons-in-terminal.el"))
+(use-package all-the-icons-dired
+  :straight (:host github :repo "wyuenho/all-the-icons-dired")
+  :custom
+  (all-the-icons-dired-monochrome nil))
 
-(icons-in-terminal-icon-for-mode 'dired-mode)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (use-package doom-themes
   :config
   (setq doom-gruvbox-light-variant "soft"))
 
+;; `gruvbox-material' contrast and palette options
+(setq doom-gruvbox-material-background  "hard"  ; or hard (defaults to soft)
+     doom-gruvbox-material-palette     "material") ; or original (defaults to material)
+;; `gruvbox-material-light' contrast and palette options
+(setq doom-gruvbox-material-light-background  "hard" ; or hard (defaults to soft)
+      doom-gruvbox-material-light-palette     "material") ; or original (defaults to material)
+
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
-      (defvar db/dark-theme 'doom-wilmersdorf)
+      (defvar db/dark-theme 'my-doom-sourcerer)
       (defvar db/light-theme 'doom-gruvbox-light))
   (progn
-    (defvar db/dark-theme 'doom-wilmersdorf)
+    (defvar db/dark-theme 'my-doom-sourcerer)
     (defvar db/light-theme 'doom-gruvbox-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode
@@ -55,6 +77,7 @@
 ;; Fancy modeline
 (use-package doom-modeline
   :ensure t
+  :hook (after-init . doom-modeline-mode)
   :custom
   ;; (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-icon (display-graphic-p))
@@ -67,8 +90,6 @@
   (doom-modeline-major-mode-color-icon t)
   (doom-modeline-enable-word-count nil))
 
-(add-hook 'after-init-hook 'doom-modeline-init)
-
 ;; Hide modeline
 (use-package hide-mode-line)
 
@@ -76,11 +97,11 @@
 (use-package snow)
 (use-package fireplace)
 
-(defvar db/font-family "JetBrainsMono")
+(defvar db/font-family "JetBrainsMono NL")
 (defvar db/font-weight 'normal)
 
 (defun db/set-font-faces ()
-  (set-face-attribute 'default nil :font db/font-family :height 140 :weight db/font-weight)
+  (set-face-attribute 'default nil :font db/font-family :height 130 :weight db/font-weight)
   ;; Set the fixed pitch face
   (set-face-attribute 'fixed-pitch nil :font db/font-family :height 100 :weight 'light)
   ;; Set the variable pitch face
@@ -105,3 +126,6 @@
 (dolist (command '(scroll-up-command scroll-down-command
                    recenter-top-bottom other-window))
   (advice-add command :after #'pulse-line))
+
+(use-package solaire-mode
+  :init (solaire-global-mode +1))

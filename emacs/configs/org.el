@@ -1,13 +1,18 @@
 (use-package org
+  :mode ("\\.org\\'" . org-mode)
   :config (setq org-agenda-files '("~/Org/Notes.org"))
   (setq org-default-notes-file "~/Org/Notes.org")
   (setq org-ellipsis " ▾")
+  ; (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
   :hook (org-mode . visual-line-mode)
   :custom
+  (org-agenda-include-diary t)
+  (org-confirm-babel-evaluate nil)
   (org-src-preserve-indentation t)
-  (org-hide-emphasis-markers t))
+  (org-hide-emphasis-markers t)
+  (org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w@/!)" "PROGRESS(p!)" "|" "DONE(d!)" "CANCELED(c@)"))))
 
-(setq org-agenda-include-diary t)
 
 (use-package
   org-bullets
@@ -31,3 +36,15 @@
 (use-package ob-ipython
   :after org
   :defer)
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+
+(use-package org-present
+  :ensure t
+  :straight (org-present :type git :host github :repo "rlister/org-present"))

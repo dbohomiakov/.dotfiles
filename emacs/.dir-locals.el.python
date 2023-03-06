@@ -1,0 +1,14 @@
+((nil
+  . ((db/pname . <PNAME>)
+     (db/auto-isort . t)
+     (db/plang . "python")
+     (db/auto-blacken . t)
+     (db/test-command . "pytest --ignore=src -s -vvv -p no:warnings")))
+ (python-mode
+  . ((eglot-workspace-configuration
+      . (:pyright (:useLibraryCodeForTypes t :openFilesOnly :json-false)
+                  :r (:lsp (:diagnostics :json-false))
+                  :venv <PNAME>
+                  :venvPath "/home/dbohomiakov/.virtualenvs"
+                  :pythonPath "/home/dbohomiakov/.virtualenvs/<PNAME>/bin/python"))
+      (python-shell-interpreter . "/home/dbohomiakov/.virtualenvs/<PNAME>/bin/python"))))

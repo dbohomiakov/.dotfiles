@@ -38,23 +38,50 @@ packer.init({
   },
 })
 
-require('packer').startup(function(use)
+require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   -- Keyboard
   use("folke/which-key.nvim")
+  use("max397574/better-escape.nvim")
+  -- Mason
+  use("williamboman/mason.nvim")
+  use("williamboman/mason-lspconfig.nvim")
   -- LSP
-  use('neovim/nvim-lspconfig')
-  use('jose-elias-alvarez/null-ls.nvim')
+  use("neovim/nvim-lspconfig")
+  use("jose-elias-alvarez/null-ls.nvim")
   use({
-    'filipdutescu/renamer.nvim',
-    branch = 'master',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    "filipdutescu/renamer.nvim",
+    branch = "master",
+    requires = { {"nvim-lua/plenary.nvim"} }
+  })
+  use({
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  })
+  -- Virtualenv
+  use("AckslD/swenv.nvim")
+  -- Debug
+  use({
+      "andrewferrier/debugprint.nvim",
+      config = function()
+          require("debugprint").setup()
+      end,
   })
   -- Colorscheme
   use("shaunsingh/nord.nvim")
-  use('sainnhe/gruvbox-material')
+  use("andersevenrud/nordic.nvim")
+  -- UI improvements
+  use("stevearc/dressing.nvim")
+  use("rebelot/heirline.nvim")
   -- Surround
-  use({"echasnovski/mini.nvim", branch = 'stable'}) -- TODO: check if it is better then below
+  use({"echasnovski/mini.nvim", branch = "stable"}) -- TODO: check if it is better then below
   use("kylechui/nvim-surround")
   -- Treesitter
   use({
@@ -72,21 +99,22 @@ require('packer').startup(function(use)
   use("saadparwaiz1/cmp_luasnip")
   -- Telescope
   use({
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    "nvim-telescope/telescope.nvim",
+    requires = { {"nvim-lua/plenary.nvim"} }
   })
   use("nvim-telescope/telescope-file-browser.nvim")
   use({
-    "nvim-telescope/telescope-fzf-native.nvim", 
+    "nvim-telescope/telescope-fzf-native.nvim",
     run = "make",
   })
   use("gbrlsnchs/telescope-lsp-handlers.nvim")
+  use("nvim-telescope/telescope-live-grep-args.nvim")
   -- Neoclip
   use({
     "AckslD/nvim-neoclip.lua",
     requires = {
-      {'kkharji/sqlite.lua', module = 'sqlite'},
-      {'nvim-telescope/telescope.nvim'},
+      {"kkharji/sqlite.lua", module = "sqlite"},
+      {"nvim-telescope/telescope.nvim"},
     },
   })
   -- Snippets
@@ -95,22 +123,22 @@ require('packer').startup(function(use)
   -- Comments
   use("terrortylor/nvim-comment")
   -- Close brackets
-  use('rstacruz/vim-closer')
+  use("rstacruz/vim-closer")
   -- Match start/end of logical blocks
-  use('andymass/vim-matchup')
+  use("andymass/vim-matchup")
   -- Autopairs
   use("windwp/nvim-autopairs")
   -- Project
   use("ahmedkhalf/project.nvim")
   -- Icons
-  use('kyazdani42/nvim-web-devicons')
+  use("kyazdani42/nvim-web-devicons")
   -- File tree
   use({
-    'kyazdani42/nvim-tree.lua',
+    "kyazdani42/nvim-tree.lua",
     requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icons
+      "kyazdani42/nvim-web-devicons", -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    tag = "nightly" -- optional, updated every week. (see issue #1193)
   })
   -- Tests
   use({
@@ -123,11 +151,19 @@ require('packer').startup(function(use)
   })
   use("nvim-neotest/neotest-python")
   -- Navigation
-  use('numToStr/Navigator.nvim')
+  use("numToStr/Navigator.nvim")
+  -- JUST TO TEST!!!!!!!!!!!!!!!!!!!!!
+  use({
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  })
+  use('ThePrimeagen/harpoon')
+  use("jvgrootveld/telescope-zoxide")
+  use('nvim-telescope/telescope-github.nvim')
+  use("nvim-lualine/lualine.nvim")
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
-    require('packer').sync()
+    require("packer").sync()
   end
 end)
-

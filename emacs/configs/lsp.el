@@ -5,6 +5,7 @@
   :custom
   (lsp-headerline-breadcrumb-enable nil)
   :hook ((rust-mode . lsp-deferred)
+         (go-mode . lsp-deferred)
          ;; (clojure-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
@@ -41,16 +42,22 @@
      "[/\\\\]\\.mypy_cache\\'")))
 
 (use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
+  :commands lsp-treemacs-errors-list
+  :init
+  (lsp-treemacs-sync-mode 1))
 
 (use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp-deferred)))
-  :custom (lsp-pyright-auto-import-completions t)
-  )
+  :custom
+  (lsp-pyright-auto-import-completions t)
+  (lsp-pyright-venv-path "/home/dbohomiakov/.virtualenvs/"))
 
-(mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
+;; (mapcar 'lsp-workspace-folders-remove (lsp-session-folders (lsp-session)))
 
-(use-package consult-lsp)
+(use-package consult-lsp
+  :straight (:host github :repo "gagbo/consult-lsp"))
+
+(require 'eldoc-box)

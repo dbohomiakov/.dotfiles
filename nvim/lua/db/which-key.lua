@@ -1,31 +1,37 @@
 local wk = require('which-key')
 
 local mappings = {
-  e = {"<cmd>NvimTreeToggle<cr>", "Explorer"},
+  e = {"<CMD>NvimTreeToggle<CR>", "Explorer"},
   p = {
     name = "Projects",
-    f = {"<cmd>Telescope find_files<cr>", "Telescope Find Files"},
-    g = {"<cmd>Telescope live_grep<cr>", "Telescope Live Grep"},
-    s = {"<cmd>Telescope projects<cr>", "Telescope List of Projects"},
-    r = {"<cmd>lua require('telescope').extensions.neoclip.default()<cr>", "Telescope registers"},
+    f = {"<CMD>Telescope find_files<CR>", "Find Files"},
+    g = {"<CMD>Telescope live_grep<CR>", "Live Grep"},
+    s = {"<CMD>Telescope projects<CR>", "List of Projects"},
+    r = {"<CMD>lua require('telescope').extensions.neoclip.default()<CR>", "Registers"},
+    v = {"<CMD>lua require('swenv.api').pick_venv()<CR>", "venv"},
   },
-  b = {"<cmd>Telescope buffers<cr>", "Telescope List of Buffers"},
-  ff = {"<cmd>Telescope file_browser path=%:p:h<cr>", "Telescope File Browser"},
-  ["\\"] = {"<cmd>vert sb<cr>", "Split window vertically"},
-  ["-"] = {"<cmd>sb<cr>", "Split window horizontally"},
-  s = {"<cmd>w<cr>", "Save"},
-  k = {"<cmd>q<cr>", "Quit"},
+  b = {
+    name="Buffers",
+    b = {"<CMD>Telescope buffers<CR>", "List of Buffers"},
+    n = {"<CMD>new<CR>", "New Buffer"},
+  },
+  ff = {"<CMD>Telescope file_browser path=%:p:h<CR>", "Telescope File Browser"},
+  ["\\"] = {"<CMD>vert sb<CR>", "Split window vertically"},
+  ["-"] = {"<CMD>sb<CR>", "Split window horizontally"},
+  s = {"<CMD>w<CR>", "Save"},
+  k = {"<CMD>q<CR>", "Quit"},
   l = {
     name="LSP",
-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+    s = {"<CMD>Telescope lsp_document_symbols<CR>", "Document Symbols"},
     S = {
-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+      "<CMD>Telescope lsp_dynamic_workspace_symbols<CR>",
       "Workspace Symbols"
     },
-    r = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
+    r = {"<CMD>lua require('renamer').rename()<CR>", "Rename"},
+    f = {"<CMD>Telescope lsp_references<CR>", "List of references"},
+    -- a = {"<CMD>vim.lsp.buf.add_workspace_folder<CR>", ""}
   },
 }
 
 local opts = {prefix = '<leader>'}
 wk.register(mappings, opts)
-
