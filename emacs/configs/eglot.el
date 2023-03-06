@@ -20,8 +20,4 @@
 
 (use-package consult-eglot
   :custom
-  (consult-eglot-ignore-column t)
-  (consult-eglot-narrow
-   '(;; Lowercase classes
-     (?c . "Class")
-     (?f . "Function"))))
+  (consult-eglot-ignore-column t))

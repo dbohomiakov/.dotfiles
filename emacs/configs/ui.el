@@ -97,7 +97,7 @@
 (use-package snow)
 (use-package fireplace)
 
-(defvar db/font-family "JetBrainsMono Nerd Font")
+(defvar db/font-family "JetBrainsMono NL")
 (defvar db/font-weight 'normal)
 
 (defun db/set-font-faces ()

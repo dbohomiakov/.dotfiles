@@ -77,8 +77,8 @@
   "'"  'expand-abbrev
   "\/"  'unexpand-abbrev
   ;; LSP
-  "lr"  'lsp-rename
-  "lS"  'consult-lsp-symbols
+  "lr"  'eglot-rename
+  "lS"  'consult-eglot-symbols
   "ls"  'consult-imenu)
 
 ;; Use consult-line for incremental search
@@ -96,6 +96,8 @@
 (evil-define-key '(normal visual) 'global (kbd "gm") evil-mc-cursors-map)
 ;; CamelCase/snake_case switch
 (evil-define-key 'normal 'global (kbd "gc") #'db/string-inflection-cycle-auto)
+;; LSP
+(evil-define-key 'normal 'global (kbd "gr") #'xref-find-references)
 
 ;; Use q to quit the read-only buffers
 (defun db/evil-record-macro ()
