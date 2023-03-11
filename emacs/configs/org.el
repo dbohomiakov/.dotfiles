@@ -13,12 +13,28 @@
   (org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/!)" "PROGRESS(p!)" "|" "DONE(d!)" "CANCELED(c@)"))))
 
-
 (use-package
   org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
   :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+(use-package org-modern-indent
+  :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+  :config
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+
+(use-package org-modern
+  :custom
+  (org-modern-hide-stars nil)		; adds extra indentation
+  (org-modern-table nil)
+  (org-modern-list
+   '(;; (?- . "-")
+     (?* . "•")
+     (?+ . "‣")))
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda))
 
 (use-package org-roam
   :after org

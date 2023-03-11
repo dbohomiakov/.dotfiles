@@ -1,4 +1,3 @@
-;; Git
 (use-package magit
   :config
   (setq magit-view-git-manual-method 'man))
@@ -7,12 +6,6 @@
   :after magit
   :init
   (magit-todos-mode))
-
-(use-package magithub
-  :after magit
-  :config
-  (magithub-feature-autoinject t)
-  (setq magithub-clone-default-directory "~/github"))
 
 (use-package forge
   :after magit
@@ -26,9 +19,6 @@
 
 (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-
-(use-package ibuffer-vc
-  :init (setq ibuffer-vc t))
 
 (use-package git-link
   :custom

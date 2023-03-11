@@ -2,8 +2,8 @@
 (defvar db/custom-scripts (concat db/emacs-dir "/custom-scripts"))
 (add-to-list 'load-path db/custom-scripts)
 
-;; 3mb amount of data which Emacs reads from the process
-(setq read-process-output-max (* 3 1024 1024))
+;; 64mb amount of data which Emacs reads from the process
+(setq read-process-output-max (* 64 1024 1024))
 ;; Measure startup time
 (defun db/display-startup-time ()
 (message "Emacs loaded in %s with %d garbage collections."
@@ -25,6 +25,29 @@
 (unless backup-directory-alist
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups")))))
+
+(setq use-package-expand-minimally t
+      ;; use-package is a macro. Don't let the macro expands into
+      ;; codes with too much of irrelevant checks.
+      use-package-always-ensure nil
+      ;; Straight is my package manager, don't let package.el get
+      ;; involved.
+      ;; use-package-always-defer t
+      ;; This is a useful trick to speed up your startup time. Only
+      ;; use `require' when it's necessary. By setting the
+      ;; `use-package-always-defer' option to t, use-package won't
+      ;; call `require' in all cases unless you explicitly include
+      ;; :demand t'. This will prevent unnecessary package loading and
+      ;; speed up your Emacs startup time.
+      straight-check-for-modifications nil
+      ;; This is a useful trick to further optimize your startup
+      ;; time. Instead of using `straight-check-for-modifications' to
+      ;; check if a package has been modified, you can manually
+      ;; rebuild the package by `straight-rebuild-package' when you
+      ;; know its source code has changed. This avoids the overhead of
+      ;; the check. Make sure you know what you are doing here when
+      ;; setting this option.
+      debug-on-error t)
 
 (setq native-comp-deferred-compilation t)
 (setq native-compile-prune-cache t)

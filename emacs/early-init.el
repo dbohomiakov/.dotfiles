@@ -8,10 +8,7 @@ url-history-file
 ;; see https://github.com/jwiegley/use-package/issues/397
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
-;; Start in fullscreen
-;; (custom-set-variables
-;;  '(initial-frame-alist (quote ((fullscreen . maximized)))))
-
+;; Disable package.el
 (setq package-enable-at-startup nil)
 
 (setq native-comp-eln-load-path

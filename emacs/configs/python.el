@@ -10,6 +10,31 @@
   (setq tab-width 4)
   (subword-mode 1))
 
+(defun db/setup-python-shell-interpreter ()
+  (interactive)
+  (let ((python-path (concat pyvenv-virtual-env "bin/python")))
+    (when (executable-find python-path)
+        (setq python-shell-interpreter python-path))))
+
+(use-package pyvenv
+  :after python-mode
+  :config
+  ;; Set correct Python interpreter
+  (setq pyvenv-post-activate-hooks
+        (list 'db/setup-python-shell-interpreter))
+  (setq pyvenv-post-deactivate-hooks
+        (list (lambda ()
+                (setq python-shell-interpreter "python")))))
+
+(defun db/enable-python-venv ()
+  (let ((pname db/pname))
+    (progn
+      (pyvenv-workon pname)
+      (unless (file-directory-p pyvenv-virtual-env)
+        (progn
+          (pyvenv-deactivate)
+          (call-interactively #'pyvenv-workon))))))
+
 (use-package python-mode
   ;; :bind ("TAB" . company-indent-or-complete-common)
   :hook ((python-mode . fix-python-indent)
@@ -43,6 +68,7 @@
   (progn
     (db/setup-test-settings)
     (db/configure-formatting)
+    (db/enable-python-venv)
     ))
 
 (defun db/do-nothing () nil)

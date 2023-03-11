@@ -24,62 +24,66 @@
     :states '(normal insert visual emacs)
     :keymaps 'override
     :prefix "SPC"
-    :global-prefix "C-SPC"))
+    :global-prefix "C-SPC")
 
-(db/leader-keys
-  ;; Project
-  "pf"  'project-find-file
-  "ps"  'projectile-switch-project
-  "pg"  'consult-ripgrep
-  "pd"  'project-dired
-  "pp"  'consult-projectile
-  "ff"  'find-file
-  ;; Docker
-  "tc"  'docker-containers
-  "ti"  'docker-images
+  (db/leader-keys
+    ;; Project
+    "pf"  'project-find-file
+    "ps"  'projectile-switch-project
+    "pg"  'consult-ripgrep
+    "pd"  'project-dired
+    "pp"  'consult-projectile
+    "ff"  'find-file
+    ;; Docker
+    "tc"  'docker-containers
+    "ti"  'docker-images
 
-  "\\"  'evil-window-vsplit
-  "-"   'evil-window-split
-  "s"   'save-buffer
-  "d"   'evil-window-delete
-  "k"   'save-buffers-kill-terminal
-  "b"   'consult-buffer
+    "\\"  'evil-window-vsplit
+    "-"   'evil-window-split
+    "s"   'save-buffer
+    "d"   'evil-window-delete
+    "k"   'save-buffers-kill-terminal
+    "b"   'consult-buffer
 
-  "ef"  'eval-defun
-  "er"  'eval-region
-  "eb"  'eval-buffer
-  ;; ABBR stands for git
-  "gs"  'magit-status
-  "gb"  'magit-blame
-  "gd"  'magit-diff
-  "gu"  'git-link
-  "gc"  'magit-branch-checkout
-  ;; ORG
-  "oe"  'org-ctrl-c-ctrl-c
-  "or"  'org-babel-remove-result-one-or-many
-  ;; KMACRO
-  "mq"   'kmacro-start-macro
-  "mQ"   'kmacro-end-macro
-  "mn"   'kmacro-name-last-macro
-  "me"   'kmacro-call-macro
-  ;; Evil window
-  "wn"  'evil-window-new
-  "wo"  'delete-other-windows
-  "ww"  'other-window
-  "wd"  'ace-delete-window
+    "ef"  'eval-defun
+    "er"  'eval-region
+    "eb"  'eval-buffer
+    ;; Git
+    "gs"  'magit-status
+    "gb"  'magit-blame
+    "gd"  'magit-diff
+    "gu"  'git-link
+    "gc"  'magit-branch-checkout
+    "gh"  'magit-log-buffer-file
+    ;; ORG
+    "oe"  'org-ctrl-c-ctrl-c
+    "or"  'org-babel-remove-result-one-or-many
+    ;; KMACRO
+    "mq"   'kmacro-start-macro
+    "mQ"   'kmacro-end-macro
+    "mn"   'kmacro-name-last-macro
+    "me"   'kmacro-call-macro
+    ;; Evil window
+    "wn"  'evil-window-new
+    "wo"  'delete-other-windows
+    "ww"  'other-window
+    "wd"  'ace-delete-window
 
-  ;; Folding
-  "ft" 'ts-fold-toggle
-  "fc" 'ts-fold-close-all
-  "fo" 'ts-fold-open-all
+    ;; Folding
+    "ft" 'ts-fold-toggle
+    "fc" 'ts-fold-close-all
+    "fo" 'ts-fold-open-all
 
-  "rb" 'revert-buffer
-  "'"  'expand-abbrev
-  "\/"  'unexpand-abbrev
-  ;; LSP
-  "lr"  'eglot-rename
-  "lS"  'consult-eglot-symbols
-  "ls"  'consult-imenu)
+    "rb" 'revert-buffer
+    "'"  'expand-abbrev
+    "\/"  'unexpand-abbrev
+    ;; LSP
+    "lr"  'eglot-rename
+    "lS"  'consult-eglot-symbols
+    "ls"  'consult-imenu)
+  )
+
+
 
 ;; Use consult-line for incremental search
 (evil-define-key 'normal 'global (kbd "/") #'consult-line)

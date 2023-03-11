@@ -9,9 +9,6 @@
 ;; General
 (setq inhibit-startup-screen t)
 
-;; Fullscreen mode
-;; (toggle-frame-fullscreen)
-
 ;; Cursor settings
 (set-cursor-color "#f6f6f6")
 (setq visible-cursor nil) ; Disable blinking cursor for terminal
@@ -214,10 +211,11 @@
 ;; Multi-language code formatting package
 (use-package apheleia
   :init
-  (apheleia-global-mode +1))
-
-(setf (alist-get 'python-mode apheleia-mode-alist)
-      '(isort black))
+  (apheleia-global-mode +1)
+  :config
+  (setf (alist-get 'python-mode apheleia-mode-alist)
+        '(isort black))
+  )
 
 (recentf-mode 1)
 
