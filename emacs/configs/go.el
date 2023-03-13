@@ -1,5 +1,6 @@
 (use-package go-mode
-  :defer t)
+  :mode
+  (("\\.go\\'" . go-mode)))
 
 (use-package gorepl-mode
   :hook (go-mode . gorepl-mode))

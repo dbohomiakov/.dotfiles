@@ -1,22 +1,18 @@
 (use-package eglot
   :init
   (setq eglot-stay-out-of '(company eldoc flymake)
-        ;; eglot-workspace-configuration
-        ;; '(:pyright (:useLibraryCodeForTypes t :openFilesOnly :json-false)
-        ;;            :r (:lsp (:diagnostics :json-false))
-        ;;            )
         read-process-output-max (* 1024 1024))
+  :hook
+  ((python-mode . eglot-ensure)
+   (rust-mode . eglot-ensure)
+   (go-mode . eglot-ensure))
   :custom
   (eglot-sync-connect 1)
   (eglot-connect-timeout 10)
   (eglot-extend-to-xref t)
   (eglot-send-changes-idle-time 0.5)
   (eglot-auto-display-help-buffer nil)
-  (eglot-autoshutdown t)
-  )
-
-(add-hook 'python-mode-hook 'eglot-ensure)
-(add-hook 'rust-mode-hook 'eglot-ensure)
+  (eglot-autoshutdown t))
 
 (use-package consult-eglot
   :custom

@@ -114,7 +114,6 @@
         "python"
         "go"
         "project"
-        ;; "lsp"
         "eglot"
         "vcs"
         "ui"
@@ -126,7 +125,6 @@
         "rust"
         "buffer"
         "tree-sitter"
-        ; "kbd" should be the last one cause uses defined in configs above variables/function etc.
         "kbd"
         ))
 (put 'list-timers 'disabled nil)

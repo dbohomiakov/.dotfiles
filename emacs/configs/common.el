@@ -3,16 +3,8 @@
 (setq-default bidi-inhibit-bpa t)
 (global-so-long-mode 1)
 
-;; Eval elisp functions
-(global-set-key (kbd "M-:") 'pp-eval-expression)
-
 ;; General
 (setq inhibit-startup-screen t)
-
-;; Cursor settings
-(set-cursor-color "#f6f6f6")
-(setq visible-cursor nil) ; Disable blinking cursor for terminal
-(blink-cursor-mode -1) ; Disable blinking cursor for XWindow
 
 (scroll-bar-mode -1) ; Disable visible scrollbar
 (horizontal-scroll-bar-mode -1) ; Disable visible horizontal scrollbar
@@ -23,6 +15,10 @@
 (setq visible-bell nil) ; Enable visible bell
 (setq ring-bell-function 'ignore)
 
+;; Cursor settings
+(set-cursor-color "#f6f6f6")
+(setq visible-cursor nil) ; Disable blinking cursor for terminal
+(blink-cursor-mode -1) ; Disable blinking cursor for XWindow
 ;; Make scrolling less stuttered
 (setq auto-window-vscroll nil)
 (customize-set-variable 'fast-but-imprecise-scrolling t)
@@ -39,9 +35,9 @@
                   display-line-numbers-grow-only t
                   display-line-numbers-widen t))
 (global-display-line-numbers-mode)
-
 (setq column-number-mode t) ; enable showing column numbers
 (setq require-final-newline t) ; Newline at end of file
+
 (delete-selection-mode t) ; Delete the selection with a keypress
 (global-auto-revert-mode t) ; revert buffers automatically when underlying files are changed externally
 (setq global-auto-revert-non-file-buffers t) ; Revert dired and other buffers
@@ -73,8 +69,7 @@
 (show-paren-mode 1)
 
 (setq
-  save-interprogram-paste-before-kill
-  t
+  save-interprogram-paste-before-kill t
   apropos-do-all t
   mouse-yank-at-point t
   require-final-newline t
@@ -92,9 +87,6 @@
 ;; Use mode for debugging command and keys entered
 (use-package command-log-mode
   :defer)
-
-; (use-package tramp
-;   :defer)
 
 ;; Higlight braces
 (use-package paren
@@ -122,7 +114,6 @@
   :hook (emacs-lisp-mode . highlight-indent-guides-mode))
 
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode
   (("README\\.md\\'" . gfm-mode)
@@ -160,6 +151,11 @@
 (use-package markdown-mode
   :mode
   (("\\.md\\'" . markdown-mode)))
+
+(use-package bazel
+  :straight (:host github :repo "bazelbuild/emacs-bazel-mode")
+  :mode
+  (("\\.star\\'" . bazel-starlark-mode)))
 
 (use-package xml-format
   :demand t
@@ -218,6 +214,3 @@
   )
 
 (recentf-mode 1)
-
-(use-package inspector)
-(use-package visual-regexp)

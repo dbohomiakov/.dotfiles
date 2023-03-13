@@ -33,6 +33,7 @@
     "pg"  'consult-ripgrep
     "pd"  'project-dired
     "pp"  'consult-projectile
+    "pb"  'consult-project-buffer
     "ff"  'find-file
     ;; Docker
     "tc"  'docker-containers
@@ -133,3 +134,5 @@
   ([remap describe-key] . helpful-key))
 
 (global-set-key [f5] 'db/toggle-theme)
+;; Eval elisp functions
+(global-set-key (kbd "M-:") 'pp-eval-expression)
