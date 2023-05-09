@@ -55,8 +55,6 @@
 ;; Silence compiler warnings as they can be pretty disruptive
 (setq native-comp-async-report-warnings-errors nil)
 
-;; Temp fix for https://github.com/radian-software/straight.el/pull/1054
-(setq straight-repository-branch "rr-fix-renamed-variable")
 ;; Bootstrap `straight.el'
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -92,7 +90,12 @@
   :defer t)
 
 ;Get environment variables from shell
-(use-package exec-path-from-shell)
+(use-package exec-path-from-shell
+  :custom
+  (exec-path-from-shell-variables '("PATH"
+                                    "MANPATH"
+                                    "GOPATH"))
+  (exec-path-from-shell-shell-name "fish"))
 
 (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
@@ -125,6 +128,7 @@
         "rust"
         "buffer"
         "tree-sitter"
+        "chatgpt"
         "kbd"
         ))
 (put 'list-timers 'disabled nil)

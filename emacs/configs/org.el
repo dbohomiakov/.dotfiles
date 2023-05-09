@@ -64,3 +64,9 @@
 (use-package org-present
   :ensure t
   :straight (org-present :type git :host github :repo "rlister/org-present"))
+
+(setq org-plantuml-jar-path (expand-file-name "/home/dbohomiakov/.config/emacs/plantuml.jar"))
+(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+
+(use-package plantuml-mode)

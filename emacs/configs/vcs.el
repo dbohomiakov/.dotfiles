@@ -1,6 +1,9 @@
 (use-package magit
   :config
-  (setq magit-view-git-manual-method 'man))
+  (setq magit-git-command-history t)
+  :custom
+  (magit-update-other-window-delay 1)
+  (magit-view-git-manual-method 'man))
 
 (use-package magit-todos
   :after magit

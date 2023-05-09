@@ -134,7 +134,7 @@
 
 (use-package yaml-mode
   :init
-  (setq yaml-indent-offset 4)
+  (setq yaml-indent-offset 2)
   :mode
   (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)))
 

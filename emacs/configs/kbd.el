@@ -59,6 +59,7 @@
     ;; ORG
     "oe"  'org-ctrl-c-ctrl-c
     "or"  'org-babel-remove-result-one-or-many
+    "oo"  'org-open-at-point
     ;; KMACRO
     "mq"   'kmacro-start-macro
     "mQ"   'kmacro-end-macro
@@ -81,8 +82,7 @@
     ;; LSP
     "lr"  'eglot-rename
     "lS"  'consult-eglot-symbols
-    "ls"  'consult-imenu)
-  )
+    "ls"  'consult-imenu))
 
 
 

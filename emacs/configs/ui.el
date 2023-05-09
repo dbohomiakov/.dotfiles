@@ -35,14 +35,16 @@
 (setq doom-gruvbox-material-light-background  "hard" ; or hard (defaults to soft)
       doom-gruvbox-material-light-palette     "material") ; or original (defaults to material)
 
+(use-package ef-themes)
+
 ;; Use different themes for terminal/GUI
 (if (display-graphic-p)
     (progn
-      (defvar db/dark-theme 'my-doom-sourcerer)
-      (defvar db/light-theme 'doom-gruvbox-light))
+      (defvar db/dark-theme 'my-doom-solarized-dark)
+      (defvar db/light-theme 'ef-tritanopia-light))
   (progn
-    (defvar db/dark-theme 'my-doom-sourcerer)
-    (defvar db/light-theme 'doom-gruvbox-light)))
+    (defvar db/dark-theme 'my-doom-solarized-dark)
+    (defvar db/light-theme 'ef-tritanopia-light)))
 
 ;; Fix theme applying for emacsclient in terminal mode
 (defun db/load-theme (frame)

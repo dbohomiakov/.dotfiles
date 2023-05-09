@@ -74,6 +74,9 @@ require("packer").startup(function(use)
           require("debugprint").setup()
       end,
   })
+  -- Outline
+  use("simrat39/symbols-outline.nvim")
+  -- 
   -- Colorscheme
   use("shaunsingh/nord.nvim")
   use("andersevenrud/nordic.nvim")
