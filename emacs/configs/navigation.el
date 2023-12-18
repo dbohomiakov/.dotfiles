@@ -35,6 +35,11 @@
 
 (use-package evil-lion
   :after evil
-  :ensure t
+  :bind (:map evil-normal-state-map
+              ("g l " . evil-lion-left)
+              ("g L " . evil-lion-right)
+              :map evil-visual-state-map
+              ("g l " . evil-lion-left)
+              ("g L " . evil-lion-right))
   :config
   (evil-lion-mode))

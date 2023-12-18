@@ -273,4 +273,4 @@ schemes:
       cyan: '0x93a1a1'
       white: '0xfdf6e3'
 
-theme: sourcerer
+theme: solarized_dark

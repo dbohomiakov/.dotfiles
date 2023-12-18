@@ -9,6 +9,7 @@ local mappings = {
     s = {"<CMD>Telescope projects<CR>", "List of Projects"},
     r = {"<CMD>lua require('telescope').extensions.neoclip.default()<CR>", "Registers"},
     v = {"<CMD>lua require('swenv.api').pick_venv()<CR>", "venv"},
+    F = {"<CMD>lua fuzzyFindFiles()<CR>"},
   },
   b = {
     name="Buffers",
@@ -28,7 +29,10 @@ local mappings = {
       "Workspace Symbols"
     },
     r = {"<CMD>lua require('renamer').rename()<CR>", "Rename"},
-    f = {"<CMD>Telescope lsp_references<CR>", "List of references"},
+    o = {"<CMD>SymbolsOutline<CR>", "Outline"},
+    --f  = {"<CMD>Telescope lsp_references<CR>", "List of references"},
+    -- f = {"<CMD>vim.lsp.buf.format<CR>", "Format"},
+    -- a = {"<CMD>vim.lsp.buf.code_action<CR>", "Code action"},
     -- a = {"<CMD>vim.lsp.buf.add_workspace_folder<CR>", ""}
   },
 }

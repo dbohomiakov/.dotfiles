@@ -30,12 +30,19 @@
 --     end
 -- })
 --
--- -- Setup color scheme
-vim.g.nord_contrast = true
-vim.g.nord_borders = false
-vim.g.nord_disable_background = true
-vim.g.nord_italic = false
-vim.g.nord_uniform_diff_background = true
-vim.cmd("set background=dark")
+--
 
-require('nord').set()
+require('solarized').setup({
+    theme = 'neo' -- or comment to use solarized default theme.
+})
+
+
+-- -- Setup color scheme
+-- vim.g.nord_contrast = true
+-- vim.g.nord_borders = false
+-- vim.g.nord_disable_background = true
+-- vim.g.nord_italic = false
+-- vim.g.nord_uniform_diff_background = true
+-- vim.cmd("set background=dark")
+--
+-- require('nord').set()

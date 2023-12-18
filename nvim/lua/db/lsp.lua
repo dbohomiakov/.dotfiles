@@ -42,15 +42,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>la', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>lr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>ll', function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  -- vim.keymap.set('n', '<space>la', vim.lsp.buf.add_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<space>lr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<space>ll', function()
+  -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>lr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>la', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>lf', vim.lsp.buf.format, bufopts)
 end
 
@@ -84,7 +85,15 @@ require('lspconfig')['rust_analyzer'].setup{
       ["rust-analyzer"] = {}
     }
 }
+require('lspconfig')['nimlsp'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 require('lspconfig')['gopls'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+require('lspconfig')['yaml_language_server'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }

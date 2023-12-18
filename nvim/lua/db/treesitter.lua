@@ -9,16 +9,16 @@ configs.setup({
 	ignore_install = { "" }, -- List of parsers to ignore installing
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "css" }, -- list of language that will be disabled
+	-- 	disable = { "css" }, -- list of language that will be disabled
 	},
 	autopairs = {
 		enable = true,
 	},
-  matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
+  -- matchup = {
+  --   enable = true,              -- mandatory, false will disable the whole extension
     -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
     -- [options]
-  },
+  -- },
 	indent = { enable = true, disable = { "python", "css" } },
   textobjects = {
       select = {
@@ -33,6 +33,8 @@ configs.setup({
           ["if"] = "@function.inner",
           ["ac"] = "@class.outer",
           ["ic"] = "@class.inner",
+          ["iF"] = "@call.inner",
+          ["aF"] = "@call.outer",
         },
         -- You can choose the select mode (default is charwise 'v')
         selection_modes = {
