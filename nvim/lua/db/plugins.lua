@@ -78,8 +78,16 @@ require("packer").startup(function(use)
   use("simrat39/symbols-outline.nvim")
   -- 
   -- Colorscheme
-  use("shaunsingh/nord.nvim")
-  use("andersevenrud/nordic.nvim")
+  -- use("shaunsingh/nord.nvim")
+  -- use("andersevenrud/nordic.nvim")
+  use {
+      'maxmx03/solarized.nvim',
+      config = function()
+        vim.o.background = 'dark' -- or 'light'
+  
+        vim.cmd.colorscheme 'solarized'
+      end
+  }
   -- UI improvements
   use("stevearc/dressing.nvim")
   use("rebelot/heirline.nvim")

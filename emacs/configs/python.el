@@ -14,17 +14,17 @@
   (interactive)
   (let ((python-path (concat pyvenv-virtual-env "bin/python")))
     (when (executable-find python-path)
-        (setq python-shell-interpreter python-path))))
+      (setq python-shell-interpreter python-path))))
 
-(use-package pyvenv
-  :after python-mode
-  :config
-  ;; Set correct Python interpreter
-  (setq pyvenv-post-activate-hooks
-        (list 'db/setup-python-shell-interpreter))
-  (setq pyvenv-post-deactivate-hooks
-        (list (lambda ()
-                (setq python-shell-interpreter "python")))))
+(use-package
+ pyvenv
+ :after python-mode
+ :config
+ ;; Set correct Python interpreter
+ (setq pyvenv-post-activate-hooks
+       (list 'db/setup-python-shell-interpreter))
+ (setq pyvenv-post-deactivate-hooks
+       (list (lambda () (setq python-shell-interpreter "python")))))
 
 (defun db/enable-python-venv ()
   (let ((pname db/pname))
@@ -35,21 +35,31 @@
           (pyvenv-deactivate)
           (call-interactively #'pyvenv-workon))))))
 
-(use-package python-mode
-  ;; :bind ("TAB" . company-indent-or-complete-common)
-  :hook ((python-mode . fix-python-indent)
-         (python-mode . (lambda ()
-                               (set-display-fill-column-indicator 88)))
-         (python-mode . hs-minor-mode)
-         (python-mode . yas-minor-mode)
-         (python-mode . abbrev-mode)))
+(use-package
+ python-mode
+ :straight (:type built-in)
+ :hook
+ ((python-mode . fix-python-indent)
+  (python-mode . (lambda () (set-display-fill-column-indicator 88)))
+  (python-mode . yas-minor-mode)
+  (python-mode . abbrev-mode)))
 
-(use-package python-pytest
-  :init
-  (setq pytest-cmd-flags "--pdbcls=IPython.terminal.debugger:Pdb")
-  :custom
-  (python-pytest-confirm t)
-  (python-pytest-pdb-track t))
+(use-package
+ python-pytest
+ :init
+ (setq pytest-cmd-flags "--pdbcls=IPython.terminal.debugger:Pdb")
+ :custom
+ (python-pytest-confirm t)
+ (python-pytest-pdb-track t))
+
+(use-package
+ flymake-ruff
+ :straight
+ (flymake-ruff
+  :type git
+  :host github
+  :repo "erickgnavar/flymake-ruff"))
+
 
 ;; Initialize .dir-locals variables
 (setq db/pname nil)
@@ -68,18 +78,19 @@
   (progn
     (db/setup-test-settings)
     (db/configure-formatting)
-    (db/enable-python-venv)
-    ))
+    (db/enable-python-venv)))
 
-(defun db/do-nothing () nil)
+(defun db/do-nothing ()
+  nil)
 
 (setq db/configure-fn-by-lang
-  '(("python" . db/configure-python-project) (nil . db/do-nothing)))
+      '(("python" . db/configure-python-project)
+        (nil . db/do-nothing)))
 
 (defun db/configure-formatting ()
   (when db/black-config
-    (let ((black-config-path (concat (projectile-project-root)
-                                     db/black-config)))
+    (let ((black-config-path
+           (concat (projectile-project-root) db/black-config)))
       (setf (alist-get 'black apheleia-formatters)
             `("black" "--config" ,black-config-path "-")))))
 
@@ -95,7 +106,9 @@
 
 (defun db/compose-django-tests-path ()
   (interactive)
-  (replace-regexp-in-string "/" "." (string-remove-suffix ".py" (db/-project-rel-file-path))))
+  (replace-regexp-in-string
+   "/" "."
+   (string-remove-suffix ".py" (db/-project-rel-file-path))))
 
 (defun db/-module-test-path ()
   (interactive)
@@ -103,17 +116,23 @@
 
 (defun db/compose-pytest-test-name ()
   (interactive)
-  (kill-new (concat (db/-project-rel-file-path) "::" (replace-regexp-in-string "\\." "::" (db/-module-test-path)))))
+  (kill-new
+   (concat
+    (db/-project-rel-file-path)
+    "::"
+    (replace-regexp-in-string "\\." "::" (db/-module-test-path)))))
 
 (defun db/compose-django-test-name ()
   (interactive)
-  (kill-new (concat (compose-django-file-test-path) "." (db/-module-test-path))))
+  (kill-new
+   (concat
+    (compose-django-file-test-path) "." (db/-module-test-path))))
 
 (defun db/compose-pytest ()
   (interactive)
-  (kill-new (concat python-pytest-executable
-                    " "
-                    (db/compose-pytest-test-name))))
+  (kill-new
+   (concat
+    python-pytest-executable " " (db/compose-pytest-test-name))))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'projectile-after-switch-project-hook 'db/configure-project)
