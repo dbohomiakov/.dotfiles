@@ -110,16 +110,6 @@
  (require 'corfu-popupinfo)
  (corfu-popupinfo-mode 1)
  :config
- ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
- ;; `corfu-insert-separator' work with space in insert mode without resorting to
- ;; overriding keybindings with `general-override-mode-map'. See
- ;; https://github.com/minad/corfu/issues/12#issuecomment-869037519
- ;; Alternatively, add advice without `general.el':
- (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
- (advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
- ;; (general-add-advice '(corfu--setup corfu--teardown) :after 'evil-normalize-keymaps)
- ;; (evil-make-overriding-map corfu-map)
-
  ;; Enable Corfu more generally for every minibuffer, as long as no other
  ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
  ;; completion UI. From
@@ -190,7 +180,7 @@ default lsp-passthrough."
  ;;                   "d" 'cape-dabbrev   ; or dabbrev-completion
  ;;                   "f" 'cape-file
  ;;                   "k" 'cape-keyword
- ;;                   "s" 'cape-symbol
+ ;;                   "s" 'cape-elisp-symbol
  ;;                   "a" 'cape-abbrev
  ;;                   "i" 'cape-ispell
  ;;                   "l" 'cape-line
@@ -216,7 +206,7 @@ default lsp-passthrough."
            'elisp-completion-at-point completion-at-point-functions)
           0)
          #'elisp-completion-at-point)
-   (add-to-list 'completion-at-point-functions #'cape-symbol)
+   (add-to-list 'completion-at-point-functions #'cape-elisp-symbol)
    ;; I prefer this being early/first in the list
    (add-to-list 'completion-at-point-functions #'cape-file)
    ;; (require 'company-yasnippet)
@@ -224,18 +214,18 @@ default lsp-passthrough."
    )
 
  ;; Org
- ;; (defun kb/cape-capf-setup-org ()
- ;;   (require 'org-roam)
- ;;   (if (org-roam-file-p)
- ;;       (org-roam--register-completion-functions-h)
- ;;     (let (result
- ;;       (dolist (element (list
- ;;                         (cape-super-capf #'cape-ispell #'cape-dabbrev)
- ;;                         ;; (cape-company-to-capf #'company-yasnippet)
- ;;                         )
- ;;                        result)
- ;;         (add-to-list 'completion-at-point-functions element)))
- ;;     )))
+ (defun kb/cape-capf-setup-org ()
+   (require 'org-roam)
+   (if (org-roam-file-p)
+       (org-roam--register-completion-functions-h)
+     (let (result
+           (dolist (element
+                    (list
+                     (cape-capf-super #'cape-ispell #'cape-dabbrev)
+                     ;; (cape-company-to-capf #'company-yasnippet)
+                     )
+                    result)
+             (add-to-list 'completion-at-point-functions element))))))
 
  ;; Eshell
  (defun kb/cape-capf-setup-eshell ()
@@ -252,7 +242,7 @@ default lsp-passthrough."
     "<tab>" 'completion-at-point) ; Keybinding for `completion-at-point'
    (let ((result))
      (dolist (element
-              '(cape-symbol
+              '(cape-elisp-symbol
                 cape-dabbrev tags-completion-at-point-function)
               result)
        (add-to-list 'completion-at-point-functions element))))

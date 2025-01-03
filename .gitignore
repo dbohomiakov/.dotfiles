@@ -4,3 +4,5 @@ eshell/history
 eshell/lastdir
 custom.el
 .dir-locals.el
+.aider*
+.env

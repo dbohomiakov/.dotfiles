@@ -61,7 +61,7 @@
               ;; "ps" 'consult-projectile-switch-project
               "pg" 'consult-ripgrep
               "pd" 'project-dired
-              "pe" 'project-eshell-other-window
+              "pe" 'vterm-toggle-cd
               "pE" 'project-eshell
               "pC" 'project-compile
               "pp" 'consult-projectile

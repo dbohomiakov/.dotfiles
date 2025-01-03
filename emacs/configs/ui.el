@@ -15,7 +15,7 @@
  (display-time-load-average t)
  (display-time-load-average-threshold 1000))
 
-(use-package all-the-icons :diminish)
+(use-package all-the-icons)
 
 (use-package
  all-the-icons-dired
@@ -99,23 +99,24 @@
 (use-package snow)
 (use-package fireplace)
 
-(defvar db/font-family "JetBrainsMono NL")
+(defvar db/font-family "JetBrainsMonoNL Nerd Font Mono")
 (defvar db/font-weight 'normal)
 
+;; todo make them relative to screen
 (defun db/set-font-faces ()
   (set-face-attribute 'default nil
                       :font db/font-family
-                      :height 120
+                      :height 100
                       :weight db/font-weight)
   ;; Set the fixed pitch face
   (set-face-attribute 'fixed-pitch nil
                       :font db/font-family
-                      :height 90
+                      :height 70
                       :weight 'light)
   ;; Set the variable pitch face
   (set-face-attribute 'variable-pitch nil
                       :font db/font-family
-                      :height 120
+                      :height 100
                       :weight 'light))
 
 (if (daemonp)

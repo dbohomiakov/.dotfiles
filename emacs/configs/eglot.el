@@ -20,6 +20,13 @@
  (eglot-auto-display-help-buffer nil)
  (eglot-autoshutdown t))
 
+(use-package
+ eglot-booster
+ :straight
+ (elgot-booster :type git :host github :repo "jdtsmith/eglot-booster")
+ :after eglot
+ :config (eglot-booster-mode))
+
 (setq eldoc-idle-delay 0.75)
 (setq company-idle-delay 0.75)
 (setq flymake-no-changes-timeout 0.5)
@@ -30,27 +37,41 @@
    'eglot-server-programs
    '((python-mode)
      .
-     ("/home/dbohomiakov/.asdf/installs/nodejs/13.13.0/.npm/bin/pyright-langserver"
-      "--stdio"))))
+     ("/home/dmytro/.asdf/shims/pyright-langserver" "--stdio"))))
 
 (use-package consult-eglot :custom (consult-eglot-ignore-column t))
 ;
 (require 'eldoc-box)
 ;
 (add-hook 'python-base-mode-hook 'flymake-mode)
-(setq python-flymake-command
-      '("ruff" "--quiet" "--stdin-filename=stdin" "-"))
+;; (setq python-flymake-command
+;;       '("ruff" "--quiet" "--stdin-filename=stdin" "-"))
 ;
-(add-hook
- 'eglot-managed-mode-hook
- (lambda ()
-   (cond
-    ((derived-mode-p 'python-base-mode)
-     (add-hook 'flymake-diagnostic-functions 'python-flymake nil t))
-    ;; if not adding diagnostic functions to other modes just use an if
-    ;; ...
-    (t
-     nil))))
+;; (add-hook
+;;  'eglot-managed-mode-hook
+;;  (lambda ()
+;;    (cond
+;;     ((derived-mode-p 'python-base-mode)
+;;      (add-hook 'flymake-diagnostic-functions 'python-flymake nil t))
+;;     ;; if not adding diagnostic functions to other modes just use an if
+;;     ;; ...
+;;     (t
+;;      nil))))
+
+(defun my-filter-eglot-diagnostics (diags)
+  "Drop Pyright 'variable not accessed' notes from DIAGS."
+  (list
+   (seq-remove
+    (lambda (d)
+      (and (eq (flymake-diagnostic-type d) 'eglot-note)
+           (s-starts-with? "Pyright:" (flymake-diagnostic-text d))
+           (s-ends-with?
+            "is not accessed" (flymake-diagnostic-text d))))
+    (car diags))))
+
+(advice-add
+ 'eglot--report-to-flymake
+ :filter-args #'my-filter-eglot-diagnostics)
 
 (use-package
  breadcrumb
@@ -64,7 +85,7 @@
 (defun my/eglot-capf ()
   (setq-local completion-at-point-functions
               (list
-               (cape-super-capf
+               (cape-capf-super
                 (cape-capf-buster #'eglot-completion-at-point)
                 #'cape-dabbrev
                 ;; (cape-company-to-capf #'company-yasnippet)

@@ -7,7 +7,7 @@
  (magit-published-branches '("origin/master" "origin/main"))
  (magit-view-git-manual-method 'man))
 
-;; (use-package magit-todos :after magit :init (magit-todos-mode))
+(use-package magit-todos :after magit :init (magit-todos-mode))
 
 (use-package
  forge
