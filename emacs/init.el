@@ -99,7 +99,7 @@
  (exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH"))
  (exec-path-from-shell-shell-name "fish"))
 
-(when (memq window-system '(mac ns x))
+(when (memq window-system '(mac ns x pgtk))
   (exec-path-from-shell-initialize))
 (when (daemonp)
   (exec-path-from-shell-initialize))
@@ -135,6 +135,7 @@
    "chatgpt"
    "popup"
    "copilot"
+   ;; "k8s"
    "kbd"))
 
 

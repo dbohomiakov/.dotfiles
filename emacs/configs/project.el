@@ -5,11 +5,7 @@
  :bind-keymap ("C-c p" . projectile-command-map)
  :init
  (when (file-directory-p "~/work/")
-   (setq projectile-project-search-path
-         '("~/work/"
-           "~/work/bcd/"
-           "~/work/clojure"
-           "~/work/golang/src/")))
+   (setq projectile-project-search-path '("~/work/")))
  (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package
@@ -49,3 +45,26 @@
   ("P" . project-tasks)
   ("o" . project-tasks-capture)
   ("O" . project-tasks-jump)))
+
+
+;; (require 'cl-extra)
+;; (setq projectile-sentinels
+;;       '("cargo.toml" "go.mod" ".monorepo-project"))
+
+;; (defun find-enclosing-project (dir)
+;;   (locate-dominating-file
+;;    dir
+;;    (lambda (file)
+;;      (and (file-directory-p file)
+;;           (cl-some
+;;            (lambda (sentinel)
+;;              (file-exists-p (expand-file-name sentinel file)))
+;;            project-sentinels)))))
+
+;; (add-hook
+;;  'project-find-functions
+;;  #'(lambda (d)
+;;      (let ((dir (find-enclosing-project d)))
+;;        (if dir
+;;            (cons 'vc dir)
+;;          nil))))

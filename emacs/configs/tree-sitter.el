@@ -37,15 +37,19 @@
 (use-package posframe)
 
 ; ;; BUILTIN TREESIT
-;; (use-package
-;;  treesit-auto
-;;  :custom (treesit-auto-install 'prompt)
-;;  :config
-;;  (treesit-auto-add-to-auto-mode-alist 'all)
-;;  (global-treesit-auto-mode))
+(use-package
+ treesit-auto
+ :disabled
+ :custom (treesit-auto-install 'prompt)
+ :config (treesit-auto-add-to-auto-mode-alist 'all))
 
-; (use-package
-;  evil-ts
-;  :disabled
-;  :straight
-;  (evil-ts :type git :host github :repo "foxfriday/evil-ts"))
+(use-package
+ evil-ts
+ :disabled
+ :straight
+ (evil-ts :type git :host github :repo "foxfriday/evil-ts"))
+
+(use-package
+ treesit
+ :straight (:type built-in)
+ :custom (treesit-font-lock-level 4))

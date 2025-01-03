@@ -58,7 +58,8 @@
  (flymake-ruff
   :type git
   :host github
-  :repo "erickgnavar/flymake-ruff"))
+  :repo "erickgnavar/flymake-ruff")
+ :hook (eglot-managed-mode . flymake-ruff-load))
 
 
 ;; Initialize .dir-locals variables

@@ -1,17 +1,17 @@
 font:
   normal:
-    family: JetBrainsMono NL
+    family: JetBrainsMonoNL Nerd Font Mono
     style: Light
 
   bold:
-    family: JetBrainsMono NL
+    family: JetBrainsMonoNL Nerd Font Mono
     style: Medium
 
   italic:
-    family: JetBrainsMono
+    family: JetBrainsMonoNL Nerd Font Mono
     style: "Light Italic"
 
-  size: 13.0
+  size: 10.0
 
   offset:
     x: 0

@@ -208,10 +208,9 @@
 (use-package
  apheleia
  :init (apheleia-global-mode +1)
- :config (setf (alist-get 'python-mode apheleia-mode-alist) '(isort black))
- ;; (setf (alist-get 'python-ts-mode apheleia-mode-alist)
- ;;       '(isort black))
- )
+ :config
+ (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(isort black))
+ (setf (alist-get 'python-mode apheleia-mode-alist) '(isort black)))
 
 (use-package
  elisp-autofmt
@@ -237,9 +236,23 @@
 
  (use-package devdocs)
 
+ (use-package
+  xclip
+  :disabled
+  :config
+  (setq xclip-program "wl-copy")
+  (setq xclip-select-enable-clipboard t)
+  (setq xclip-mode t)
+  (setq xclip-method (quote wl-copy)))
+
  (defun my/protected-buffers ()
    "Protect some buffers from being killed."
    (dolist (buffer protected-buffers)
      (with-current-buffer buffer
        (emacs-lock-mode 'kill))))
  :init (my/protected-buffers))
+
+(use-package
+ visual-replace
+ :defer t
+ :straight (:host github :repo "szermatt/visual-replace"))
