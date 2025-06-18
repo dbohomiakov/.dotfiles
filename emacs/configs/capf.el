@@ -132,6 +132,17 @@ default lsp-passthrough."
          '(orderless))))
 
 (use-package
+ corfu-terminal
+ :straight
+ (corfu-terminal
+  :type git
+  :host github
+  :repo "cimisc/emacs-corfu-terminal")
+ :config
+ (unless (display-graphic-p)
+   (corfu-terminal-mode +1)))
+
+(use-package
  kind-icon
  :after corfu
  :custom

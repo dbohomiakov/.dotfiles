@@ -1,5 +1,6 @@
 (defvar db/emacs-dir (or (getenv "EMACSDIR") "~/.config/emacs"))
 (defvar db/custom-scripts (concat db/emacs-dir "/custom-scripts"))
+(defvar db/home-dir (getenv "HOME"))
 (add-to-list 'load-path db/custom-scripts)
 
 ;; 64mb amount of data which Emacs reads from the process
@@ -132,9 +133,9 @@
    "rust"
    "buffer"
    "tree-sitter"
-   "chatgpt"
    "popup"
    "copilot"
+   "terraform"
    ;; "k8s"
    "kbd"))
 

@@ -87,19 +87,12 @@
  (visual-fill-column-width 110)
  (visual-fill-column-center-text t))
 
-;; (setq org-plantuml-jar-path
-;;       (expand-file-name
-;;        "/home/dbohomiakov/.config/emacs/plantuml.jar"))
-;; (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages '((plantuml . t)))
-
 (use-package
  plantuml-mode
  :config
  (setq org-plantuml-jar-path
        (expand-file-name
-        "/home/dbohomiakov/.config/emacs/plantuml.jar"))
+        (concat db/home-dir "/.config/emacs/plantuml.jar")))
  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
  (org-babel-do-load-languages
   'org-babel-load-languages '((plantuml . t))))
@@ -113,3 +106,5 @@
  :custom (org-image-actual-width nil))
 
 (use-package org-transclusion)
+
+(use-package org-roam-ui)

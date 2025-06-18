@@ -81,14 +81,14 @@
   evil-inner-text-objects-map "i"
   (evil-textobj-tree-sitter-get-textobj
    "import.inner"
-   '((python-mode . [(import_statement) @import.inner])
+   '((python-ts-mode . [(import_statement) @import.inner])
      (rust-mode . [(use_declaration) @import.inner]))))
  ;; 'm' - import from
  (define-key
   evil-inner-text-objects-map "I"
   (evil-textobj-tree-sitter-get-textobj
    "import_from.inner"
-   '((python-mode . [(import_from_statement) @import_from.inner])
+   '((python-ts-mode . [(import_from_statement) @import_from.inner])
      (rust-mode . [(use_declaration) @import_from.inner]))))
  ;; 'c' - class
  (define-key
@@ -200,7 +200,7 @@
  :hook
  (clojure-mode . evil-smartparens-mode)
  (emacs-lisp-mode . evil-smartparens-mode)
- (python-mode . evil-smartparens-mode))
+ (python-ts-mode . evil-smartparens-mode))
 
 (use-package evil-exchange :after evil)
 
@@ -210,5 +210,5 @@
  evil-paredit
  :disabled
  :hook
- (python-mode . evil-paredit-mode)
+ (python-ts-mode . evil-paredit-mode)
  (emacs-lisp-mode . evil-paredit-mode))

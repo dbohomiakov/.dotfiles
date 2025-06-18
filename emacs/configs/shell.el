@@ -1,29 +1,3 @@
-;; (use-package
-;;  esh-autosuggest
-;;  :hook (eshell-mode . esh-autosuggest-mode))
-
-
-;; (defun project-eshell-other-window ()
-;;   "Open a `shell' in a new window."
-;;   (interactive)
-;;   (let ((buf (project-eshell)))
-;;     (switch-to-buffer (other-buffer buf))
-;;     (switch-to-buffer-other-window buf)))
-
-
-;; (defun project-async-shell-command-other-window ()
-;;   "Open a `shell' in a new window."
-;;   (interactive)
-;;   (let ((buf (project-async-shell-command)))
-;;     (switch-to-buffer (other-buffer buf))
-;;     (switch-to-buffer-other-window buf)))
-
-;; (require 'fish-completion)
-
-;; (use-package shell-pop)
-;:custom
-;(shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
-
 (use-package
  vterm
  :custom

@@ -1,15 +1,15 @@
 (use-package
- go-mode
- :mode (("\\.go\\'" . go-mode))
+ go-ts-mode
+ :mode (("\\.go\\'" . go-ts-mode))
  :custom (godoc-reuse-buffer t))
 
-(use-package gorepl-mode :hook (go-mode . gorepl-mode))
+(use-package gorepl-mode :hook (go-ts-mode . gorepl-mode))
 
 (use-package gotest)
 
 (use-package
  flycheck-golangci-lint
  :ensure t
- :hook (go-mode . flycheck-golangci-lint-setup))
+ :hook (go-ts-mode . flycheck-golangci-lint-setup))
 
 (use-package go-tag)

@@ -1,6 +1,9 @@
 (use-package
  magit
- :config (setq magit-git-command-history t)
+ :config
+ (setq
+  magit-git-command-history t
+  forge-add-default-bindings nil)
  :custom
  (magit-update-other-window-delay 1)
  (magit-branch-read-upstream-first 'fallback)
@@ -36,15 +39,10 @@
  :custom (blamer-idle-time 0.3) (blamer-min-offset 70)
  :custom-face
  (blamer-face
-  ((t :foreground "#7a88cf" :background nil :height 140 :italic t))))
-
-(use-package
- consult-gh
- :straight
- (consult-gh
-  :type git
-  :host github
-  :repo "armindarvish/consult-gh"
-  :after consult))
+  ((t
+    :foreground "#7a88cf"
+    :background "unspecified"
+    :height 140
+    :italic t))))
 
 (use-package hl-todo :init (global-hl-todo-mode))
