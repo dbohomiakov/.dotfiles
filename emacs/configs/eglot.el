@@ -48,8 +48,8 @@
    'eglot-server-programs
    '((python-ts-mode)
      .
-     ("/home/dmytro/.asdf/shims/pyright-langserver" "--stdio"))))
-;; ("/home/dmytro/.asdf/shims/basedpyright-langserver" "--stdio"))))
+     ((concat
+       db/home-dir "/.asdf/shims/pyright-langserver" "--stdio")))))
 
 (use-package
  consult-eglot
