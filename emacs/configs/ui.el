@@ -164,5 +164,3 @@
       (lambda () (get-buffer-create "*dashboard*")))
 
 (use-package drepl)
-
-(use-package popper)

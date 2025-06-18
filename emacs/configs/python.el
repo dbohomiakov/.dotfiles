@@ -1,9 +1,15 @@
 ;;;  -*- lexical-binding: t -*-
+
+;; Use python-ts-mode instead of python-mode
+(when (fboundp 'python-ts-mode)
+  (add-to-list
+   'major-mode-remap-alist '(python-mode . python-ts-mode)))
+
 (defun set-display-fill-column-indicator (num)
   (progn
     (setq-default display-fill-column-indicator-column num)))
 
-(add-hook 'python-mode-hook 'display-fill-column-indicator-mode)
+(add-hook 'python-ts-mode-hook 'display-fill-column-indicator-mode)
 
 (defun fix-python-indent ()
   (setq python-indent-offset 4)
@@ -18,7 +24,7 @@
 
 (use-package
  pyvenv
- :after python-mode
+ :after python-ts-mode
  :config
  ;; Set correct Python interpreter
  (setq pyvenv-post-activate-hooks
@@ -36,13 +42,13 @@
           (call-interactively #'pyvenv-workon))))))
 
 (use-package
- python-mode
+ python-ts-mode
  :straight (:type built-in)
  :hook
- ((python-mode . fix-python-indent)
-  (python-mode . (lambda () (set-display-fill-column-indicator 88)))
-  (python-mode . yas-minor-mode)
-  (python-mode . abbrev-mode)))
+ ((python-ts-mode . fix-python-indent)
+  (python-ts-mode
+   . (lambda () (set-display-fill-column-indicator 88)))
+  (python-ts-mode . yas-minor-mode) (python-ts-mode . abbrev-mode)))
 
 (use-package
  python-pytest

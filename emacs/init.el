@@ -135,6 +135,7 @@
    "chatgpt"
    "popup"
    "copilot"
+   "terraform"
    ;; "k8s"
    "kbd"))
 

@@ -249,7 +249,7 @@ folder, otherwise delete a word"
   "rg --null --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
                         --smart-case --no-heading --line-number --glob !.git .")
  (consult-preview-excluded-hooks
-  '(python-mode
+  '(python-ts-mode
     epa-file-find-file-hook
     recentf-track-opened-file
     vc-refresh-state)))

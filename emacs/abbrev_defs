@@ -1,5 +1,5 @@
 ;;-*-coding: utf-8;-*-
-(define-abbrev-table 'python-mode-abbrev-table
+(define-abbrev-table 'python-ts-mode-abbrev-table
   '(
     ("tb" "import ipdb;ipdb.set_trace(context=40)" nil :count 0)
     ("bp" "breakpoint()" nil :count 0)

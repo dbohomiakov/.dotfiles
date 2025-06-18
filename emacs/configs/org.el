@@ -113,3 +113,5 @@
  :custom (org-image-actual-width nil))
 
 (use-package org-transclusion)
+
+(use-package org-roam-ui)

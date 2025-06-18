@@ -10,10 +10,10 @@
 (setq package-enable-at-startup nil)
 
 ;;  Setup native compilation directory
-;; (when (fboundp 'startup-redirect-eln-cache)
-;;   (startup-redirect-eln-cache
-;;    (convert-standard-filename
-;;     (expand-file-name "var/eln-cache/" user-emacs-directory))))
+(when (fboundp 'startup-redirect-eln-cache)
+  (startup-redirect-eln-cache
+   (convert-standard-filename
+    (expand-file-name "eln-cache/" user-emacs-directory))))
 
 (when (boundp 'native-comp-eln-load-path)
   (startup-redirect-eln-cache

@@ -47,7 +47,7 @@
               "eb" 'eval-buffer)
 
              (db/leader-keys
-              :keymaps 'python-mode-map
+              :keymaps 'python-ts-mode-map
               "ef" 'python-shell-send-defun
               "er" 'python-shell-send-region
               "eb" 'python-shell-send-buffer
@@ -71,6 +71,8 @@
               ;; Docker
               "tt" 'treemacs
               "ti" 'treemacs--button-close
+
+              "rr" 'replace-regexp
 
               "n" 'evil-buffer-new
 

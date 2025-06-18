@@ -1,14 +1,26 @@
 (use-package
  eglot
  :straight (:type built-in)
+ :config
+ (add-to-list
+  'eglot-server-programs
+  `(rust-ts-mode
+    .
+    ("rust-analyzer"
+     :initializationOptions
+     (:check
+      (:command "clippy")
+      :procMacro (:enable t)
+      :cargo
+      (:buildScripts (:enable t) :features "all")))))
  :init
  (setq
   eglot-stay-out-of '(company flymake)
   read-process-output-max (* 1024 1024))
  :hook
- ((python-mode . eglot-ensure)
-  (rust-mode . eglot-ensure)
-  (go-mode . eglot-ensure))
+ ((python-ts-mode . eglot-ensure)
+  (rust-ts-mode . eglot-ensure)
+  (go-ts-mode . eglot-ensure))
  :custom
  (eglot-ignored-server-capabilities
   '(:hoverProvider :documentHighlightProvider))
@@ -31,16 +43,20 @@
 (setq company-idle-delay 0.75)
 (setq flymake-no-changes-timeout 0.5)
 
-
 (with-eval-after-load 'eglot
   (add-to-list
    'eglot-server-programs
-   '((python-mode)
+   '((python-ts-mode)
      .
      ("/home/dmytro/.asdf/shims/pyright-langserver" "--stdio"))))
+;; ("/home/dmytro/.asdf/shims/basedpyright-langserver" "--stdio"))))
 
-(use-package consult-eglot :custom (consult-eglot-ignore-column t))
-;
+(use-package
+ consult-eglot
+ :straight
+ (consult-eglot :type git :host github :repo "mohkale/consult-eglot")
+ :custom (consult-eglot-ignore-column t))
+
 (require 'eldoc-box)
 ;
 (add-hook 'python-base-mode-hook 'flymake-mode)
@@ -78,9 +94,9 @@
  :straight
  (breadcrumb :type git :host github :repo "joaotavora/breadcrumb")
  :hook
- (python-mode . breadcrumb-mode)
- (go-mode . breadcrumb-mode)
- (rust-mode . breadcrumb-mode))
+ (python-ts-mode . breadcrumb-mode)
+ (go-ts-mode . breadcrumb-mode)
+ (rust-ts-mode . breadcrumb-mode))
 
 (defun my/eglot-capf ()
   (setq-local completion-at-point-functions
@@ -130,7 +146,7 @@
   'dape-configs
   `(debugpy
     modes
-    (python-ts-mode python-mode)
+    (python-ts-mode)
     command
     "python3"
     command-args
@@ -144,7 +160,7 @@
   'dape-configs
   `(delve
     modes
-    (go-mode go-ts-mode)
+    (go-ts-mode)
     command
     "dlv"
     command-args

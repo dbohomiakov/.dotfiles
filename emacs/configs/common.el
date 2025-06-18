@@ -195,7 +195,7 @@
    ((eq major-mode 'emacs-lisp-mode)
     (string-inflection-all-cycle))
    ;; for python
-   ((eq major-mode 'python-mode)
+   ((eq major-mode 'python-ts-mode)
     (string-inflection-python-style-cycle))
    ;; for java
    ((eq major-mode 'java-mode)
@@ -209,8 +209,8 @@
  apheleia
  :init (apheleia-global-mode +1)
  :config
- (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(isort black))
- (setf (alist-get 'python-mode apheleia-mode-alist) '(isort black)))
+ (setf (alist-get 'python-ts-mode apheleia-mode-alist)
+       '(isort black)))
 
 (use-package
  elisp-autofmt
@@ -256,3 +256,12 @@
  visual-replace
  :defer t
  :straight (:host github :repo "szermatt/visual-replace"))
+
+(use-package
+ ultra-scroll
+ :straight (:host github :repo "jdtsmith/ultra-scroll")
+ :init
+ (setq
+  scroll-conservatively 101 ; important!
+  scroll-margin 0)
+ :config (ultra-scroll-mode 1))
